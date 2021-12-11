@@ -5,7 +5,7 @@
 /.pnp
 .pnp.js
 /Users/premdahal/Desktop/Freelance/Kuti/Backend/node_modules
-
+node_modules/
 # testing
 /coverage
 
