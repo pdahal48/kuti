@@ -1,0 +1,11 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for kuti",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Prem Dahal",
+  "license": "ISC"
+}
