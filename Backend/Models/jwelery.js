@@ -6,37 +6,38 @@ const {
   BadRequestError,
 } = require("../expressError");
 
-/** Related functions for Sarees. */
+/** Related functions for Jwelery. */
 
 class Jwelery {
 //duplicate items with same names are allowed
 
   static async add(
-      { name, material, description, price, sale_price, color, brand, occassion, image, used, sale }) {
+      { name, material, used, sale, price, sale_price, color, brand, occassion, image, size, description }) {
 
     const result = await db.query(
-          `INSERT INTO sarees
-            (name, material, description, used, sale, price, sale_price, color, brand, occassion, image )
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+          `INSERT INTO jwelery
+            (name, material, used, sale, price, sale_price, color, brand, occassion, image, size )
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
            RETURNING *`,
         [
           name, 
           material, 
-          description, 
+          used, 
+          sale,
           price,
           sale_price,
           color,
           brand,
           occassion,
           image,
-          used,
-          sale
+          size,
+          description
         ],
     );
     return result.rows[0];
   }
 
-  /** Find all sarees.
+  /** Find all jweleries.
    *
    * Returns [{ name, material, used, sale, price, sale_price, color, brand, occassion, image, size}, ...]
    **/
@@ -46,31 +47,32 @@ class Jwelery {
           `SELECT 
             name, 
             material, 
-            description, 
+            used, 
+            sale,
             price,
             sale_price,
             color,
             brand,
             occassion,
             image,
-            used,
-            sale
-           FROM sarees
+            size,
+            description
+           FROM jwelery
            ORDER BY name`,
     );
-    const sarees = result.rows;
-    return { sarees };
+    const jweleries = result.rows;
+    return { jweleries };
   }
 
-  /** Given a saree name, return data about the saree.
+  /** Given a jwelery name, return data about the jwelery.
    *
-   * Returns { name, material, description, price, sale_price, color, brand, occassion, image, used, sale }
+   * Returns { name, description, price, material, src }
    *
    * Throws NotFoundError if user not found.
    **/
 
   static async get(id) {
-    const sareeRes = await db.query(
+    const jweleryRes = await db.query(
       `SELECT 
         name, 
         material, 
@@ -82,28 +84,29 @@ class Jwelery {
         brand,
         occassion,
         image,
-        size
-        FROM sarees
+        size,
+        description
+        FROM jwelery
       WHERE id = $1`,
       [id],
     );
 
-    if (!sareeRes.rows[0]) throw new NotFoundError(`No saree found: ${id}`);
-    return sareeRes.rows;
+    if (!jweleryRes.rows[0]) throw new NotFoundError(`No jwelery found: ${name}`);
+    return jweleryRes.rows;
   }
 
-  /** Delete given saraee from database; returns undefined. */
+  /** Delete given jwelery from database; returns undefined. */
 
   static async remove(id) {
     let result = await db.query(
           `DELETE
-           FROM sarees
+           FROM jwelery
            WHERE id = $1
            RETURNING name`,
         [id],
     );
-    const saree = result.rows[0];
-    if (!saree) throw new NotFoundError(`No such saree: ${id}`);
+    const jwelery = result.rows[0];
+    if (!jwelery) throw new NotFoundError(`No such jwelery: ${name}`);
   }
 }
 
