@@ -1,12 +1,12 @@
 \c kuti
 
 INSERT INTO customers
-  ( username, password, fullName, is_admin, is_seller )
+  ( username, password, fullName, email, is_admin, is_seller )
 VALUES
-  ('jerry50', 'password', 'Jerry Brown', FALSE, FALSE),
-  ('pdahal48', 'password', 'Prem Dzongkhar', TRUE, FALSE),
-  ('juanita07', 'password','Juanita Brown', FALSE, TRUE ),
-  ('lisa20','password','Lisa Thompson', FALSE, FALSE);
+  ('jerry50', 'password', 'Jerry Brown', 'jerry50@gmail.com', FALSE, FALSE),
+  ('pdahal48', 'password', 'Prem Dzongkhar', 'pdahal48@gmail.com', TRUE, FALSE),
+  ('juanita07', 'password','Juanita Brown', 'juanita07@gmail.com', FALSE, TRUE),
+  ('lisa20','password','Lisa Thompson', 'lisa20@gmail.com', FALSE, FALSE);
 
 INSERT INTO sellers
   (username, password, fullName, business_name, business_address, business_city, business_state, business_zip_code, phone_number, email, paypal_email, is_seller)

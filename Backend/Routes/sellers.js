@@ -4,7 +4,7 @@ const router = new express.Router()
 // const shelterSchema = require('../schemas/newShelterSchema.json')
 const Seller = require('../Models/seller')
 const { BadRequestError } = require("../expressError");
-const { ensureCreator, ensureAdmin } = require('../Middleware/auth')
+const { ensureCreator, ensureAdmin, ensureAdminOrSeller } = require('../Middleware/auth')
 const db = require('../db')
 
 router.get('/', async (req, res, next) => {
@@ -51,7 +51,7 @@ router.post('/', async (req, res,next) => {
     }
 })
 
-router.delete('/:username', ensureAdmin, async (req, res, next) => {
+router.delete('/:username', ensureAdminOrSeller, async (req, res, next) => {
     try {
         await Seller.remove(req.params.username)
         return res.json({deleted: req.params.username})

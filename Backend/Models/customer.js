@@ -54,7 +54,7 @@ class Customer {
    **/
 
   static async register(
-      { username, password, fullName, is_seller=false, is_admin=false }) {
+      { username, password, fullName, email, is_seller=false, is_admin=false }) {
         
       const duplicateCheck = await db.query(
         `SELECT username
@@ -71,16 +71,18 @@ class Customer {
 
     const result = await db.query(
           `INSERT INTO customers
-            (username, 
-              fullName,
-              password, 
+            (fullName,
+              email,
+              username,
+              password,
               is_admin, 
               is_seller)
-           VALUES ($1, $2, $3, $4, $5)
+           VALUES ($1, $2, $3, $4, $5, $6)
            RETURNING *`,
         [
+          fullName,
+          email,
           username, 
-          fullName, 
           hashedPassword, 
           is_admin, 
           is_seller
@@ -106,9 +108,10 @@ class Customer {
    const res = await db.query(`SELECT username, 
                  password, 
                  fullName,
+                 email,
                  is_admin, 
-                 is_seller,
-                FROM customers`);
+                 is_seller
+                FROM customers ORDER BY fullName`);
 
     return res.rows;
   }
@@ -125,7 +128,8 @@ class Customer {
       `SELECT 
         username, 
         password, 
-        fullName, 
+        fullName,
+        email,
         is_admin, 
         is_seller
       FROM customers
@@ -137,6 +141,28 @@ class Customer {
     if (!user) throw new NotFoundError(`No user: ${username}`);
 
     return user;
+  }
+
+  //Updates the customer information
+  static async update(customerObj) {
+    const { password, fullName, email, username } = customerObj;
+    const result = await db.query(
+    `UPDATE customers SET 
+        password=$1,
+        fullName=$2,
+        email=$3
+      WHERE username = $4
+      RETURNING*`,
+      [
+        password,
+        fullName, 
+        email,
+        username
+      ]);
+
+      let customer = result.rows[0];
+      if (!customer) throw new NotFoundError(`No such seller: ${customer}`);
+      return customer;
   }
 
   /** Delete given user from database; returns undefined. */

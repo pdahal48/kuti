@@ -12,6 +12,7 @@ CREATE TABLE customers
   username TEXT PRIMARY KEY CHECK (length(username) <= 25),
   password TEXT NOT NULL,
   fullName TEXT NOT NULL,
+  email TEXT NOT NULL,
   is_admin BOOLEAN NOT NULL DEFAULT FALSE,
   is_seller BOOLEAN NOT NULL DEFAULT FALSE
 );

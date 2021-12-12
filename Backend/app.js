@@ -3,6 +3,10 @@ const { NotFoundError } = require("./expressError");
 // const { authenticateJWT } = require('./Middleware/auth')
 const jweleryRoutes = require('./Routes/jweleries')
 const sellerRoutes = require('./Routes/sellers')
+const customerRoutes = require('./Routes/customers')
+const sareeRoutes = require('./Routes/sarees')
+const lahengaRoutes = require('./Routes/lahengas')
+
 const cors = require("cors");
 
 const app = express()
@@ -12,7 +16,9 @@ app.use(cors());
 
 app.use('/sellers', sellerRoutes)
 app.use('/jweleries', jweleryRoutes)
-// app.use('/payment', paymentRoutes)
+app.use('/customers', customerRoutes)
+app.use('/sarees', sareeRoutes)
+app.use('/lahengas', lahengaRoutes)
 
 app.use(function (req, res, next) {
     return next(new NotFoundError());

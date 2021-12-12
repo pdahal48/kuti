@@ -60,10 +60,10 @@ function ensureSeller(req, res, next) {
     }
 }
 
-function ensureCorrectUserOrSeller(req, res, next) {
+function ensureCorrectUserOrAdmin(req, res, next) {
     try {
       const user = req.user;
-      if (!(user && (user.isSeller || user.username === req.params.username))) {
+      if (!(user && (user.isAdmin || user.username === req.params.username))) {
         throw new UnauthorizedError();
       }
       return next();
@@ -88,6 +88,6 @@ function ensureCorrectUserOrSeller(req, res, next) {
     ensureLoggedIn,
     ensureAdmin,
     ensureSeller,
-    ensureCorrectUserOrSeller,
+    ensureCorrectUserOrAdmin,
     ensureAdminOrSeller
   };

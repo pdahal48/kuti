@@ -16,7 +16,7 @@ class Jwelery {
 
     const result = await db.query(
           `INSERT INTO lahenga
-            (name, material, description, used, sale, price, sale_price, color, brand, occassion, image, hip_size, waist_size, length, style)
+            (name, material, description, price, sale_price, color, brand, occassion, image, used, sale, hip_size, waist_size, length, style)
            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
            RETURNING *`,
         [
@@ -48,6 +48,7 @@ class Jwelery {
   static async findAll() {
     const result = await db.query(
           `SELECT 
+            id,
             name, 
             material, 
             description, 
@@ -80,6 +81,7 @@ class Jwelery {
   static async get(id) {
     const lahengaRes = await db.query(
       `SELECT 
+        id,
         name, 
         material, 
         description, 
@@ -104,6 +106,53 @@ class Jwelery {
     return lahengaRes.rows;
   }
 
+  //update the saree information
+  static async update(lahengaObj) {
+    const { name, material, description, price, sale_price, color, brand, occassion, image, used, sale, hip_size, waist_size, length, style, id } = lahengaObj;
+    const result = await db.query(
+    `UPDATE lahenga SET 
+        name=$1, 
+        material=$2,
+        description=$3,
+        price=$4,
+        sale_price=$5,
+        color=$6,
+        brand=$7,
+        occassion=$8,
+        image=$9,
+        used=$10,
+        sale=$11,
+        hip_size=$12,
+        waist_size=$13,
+        length=$14,
+        style=$15
+      WHERE id = $16
+      RETURNING*`,
+      [
+        name, 
+        material,
+        description,
+        price,
+        sale_price,
+        color,
+        brand,
+        occassion,
+        image,
+        used,
+        sale,
+        hip_size,
+        waist_size,
+        length,
+        style,
+        id
+      ]);
+
+      let lahenga = result.rows[0];
+      if (!lahenga) throw new NotFoundError(`No such Lahenga: ${id}`);
+      return lahenga;
+  }
+
+
   /** Delete given lahenga from database; returns undefined. */
 
   static async remove(id) {
@@ -116,6 +165,7 @@ class Jwelery {
     );
     const lahenga = result.rows[0];
     if (!lahenga) throw new NotFoundError(`No such lahenga: ${id}`);
+    return lahenga;
   }
 }
 
