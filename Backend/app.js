@@ -1,6 +1,8 @@
 const express  = require('express')
 const { NotFoundError } = require("./expressError");
 // const { authenticateJWT } = require('./Middleware/auth')
+const jweleryRoutes = require('./Routes/jweleries')
+const sellerRoutes = require('./Routes/sellers')
 const cors = require("cors");
 
 const app = express()
@@ -8,8 +10,8 @@ app.use(express.json())
 // app.use(authenticateJWT)
 app.use(cors());
 
-// app.use('/users', userRoutes)
-// app.use('/jweleries', jweleryRoutes)
+app.use('/sellers', sellerRoutes)
+app.use('/jweleries', jweleryRoutes)
 // app.use('/payment', paymentRoutes)
 
 app.use(function (req, res, next) {

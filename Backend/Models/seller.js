@@ -54,7 +54,7 @@ class Seller {
    **/
 
   static async register(
-      { username, password, fullName, business_name, business_address, business_city, business_state, business_zip_code, phone_number, email, paypal_email, is_seller }) {
+      { username, password, fullName, business_name, business_address, business_city, business_state, business_zip_code, phone_number, email, paypal_email }) {
         
       const duplicateCheck = await db.query(
         `SELECT username
@@ -72,7 +72,7 @@ class Seller {
     const result = await db.query(
           `INSERT INTO sellers
             (username, 
-            fullName,
+            fullname,
             password, 
             business_name, 
             business_address,
@@ -81,19 +81,18 @@ class Seller {
             business_zip_code,
             phone_number,
             email,
-            paypal_email,
-            is_seller)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+            paypal_email
+            )
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
            RETURNING *`,
         [
           username, 
           fullName, 
           hashedPassword, 
-          is_admin, 
-          is_seller,
           business_name,
           business_address,
           business_city,
+          business_state,
           business_zip_code,
           phone_number,
           email,
@@ -120,7 +119,6 @@ class Seller {
     username, 
     fullName, 
     password, 
-    is_admin, 
     is_seller,
     business_name,
     business_address,
@@ -128,8 +126,7 @@ class Seller {
     business_zip_code,
     phone_number,
     email,
-    paypal_email,
-    is_seller
+    paypal_email
     FROM sellers
     `);
 
@@ -149,7 +146,6 @@ class Seller {
         username, 
         fullName, 
         password, 
-        is_admin, 
         is_seller,
         business_name,
         business_address,
@@ -157,8 +153,7 @@ class Seller {
         business_zip_code,
         phone_number,
         email,
-        paypal_email,
-        is_seller
+        paypal_email
         FROM sellers
         WHERE username = $1`,
       [username],
@@ -168,6 +163,40 @@ class Seller {
     if (!user) throw new NotFoundError(`No user: ${username}`);
     return user;
   }
+
+  static async update(sellerObj) {
+    const { fullName, password, business_name, business_city, business_state, business_zip_code, phone_number, email, paypal_email, username } = sellerObj;
+    const result = await db.query(
+    `UPDATE sellers SET 
+        fullName=$1, 
+        password=$2,
+        business_name=$3,
+        business_city=$4,
+        business_state=$5,
+        business_zip_code=$6,
+        phone_number=$7,
+        email=$8,
+        paypal_email=$9
+      WHERE username = $10
+      RETURNING*`,
+      [
+        fullName, 
+        password,
+        business_name,
+        business_city,
+        business_state,
+        business_zip_code,
+        phone_number,
+        email,
+        paypal_email,
+        username
+      ]);
+
+      let seller = result.rows[0];
+      if (!seller) throw new NotFoundError(`No such seller: ${username}`);
+      return seller;
+  }
+
 
   /** Delete given user from database; returns undefined. */
 

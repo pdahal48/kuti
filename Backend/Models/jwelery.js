@@ -16,7 +16,7 @@ class Jwelery {
 
     const result = await db.query(
           `INSERT INTO jwelery
-            (name, material, used, sale, price, sale_price, color, brand, occassion, image, size )
+            (name, material, used, sale, price, sale_price, color, brand, occassion, image, size, description)
            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
            RETURNING *`,
         [
@@ -43,8 +43,10 @@ class Jwelery {
    **/
 
   static async findAll() {
+    console.log(`trying to find all`)
     const result = await db.query(
-          `SELECT 
+          `SELECT
+            id,
             name, 
             material, 
             used, 
@@ -74,6 +76,7 @@ class Jwelery {
   static async get(id) {
     const jweleryRes = await db.query(
       `SELECT 
+        id,
         name, 
         material, 
         used, 
@@ -95,6 +98,47 @@ class Jwelery {
     return jweleryRes.rows;
   }
 
+  static async update(jweleryObj) {
+    const { name, material, used, sale, price, sale_price, color, brand, occassion, image, size, description, id } = jweleryObj;
+    const result = await db.query(
+    `UPDATE jwelery SET 
+        name=$1, 
+        material=$2, 
+        used=$3,
+        sale=$4,
+        price=$5,
+        sale_price=$6,
+        color=$7,
+        brand=$8,
+        occassion=$9,
+        image=$10,
+        size=$11,
+        description=$12
+      WHERE id = $13
+      RETURNING*`,
+      [
+        name, 
+        material, 
+        used,
+        sale,
+        price,
+        sale_price,
+        color,
+        brand,
+        occassion,
+        image,
+        size,
+        description, 
+        id
+      ]);
+
+      let jwelery = result.rows[0];
+
+      if (!jwelery) throw new NotFoundError(`No such jwelery: ${id}`);
+      return jwelery;
+  }
+
+
   /** Delete given jwelery from database; returns undefined. */
 
   static async remove(id) {
@@ -102,11 +146,11 @@ class Jwelery {
           `DELETE
            FROM jwelery
            WHERE id = $1
-           RETURNING name`,
+           RETURNING id`,
         [id],
     );
     const jwelery = result.rows[0];
-    if (!jwelery) throw new NotFoundError(`No such jwelery: ${name}`);
+    if (!jwelery) throw new NotFoundError(`No such jwelery: ${id}`);
   }
 }
 
