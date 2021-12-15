@@ -1,0 +1,36 @@
+/* .circle {
+    width: 200px;
+    height: 200px;
+    line-height: 270px;
+    border-radius: 50%;
+    font-size: 30px;
+    color: #fff;
+    background: #b7ac44;
+    /* margin-right: 10px;
+    padding: 12px; */
+    /* text-decoration: none; */
+/* } */ */
+
+.circle {
+    height: 20rem;
+    width: 20rem;
+    border-radius: 50%;
+    background: #b7ac44;
+}
+
+.circle a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.circle a:hover {
+    text-decoration: none;
+    color: #641713
+}
+
+.price-col {
+    margin: 0%;
+    padding: 0%;
+    /* background-color: red; */
+
+}

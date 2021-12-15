@@ -1,24 +1,33 @@
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react'
+import Routes from './Routes';
+import { BrowserRouter } from 'react-router-dom'
+import Navbar from './Navbars/Navbar';
+// import { CalAPI as API } from './Api'
+// import useLocalStorage from './Hooks'
+// import UserContext from './Users/UserContext';
+import UpperNav from './Navbars/UpperNav.js'
+import jwt from 'jsonwebtoken'
 import './App.css';
+import { Row, Col } from 'react-bootstrap';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <BrowserRouter>
+          <div className="navbars">
+            <UpperNav />
+            <Navbar />
+          </div>
+          <Routes/>
+        </BrowserRouter>
+
+        <footer className="font-small blue mb-5">
+            <div className="footer-copyright text-center py-3">© 2021 Copyright:
+              <a href="/"> SareePalace.com</a> <br></br>
+              <a href="/about"> About us</a>
+            </div>
+          </footer>
+    </div> 
   );
 }
 
