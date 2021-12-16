@@ -13,7 +13,6 @@ const Jweleries = () => {
         async function getJweleries(name) {
             const sarees = await API.getSarees(name)
             setSarees(sarees)
-            console.log(sarees)
         }
         getJweleries()
     }, [])
@@ -26,7 +25,7 @@ const Jweleries = () => {
                     {sarees.map(j => (
                         <ProductCard
                             key={j.id}
-                            src={j.src}
+                            src={j.image}
                             name={j.name}
                             description = {j.description}
                             material={j.material}

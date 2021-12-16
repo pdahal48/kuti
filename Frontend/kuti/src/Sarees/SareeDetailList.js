@@ -1,41 +1,59 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { API } from '../API';
-import {Row, Col} from 'react-bootstrap';
+import {Row, Col, Container} from 'react-bootstrap';
 import SareeList from './SareeList';
 import SareeDetail from './SareeDetail';
 import SareeSpecs from './SareeSpecs';
+import SareeDetailPhotos from './SareeDetailPhotos';
 
 const SareeDetailList = () => {
     const [saree, setSaree] = useState([]);
-    // const [sareeImages, setSareeImages] = useState([])
     const { id } = useParams();
 
     useEffect(() => {
         async function getSareeDetail() {
             const result = await API.getSaree(id);
-            console.log(result)
             setSaree(result);
+            console.log(result)
         }
         getSareeDetail();
     }, [id])
 
     return (
         <div className="mt-3">
-           <Row>
-               <Col>
-               {/* {console.log(saree.images)} */}
-                    <h3>This is where the product images will be</h3>
-               </Col>
-               <Col>
-                    <SareeDetail 
-                        key = {saree.id}
-                        name = {saree.name}
-                        price = {saree.price}
-                    />
-               </Col>
-           </Row>
-           <Row className="container">
+           <Container>
+               <Row className="justify-content-center">
+                <Col className="col-6 justify-content-end" 
+                style={{
+                    display: "flex",
+                    padding:'0px',
+                    margin:"0px"
+                    }}
+                >
+                {(saree.images) &&
+                        <SareeDetailPhotos 
+                            images = {saree.images}
+                        />
+                    }
+                </Col>
+                <Col className="col-6 justify-content-start" 
+                    style={{
+                        display: "flex",
+
+                        }}
+                    >
+                        <SareeDetail 
+                            key = {saree.id}
+                            name = {saree.name}
+                            desc = {saree.description}
+                            price = {saree.price}
+                        />
+                </Col>
+                </Row>
+           </Container>
+           <Container>
+           <Row className="container justify-content-start mt-3">
            <Col className="col-6">
                 <SareeSpecs 
                     key = {saree.id}
@@ -44,6 +62,7 @@ const SareeDetailList = () => {
                 />
             </Col>
            </Row>
+           </Container>
            <Row>
                <h2> Similar Products</h2>
                <SareeList />

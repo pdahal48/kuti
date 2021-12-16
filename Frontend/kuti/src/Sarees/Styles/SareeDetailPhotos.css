@@ -1,0 +1,33 @@
+.single-product {
+    border: 1px solid red ;
+}
+
+.secondary-img-wrapper {
+    padding: 0%;
+}
+
+.img-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.secondary-img {
+    justify-content: space-between;
+    object-fit: cover;
+    display: block;
+    height: 200px;
+    width: 150px;
+    padding: 3%;
+    cursor: pointer;
+    /* margin-right: 5%; */
+}
+
+.main-img
+{
+    object-fit: cover;
+    display: block;
+    height: 600px;
+    width: 400px;
+    padding: 1%;
+}

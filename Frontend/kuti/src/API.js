@@ -47,7 +47,7 @@ export class API {
   //Get all the sarees from the database
   static async getSarees() {
     let res = await this.request(`sarees`);
-    return res.sarees;
+    return res;
   }
 
   //Get individual saree from the database using the id provided
