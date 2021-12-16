@@ -15,7 +15,6 @@ const SareeDetailList = () => {
         async function getSareeDetail() {
             const result = await API.getSaree(id);
             setSaree(result);
-            console.log(result)
         }
         getSareeDetail();
     }, [id])
@@ -58,12 +57,16 @@ const SareeDetailList = () => {
                 <SareeSpecs 
                     key = {saree.id}
                     name = {saree.name}
-                    price = {saree.price}
+                    brand = {saree.brand}
+                    color = {saree.color}
+                    material = {saree.material}
+                    occassion = {saree.occassion}
+                    condition = {saree.condition}
                 />
             </Col>
            </Row>
            </Container>
-           <Row>
+           <Row className="mt-4">
                <h2> Similar Products</h2>
                <SareeList />
            </Row>

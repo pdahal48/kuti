@@ -1,0 +1,10 @@
+.del-date {
+    font-size: 1.2rem;
+}
+
+.item-price {
+    font-size: 1.2rem;
+    font-weight: bolder;
+    color: saddlebrown;
+    margin-bottom: 5px;
+}
