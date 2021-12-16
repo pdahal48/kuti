@@ -26,7 +26,7 @@ const Jweleries = () => {
                     {sarees.map(j => (
                         <ProductCard
                             key={j.id}
-                            src={j.image}
+                            src={j.src}
                             name={j.name}
                             description = {j.description}
                             material={j.material}

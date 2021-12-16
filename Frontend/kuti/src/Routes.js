@@ -7,7 +7,7 @@ import Jweleries from "./Jweleries/JweleriesList";
 // import PrivateRoutes from "./PrivateRoutes";
 import SareeList from './Sarees/SareeList';
 import LahengaList from './Lahengas/LahengaList'
-// import Profile from "./Users/Profile";
+import SareeDetailList from "./Sarees/SareeDetailList";
 // import AboutUs from "./AboutUs";
 // import PaymentSuccessful from "./PaymentSuccess";
 
@@ -27,6 +27,7 @@ function SiteRoutes () {
           <Route path="/jweleries" element={<Jweleries />}></Route>
           <Route path="/sarees" element={<SareeList />}></Route>
           <Route path="/lahengas" element={<LahengaList />}></Route>
+          <Route path="/sarees/:id" element={<SareeDetailList />}></Route>
 
           {/* <Route exact path="/people">
             <PeopleList />

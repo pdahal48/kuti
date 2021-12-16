@@ -34,18 +34,28 @@ export class API {
 
   // Individual API routes
 
-    //Jweleries
+  //Jweleries
 
-   /** Gets all the jweleries form the database */
-
+  /** Gets all the jweleries form the database */
   static async getJweleries() {
     let res = await this.request(`jweleries`);
     return res.jweleries;
   }
+
+  //Sarees Routes
+
+  //Get all the sarees from the database
   static async getSarees() {
     let res = await this.request(`sarees`);
     return res.sarees;
   }
+
+  //Get individual saree from the database using the id provided
+  static async getSaree(id) {
+    let res = await this.request(`sarees/${id}`);
+    return res.saree;
+  }
+
   static async getLahengas() {
     let res = await this.request(`lahengas`);
     return res.lahengas;
