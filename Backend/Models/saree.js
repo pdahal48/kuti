@@ -8,18 +8,19 @@ const {
 
 /** Related functions for Sarees. */
 
-class Jwelery {
+class Saree {
 //duplicate items with same names are allowed
 
   static async add(
-      { name, material, description, price, sale_price, color, brand, occassion, image, used, sale }) {
+      { seller_username, name, material, description, price, sale_price, color, brand, occassion, image, used, sale }) {
 
     const result = await db.query(
           `INSERT INTO sarees
-            (name, material, description, price, sale_price, color, brand, occassion, image, used, sale)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+            (seller_username, name, material, description, price, sale_price, color, brand, occassion, image, used, sale)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
            RETURNING *`,
         [
+          seller_username,
           name, 
           material, 
           description, 
@@ -45,6 +46,7 @@ class Jwelery {
     const result = await db.query(
           `SELECT
             id,
+            seller_username,
             name, 
             material, 
             description, 
@@ -53,14 +55,22 @@ class Jwelery {
             color,
             brand,
             occassion,
-            image,
             used,
-            sale
+            sale,
+            image
            FROM sarees
-           ORDER BY name`,
+           ORDER BY id
+           `,
     );
-    const sarees = result.rows;
-    return { sarees };
+
+    // const imageRes = await db.query(
+    //   `SELECT * FROM sarees_images`
+    // )
+    // console.log(imageRes.rows)
+
+    let sarees = result.rows;
+    // sarees.images = imageRes.rows;
+    return sarees;
   }
 
   /** Given a saree name, return data about the saree.
@@ -74,7 +84,9 @@ class Jwelery {
     const sareeRes = await db.query(
       `SELECT
         id,
-        name, 
+        seller_username,
+        name,
+        description,
         material, 
         used, 
         sale,
@@ -82,15 +94,30 @@ class Jwelery {
         sale_price,
         color,
         brand,
-        occassion,
-        image
+        occassion
         FROM sarees
       WHERE id = $1`,
       [id],
     );
 
+    const imagesRes = await db.query(
+      `SELECT 
+          src 
+        FROM sarees_images 
+        WHERE saree=$1`, [id]
+    )
+
+    let result = sareeRes.rows[0];
     if (!sareeRes.rows[0]) throw new NotFoundError(`No saree found: ${id}`);
-    return sareeRes.rows;
+
+    const sellerInfo = await db.query(
+      `SELECT * FROM sellers WHERE username=$1`, [result.seller_username]
+    )
+    
+    result.seller = sellerInfo.rows[0]
+    result.images = imagesRes.rows;
+
+    return result;
   }
 
 //update the saree information
@@ -146,4 +173,4 @@ class Jwelery {
   }
 }
 
-module.exports = Jwelery;
+module.exports = Saree;

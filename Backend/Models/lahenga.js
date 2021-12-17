@@ -12,14 +12,15 @@ class Jwelery {
 //duplicate items with same names are allowed
 
   static async add(
-      { name, material, description, price, sale_price, color, brand, occassion, image, used, sale, hip_size, waist_size, length, style }) {
+      { seller_username, name, material, description, price, sale_price, color, brand, occassion, image, used, sale, hip_size, waist_size, length, style }) {
 
     const result = await db.query(
           `INSERT INTO lahenga
-            (name, material, description, price, sale_price, color, brand, occassion, image, used, sale, hip_size, waist_size, length, style)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+            (seller_username, name, material, description, price, sale_price, color, brand, occassion, image, used, sale, hip_size, waist_size, length, style)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
            RETURNING *`,
         [
+          seller_username,
           name, 
           material, 
           description, 
@@ -49,6 +50,7 @@ class Jwelery {
     const result = await db.query(
           `SELECT 
             id,
+            seller_username,
             name, 
             material, 
             description, 
@@ -67,8 +69,8 @@ class Jwelery {
            FROM lahenga
            ORDER BY name`,
     );
-    const sarees = result.rows;
-    return { sarees };
+    const lahengas = result.rows;
+    return { lahengas };
   }
 
   /** Given a lahenga name, return data about the saree.
@@ -82,6 +84,7 @@ class Jwelery {
     const lahengaRes = await db.query(
       `SELECT 
         id,
+        seller_username,
         name, 
         material, 
         description, 
@@ -102,8 +105,15 @@ class Jwelery {
       [id],
     );
 
-    if (!lahengaRes.rows[0]) throw new NotFoundError(`No Lahenga found: ${id}`);
-    return lahengaRes.rows;
+    let result = lahengaRes.rows[0];
+    if (!result) throw new NotFoundError(`No Lahenga found: ${id}`);
+
+    const sellerInfo = await db.query(
+      `SELECT * FROM sellers WHERE username=$1`, [result.seller_username]
+    )
+
+    result.seller = sellerInfo.rows[0]
+    return result;
   }
 
   //update the saree information

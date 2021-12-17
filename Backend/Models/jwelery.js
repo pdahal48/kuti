@@ -12,14 +12,15 @@ class Jwelery {
 //duplicate items with same names are allowed
 
   static async add(
-      { name, material, used, sale, price, sale_price, color, brand, occassion, image, size, description }) {
+      { seller_username, name, material, used, sale, price, sale_price, color, brand, occassion, image, size, description }) {
 
     const result = await db.query(
           `INSERT INTO jwelery
-            (name, material, used, sale, price, sale_price, color, brand, occassion, image, size, description)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+            (seller_username, name, material, used, sale, price, sale_price, color, brand, occassion, image, size, description)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
            RETURNING *`,
         [
+          seller_username,
           name, 
           material, 
           used, 
@@ -47,6 +48,7 @@ class Jwelery {
     const result = await db.query(
           `SELECT
             id,
+            seller_username,
             name, 
             material, 
             used, 
@@ -77,6 +79,7 @@ class Jwelery {
     const jweleryRes = await db.query(
       `SELECT 
         id,
+        seller_username,
         name, 
         material, 
         used, 
@@ -94,8 +97,15 @@ class Jwelery {
       [id],
     );
 
+    let result = jweleryRes.rows[0];
     if (!jweleryRes.rows[0]) throw new NotFoundError(`No jwelery found: ${name}`);
-    return jweleryRes.rows;
+
+    const sellerInfo = await db.query(
+      `SELECT * FROM sellers WHERE username=$1`, [result.seller_username]
+    )
+
+    result.seller = sellerInfo.rows[0]
+    return result;
   }
 
   static async update(jweleryObj) {
