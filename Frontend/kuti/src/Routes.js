@@ -1,13 +1,16 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from './Home';
-// import Login from "./Users/Login";
+import Login from "./Login/Login";
 // import SignUp from "./Users/SignUp";
 import Jweleries from "./Jweleries/JweleriesList";
 // import PrivateRoutes from "./PrivateRoutes";
 import SareeList from './Sarees/SareeList';
 import LahengaList from './Lahengas/LahengaList'
 import SareeDetailList from "./Sarees/SareeDetailList";
+import LoginHelp from "./Login/LoginHelp";
+import SignUpFrom from './Customers/SignUpForm';
+import SellerSignUpForm from "./Sellers/SignUpForm";
 // import AboutUs from "./AboutUs";
 // import PaymentSuccessful from "./PaymentSuccess";
 
@@ -19,7 +22,7 @@ import SareeDetailList from "./Sarees/SareeDetailList";
  * Visiting a non-existant route redirects to the homepage.
  */
 
-function SiteRoutes () {
+function SiteRoutes ({ showCustomerRegistration }) {
   return (
       <div className="pt-0">
         <Routes>
@@ -28,6 +31,10 @@ function SiteRoutes () {
           <Route path="/sarees" element={<SareeList />}></Route>
           <Route path="/lahengas" element={<LahengaList />}></Route>
           <Route path="/sarees/:id" element={<SareeDetailList />}></Route>
+          <Route path="/login" element={<Login showCustomerRegistration = {showCustomerRegistration}/>}></Route>
+          <Route path="/login-help" element={<LoginHelp />}></Route>
+          <Route path="/register" element={<SignUpFrom />}></Route>
+          <Route path="/seller-registration" element={<SellerSignUpForm />}></Route>
 
           {/* <Route exact path="/people">
             <PeopleList />

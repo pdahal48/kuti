@@ -1,0 +1,12 @@
+.login-logo {
+    cursor: pointer;
+}
+
+.login-logo a {
+    text-decoration: none;
+    color: black;
+}
+
+.login-logo a:hover {
+    color: black;
+}

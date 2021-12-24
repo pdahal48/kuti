@@ -1,9 +1,11 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, Link } from "react-router-dom";
 // import UserContext from "./Users/UserContext";
-import { Nav, Navbar, NavDropdown, Form, FormControl, Row, Col, Container } from 'react-bootstrap';
+import { Nav, Navbar, Form, FormControl, Row, Col, Container, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTshirt, faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import './Styles/UpperNav.css'
+import Login from "../Login/Login";
 
 const element = <FontAwesomeIcon icon={faTshirt} size="2x"/>
 const login = <FontAwesomeIcon icon={faUser} size="1x"/>
@@ -17,8 +19,7 @@ const cart = <FontAwesomeIcon icon={faShoppingCart} size="1x"/>
  * Rendered by App.
  */
 
-function UpperNav() {
-//   const { currentUser } = useContext(UserContext);
+function UpperNav({ showLogin }) {
 
   function loggedInNav() {
     return (
@@ -45,7 +46,6 @@ function UpperNav() {
               </NavLink>
             </Nav>
           </Nav>
-
         </div>
     );
   }
@@ -69,7 +69,7 @@ function UpperNav() {
                         <Col className="col-8 text-center">
                                 <Navbar.Brand href="/"><img src="https://medias.utsavfashion.com/skin/frontend/ultimo/default/images/utsavfashion-logo.png"></img></Navbar.Brand>
                             </Col>
-                            <Col className="col-1 text-center">
+                            <Col onClick={showLogin} className="login-logo col-1 text-center text-dark">
                                 {login}<br></br>
                                 login
                             </Col>
