@@ -1,7 +1,7 @@
 const express = require('express')
 const router = new express.Router()
-// const jsonschema = require('jsonschema')
-// const shelterSchema = require('../schemas/newShelterSchema.json')
+const jsonschema = require('jsonschema')
+const userSchema = require('../schemas/newCustomerSchema.json')
 const Customer = require('../Models/customer')
 const { BadRequestError } = require("../expressError");
 const { ensureCreator, ensureAdmin, ensureCorrectUserOrAdmin } = require('../Middleware/auth')
@@ -38,11 +38,11 @@ router.put("/:username", async function (req, res, next) {
 
 router.post('/', async (req, res,next) => {
     try {
-        // const validator = jsonschema.validate(req.body, shelterSchema)
-        // if (!validator.valid) {
-        //     const errs = validator.errors.map(e => e.stack);
-        //     throw new BadRequestError(errs);
-        // }        
+        const validator = jsonschema.validate(req.body, userSchema)
+        if (!validator.valid) {
+            const errs = validator.errors.map(e => e.stack);
+            throw new BadRequestError(errs);
+        }        
         const customer = await Customer.register(req.body)
         return res.status(201).json({ customer })
     } catch(e) {
