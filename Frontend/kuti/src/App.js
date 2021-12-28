@@ -6,9 +6,7 @@ import { Modal } from 'react-bootstrap';
 import UpperNav from './Navbars/UpperNav.js'
 import Login from './Login/Login';
 import SignUpForm from './Customers/SignUpForm';
-import jwt from 'jsonwebtoken'
 import './App.css';
-import { Row, Col } from 'react-bootstrap';
 
 function App() {
 
@@ -27,9 +25,8 @@ function App() {
 
   const handleRegistrationShow = (e) => {
     e.preventDefault();
-    console.log(`Show registration`);
-    // setShowLogin(false);
-    // setshowCustRegistration(true)
+    setShowLogin(false);
+    setshowCustRegistration(true)
   }
 
   return (
@@ -37,7 +34,7 @@ function App() {
         <BrowserRouter>
           <div className="navbars">
             <UpperNav 
-              showLogin = {handleLoginShow}
+              showLogin = { handleLoginShow }
             />
             <Navbar />
           </div>
@@ -45,16 +42,20 @@ function App() {
             showCustomerRegistration = {handleRegistrationShow}
           />
           <Modal show={showLogin} onHide={handleModalsClose} className = "mt-2 pt-5">                        
-            <Login />
+            <Login 
+              showCustomerRegistration = {handleRegistrationShow}
+            />
           </Modal>
           <Modal show={showCustomerRegistration} onHide={handleModalsClose} className = "mt-2 pt-5">                        
-            <SignUpForm />
+            <SignUpForm 
+              handleModalsClose = { handleModalsClose }
+            />
           </Modal>
         </BrowserRouter>
 
         <footer className="font-small blue mb-5">
           <div className="footer-copyright text-center py-3">© 2021 Copyright:
-            <a href="/"> SareePalace.com</a> <br></br>
+            <a href="/"> kuti.com</a> <br></br>
             <a href="/about"> About us</a>
           </div>
         </footer>

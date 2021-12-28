@@ -19,8 +19,7 @@ const cart = <FontAwesomeIcon icon={faShoppingCart} size="1x"/>
  * Rendered by App.
  */
 
-function UpperNav({ showLogin }) {
-
+function UpperNav({ showLogin, showCustomerRegistration }) {
   function loggedInNav() {
     return (
       <div className="container-fluid">
@@ -69,7 +68,7 @@ function UpperNav({ showLogin }) {
                         <Col className="col-8 text-center">
                                 <Navbar.Brand href="/"><img src="https://medias.utsavfashion.com/skin/frontend/ultimo/default/images/utsavfashion-logo.png"></img></Navbar.Brand>
                             </Col>
-                            <Col onClick={showLogin} className="login-logo col-1 text-center text-dark">
+                            <Col onClick={ showLogin } className="login-logo col-1 text-center text-dark">
                                 {login}<br></br>
                                 login
                             </Col>

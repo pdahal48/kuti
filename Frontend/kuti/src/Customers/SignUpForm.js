@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'
-import { Form, Alert, Row, Col } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { Form, Row, Col } from 'react-bootstrap'
 
-const CustomerSignUpForm = () => {
+const CustomerSignUpForm = ({ handleModalsClose }) => {
   
     const history = useNavigate()
     const [loginFormData, setloginFormData] = useState({
@@ -37,9 +35,14 @@ const CustomerSignUpForm = () => {
     return (
         <div className="login-body">
         <Row className="justify-content-center text-center">
-        <Col className="col-3">
+        <Col className="col-8">
             <div className = "card my-5">
                 <div className = "card-body">
+                <Row className="login-icon mb-3">
+                    <Col className="col-12">
+                        <img src="https://medias.utsavfashion.com/skin/frontend/ultimo/default/images/utsavfashion-logo.png"></img>
+                    </Col>
+                </Row>
                 <Col>
                 <Form onSubmit = {handleSubmit}>
                     <Form.Group>
@@ -86,6 +89,14 @@ const CustomerSignUpForm = () => {
                             className="btn btn-primary mt-2"
                         />
                     </Form.Group>
+
+                    <Row className="mt-2">
+                        <Col onClick = {handleModalsClose} className="register-link text-start text-sm">
+                            <Link to="/seller-registration">
+                                Seller Registration
+                            </Link>
+                        </Col>
+                    </Row>
                 </Form>
                 </Col>
                 </div>

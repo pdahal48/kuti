@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'
-import { Form, Alert, Row, Col, Modal } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
-import SignUpForm from '../Customers/SignUpForm';
+import { Form, Alert, Row, Col } from 'react-bootstrap'
 import './Styles/Login.css'
-
-const loginIcon = <FontAwesomeIcon icon={faUser} size="6x"/>
 
 const Login = ({ showCustomerRegistration, loginUser }) => {
 
@@ -14,6 +9,7 @@ const Login = ({ showCustomerRegistration, loginUser }) => {
     const [value, setValue] = useState(null)
 
     const history = useNavigate()
+    
     const [loginFormData, setloginFormData] = useState({
         username: "",
         password: ""
@@ -39,11 +35,8 @@ const Login = ({ showCustomerRegistration, loginUser }) => {
         }))
     }
 
-    const ShowMsg = () => showCustomerRegistration;
-
     return (
         <div className="login-body">
-            {console.log(showCustomerRegistration)}
         <Row className="justify-content-center text-center">
         <Col className="col-7">
             {flag && 
@@ -84,8 +77,8 @@ const Login = ({ showCustomerRegistration, loginUser }) => {
                         />
                     </Form.Group>
                     <Row className="mt-3">
-                        <Col className="register-link text-start">
-                            <Link to="/register">
+                        <Col onClick={ showCustomerRegistration } className="register-link text-start">
+                            <Link to="/">
                                 Register
                             </Link>
                         </Col>

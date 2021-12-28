@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom'
-import { Form, Alert, Row, Col, FloatingLabel } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from 'react-router-dom'
+import { Form, Row, Col, FloatingLabel } from 'react-bootstrap'
 
 const SellerSignUpForm = () => {
   
-    const history = useNavigate()
-
     const [loginFormData, setloginFormData] = useState({
         username: "",
         password: "",
