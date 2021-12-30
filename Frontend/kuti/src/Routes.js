@@ -11,6 +11,8 @@ import SareeDetailList from "./Sarees/SareeDetailList";
 import LoginHelp from "./Login/LoginHelp";
 import SignUpFrom from './Customers/SignUpForm';
 import SellerSignUpForm from "./Sellers/SignUpForm";
+import DashboardList from "./sellerDashboard/DashboardList";
+
 // import AboutUs from "./AboutUs";
 // import PaymentSuccessful from "./PaymentSuccess";
 
@@ -35,6 +37,7 @@ function SiteRoutes ({ showCustomerRegistration }) {
           <Route path="/login-help" element={<LoginHelp />}></Route>
           <Route path="/register" element={<SignUpFrom />}></Route>
           <Route path="/seller-registration" element={<SellerSignUpForm />}></Route>
+          <Route path="/seller-dashboard" element={<DashboardList />}></Route>
 
           {/* <Route exact path="/people">
             <PeopleList />
