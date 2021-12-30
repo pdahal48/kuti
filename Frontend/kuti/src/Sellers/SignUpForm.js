@@ -40,7 +40,7 @@ const SellerSignUpForm = () => {
     }
 
     return (
-        <div className="container col-4 login-body">
+        <div className="container col-xl-4 col-lg-6 col-md-9 login-body">
             <div className = "card my-5">
                 <div className = "card-body">
                 <Form onSubmit = {handleSubmit}>
