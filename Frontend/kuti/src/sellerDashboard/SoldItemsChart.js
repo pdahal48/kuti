@@ -31,26 +31,22 @@ const SoldItemsChart = () => {
       };
 
     return (
-        <div className="container" 
-            style =
-                {{
-                    width:"500px", 
-                    height:"550px",
-                }}>
             <Pie
                 data={data} 
+                height={450}
+                width={400}
                 options =  {{
                     responsive: true,
+                    maintainAspectRatio:false,
                     plugins: {
                       legend: {
-                        position: 'right',
+                        position: 'left',
                     labels: {
                         usePointStyle: true
                     }}}
-                  }}
+                  }
+                }
             />
-                
-        </div>      
     )
 }
 

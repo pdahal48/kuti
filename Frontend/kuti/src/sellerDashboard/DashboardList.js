@@ -1,18 +1,19 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import SoldItemsChart from './SoldItemsChart';
 import SoldItemsGraph from './SoldItemsGraph';
 import SellerEarnings from './SellerEarnings';
 import SoldItemsTable from './SoldItemsTable';
 import AllItemsTable from './AllItemsTable';
+import './Styles/DashboardList.css'
 
 const DashboardList = () => {
     return (
-        <div className="mt-2">
+        <div className="mt-3">
             <h2 className="text-center">Seller Dashboard</h2>
-            <Row className="mt-2">
-                <Col className="col-6">
-                    <SoldItemsChart />
+                <Row className="pie_line">
+                <Col className="col-3 pie">
+                    <SoldItemsChart/>
                 </Col>
                 <Col className="col-6">
                     <SoldItemsGraph />
