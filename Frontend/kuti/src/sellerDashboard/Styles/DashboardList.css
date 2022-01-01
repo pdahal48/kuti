@@ -6,3 +6,15 @@
 .pie {
     margin-right: 14em;
 }
+
+.seller_earnings {
+    margin-left: 7em;
+    /* background-color:lightseagreen; */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.7);
+
+}
+
+
+.earnings_soldItems {
+   margin-top: 20px;
+}

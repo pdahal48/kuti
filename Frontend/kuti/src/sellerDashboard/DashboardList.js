@@ -19,11 +19,11 @@ const DashboardList = () => {
                     <SoldItemsGraph />
                 </Col>
             </Row>
-            <Row className="Container mt-3">
-                <Col>
+            <Row className="earnings_soldItems">
+                <Col className="my-5 col-8">
                     <SellerEarnings />
                 </Col>
-                <Col>
+                <Col className="col-4 my-3">
                     <SoldItemsTable />
                 </Col>
             </Row>

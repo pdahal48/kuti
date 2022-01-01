@@ -1,0 +1,38 @@
+.seller_earnings {
+    /* border: 5px solid lightseagreen; */
+    height: 23rem;
+    width: 40rem;
+    border-radius: 10px;
+}
+
+.earnings {
+    margin-left: 10em;
+}
+
+.earnings-title {
+    font-size: 2rem;
+    font-weight: bolder;
+}
+
+.earnings-text {
+    font-size: 1.5rem;
+}
+
+.earnings_amount {
+    font-weight: bolder;
+}
+
+.percentIncrease {
+    margin-top: 15px;
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    background-color: lightgreen;
+}
+
+.circle-text {
+    vertical-align: middle;
+    display: inline-block;
+    margin-top: 40%;
+    font-size: 1.5rem;
+}

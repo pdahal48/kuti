@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import {Row, Col} from 'react-bootstrap'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -31,7 +31,7 @@ const SoldItemsChart = () => {
       };
 
     return (
-            <Pie
+            <Doughnut
                 data={data} 
                 height={450}
                 width={400}
@@ -40,7 +40,7 @@ const SoldItemsChart = () => {
                     maintainAspectRatio:false,
                     plugins: {
                       legend: {
-                        position: 'left',
+                        position: 'right',
                     labels: {
                         usePointStyle: true
                     }}}
@@ -49,7 +49,5 @@ const SoldItemsChart = () => {
             />
     )
 }
-
-// 
 
 export default SoldItemsChart;
