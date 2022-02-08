@@ -55,13 +55,10 @@ function App() {
 
         <footer className="font-small blue mb-5">
           <div className="footer-copyright text-center py-3">© 2021 Copyright:
-            <a href="/"> kuti.com</a> <br></br>
+            <a href="/"> kutti.com</a> <br></br>
             <a href="/about"> About us</a>
           </div>
         </footer>
-
-
-
     </div> 
   );
 }

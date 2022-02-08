@@ -1,12 +1,8 @@
 .seller_earnings {
-    /* border: 5px solid lightseagreen; */
-    height: 23rem;
-    width: 40rem;
+    height: 15rem;
+    width: 31rem;
     border-radius: 10px;
-}
-
-.earnings {
-    margin-left: 10em;
+    box-shadow: 0 4px 8px 0 rgba(0.9,0,0,0.9);
 }
 
 .earnings-title {
@@ -24,10 +20,10 @@
 
 .percentIncrease {
     margin-top: 15px;
-    height: 300px;
-    width: 300px;
-    border-radius: 50%;
-    background-color: lightgreen;
+    height: 200px;
+    width: 200px;
+    border-radius: 70%;
+    background-color: #87a811;
 }
 
 .circle-text {

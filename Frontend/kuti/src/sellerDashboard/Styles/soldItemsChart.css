@@ -1,0 +1,7 @@
+.pie {
+    height: 20rem;
+    width: 30rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 6px 0 rgba(0,0,0,0.7);
+    margin: 0%;
+}

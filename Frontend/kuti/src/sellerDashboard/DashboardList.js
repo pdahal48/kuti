@@ -5,30 +5,29 @@ import SoldItemsGraph from './SoldItemsGraph';
 import SellerEarnings from './SellerEarnings';
 import SoldItemsTable from './SoldItemsTable';
 import AllItemsTable from './AllItemsTable';
-import './Styles/DashboardList.css'
 
 const DashboardList = () => {
     return (
-        <div className="mt-3">
-            <h2 className="text-center">Seller Dashboard</h2>
-                <Row className="pie_line">
-                <Col className="col-3 pie">
+        <div className="mt-4">
+            {/* <h2 className="text-center">Seller Dashboard</h2> */}
+            <Row className="justify-content-center">
+                <Col className="col-5 mt-4">
                     <SoldItemsChart/>
                 </Col>
                 <Col className="col-6">
                     <SoldItemsGraph />
                 </Col>
             </Row>
-            <Row className="earnings_soldItems">
-                <Col className="my-5 col-8">
+            <Row className="justify-content-center">
+                <Col className="col-5 my-5">
                     <SellerEarnings />
                 </Col>
-                <Col className="col-4 my-3">
+                <Col className="col-6 mt-4">
                     <SoldItemsTable />
                 </Col>
             </Row>
-            <Row className="Container mt-3">
-                <Col>
+            <Row className="justify-content-center">
+                <Col className="col-11">
                     <AllItemsTable />
                 </Col>
             </Row>

@@ -34,7 +34,7 @@ const SoldItemsGraph = () => {
         },
 
         title: {
-            display: true,
+            display: false,
             text: 'Number of items sold over time',
           },
         },
@@ -46,7 +46,7 @@ const SoldItemsGraph = () => {
         labels,
         datasets: [
           {
-            label: 'Number of items',
+            label: 'Number of items sold over time',
             data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',

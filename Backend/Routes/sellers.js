@@ -27,7 +27,6 @@ router.get('/:username', async (req, res, next) => {
 
 router.put("/:username", async function (req, res, next) {
     try {
-        console.log(req.params.username)
         let sellerObj = {...req.body, username: req.params.username}
         const seller = await Seller.update(sellerObj);
         return res.json({ seller })

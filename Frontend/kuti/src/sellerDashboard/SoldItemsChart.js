@@ -1,7 +1,7 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
-import {Row, Col} from 'react-bootstrap'
+import { Doughnut, Pie } from 'react-chartjs-2';
+import './Styles/soldItemsChart.css'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -31,22 +31,24 @@ const SoldItemsChart = () => {
       };
 
     return (
-            <Doughnut
-                data={data} 
-                height={450}
-                width={400}
-                options =  {{
-                    responsive: true,
-                    maintainAspectRatio:false,
-                    plugins: {
-                      legend: {
-                        position: 'right',
-                    labels: {
-                        usePointStyle: true
-                    }}}
-                  }
-                }
-            />
+      <div className="pie">
+        <Doughnut
+            data={data} 
+            height={450}
+            width={400}
+            options =  {{
+                responsive: true,
+                maintainAspectRatio:false,
+                plugins: {
+                  legend: {
+                    position: 'right',
+                labels: {
+                    usePointStyle: true
+                }}}
+              }
+            }
+        />
+      </div>
     )
 }
 

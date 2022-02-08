@@ -1,13 +1,17 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowCircleUp } from '@fortawesome/free-solid-svg-icons'
 import './Styles/SellerEarnings.css'
+
+const element = <FontAwesomeIcon icon={faArrowCircleUp} size="1x"/>
 
 const SellerEarnings = () => {
     return (
-        <div className="mt-3 seller_earnings">
+        <Row className="mt-3 seller_earnings">
             <Row>
                 <Col>
-                    <span className="earnings-title">Earnings</span>
+                    <span className="earnings-title"></span>
                 </Col>
             </Row>
             <Row>
@@ -21,11 +25,11 @@ const SellerEarnings = () => {
                 </Col>
                 <Col className="percentIncrease col-6">
                     <div className="circle-text">
-                        10% Increase
+                        10% {element}
                     </div>
                 </Col>
             </Row>
-        </div>
+        </Row>
     )
 }
 
