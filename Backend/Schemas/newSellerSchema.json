@@ -1,0 +1,83 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "properties": {
+      "username": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 30
+    },
+      "fullName": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 50
+      },
+      "email": {
+        "type": "string"
+      },
+      "password": {
+        "type": "string",
+        "minLength": 5,
+        "maxLength": 20
+      },
+      "business_name": {
+        "type": "string",
+        "minLength": 5,
+        "maxLength": 50
+      },
+        "business_address": {
+        "type": "string",
+        "minLength": 5,
+        "maxLength": 50
+      },
+      "business_city": {
+        "type": "string",
+        "minLength": 5,
+        "maxLength": 50
+      },
+      "business_state": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 2
+      },
+      "business_zip_code": {
+        "type": "string",
+        "minLength": 5,
+        "maxLength": 5
+      },
+      "phone_number": {
+        "type": "string",
+        "minLength": 10,
+        "maxLength": 10
+      },
+      "paypal_email": {
+        "type": "string",
+        "minLength": 5,
+        "maxLength": 30
+      },
+      "is_admin": {
+          "type": "boolean",
+          "default": "false"
+      },
+      "is_seller": {
+          "type": "boolean",
+          "default": false
+      }
+  },
+    "additionalProperties": false,
+    "required": [
+      "username",
+      "fullName",
+      "email",
+      "password",
+      "paypal_email",
+      "business_name",
+      "business_address",
+      "business_city",
+      "business_state",
+      "business_zip_code",
+      "phone_number"
+    ]
+  }
+  

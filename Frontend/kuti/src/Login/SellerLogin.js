@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'
 import { Form, Alert, Row, Col } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStoreAlt } from '@fortawesome/free-solid-svg-icons'
 import './Styles/Login.css'
 
-const Login = ({ showCustomerRegistration, loginCustomer }) => {
+const SellerLoginIcon = <FontAwesomeIcon icon={faStoreAlt} size="3x"/>
+
+const SellerLogin = ({ showSellerRegistration, loginSeller }) => {
 
     const [flag, setFlag] = useState(false)
     const [value, setValue] = useState(null)
@@ -17,7 +21,7 @@ const Login = ({ showCustomerRegistration, loginCustomer }) => {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        let user = await loginCustomer(loginFormData)
+        let user = await loginSeller(loginFormData)
         if(user.success){
             navigate('/')
         } else {
@@ -43,9 +47,9 @@ const Login = ({ showCustomerRegistration, loginCustomer }) => {
                 }
                 <div className = "card my-5">
                 <div className = "card-body">
-                <Row className="login-icon mb-3">
-                    <Col className="col-12">
-                        <img src="https://medias.utsavfashion.com/skin/frontend/ultimo/default/images/utsavfashion-logo.png"></img>
+                <Row className="login-icon mb-3 justify-content-center">
+                    <Col className="col-8">
+                        {SellerLoginIcon}
                     </Col>
                 </Row>
                 <Col>
@@ -76,8 +80,8 @@ const Login = ({ showCustomerRegistration, loginCustomer }) => {
                             />
                         </Form.Group>
                         <Row>
-                            <Col onClick={ showCustomerRegistration } className="mt-3 register-link text-start">
-                                <Link to="/">
+                            <Col onClick={ showSellerRegistration } className="mt-3 register-link text-start">
+                                <Link to="/seller-registration">
                                     Register
                                 </Link>
                             </Col>
@@ -99,4 +103,4 @@ const Login = ({ showCustomerRegistration, loginCustomer }) => {
     )
 }
 
-export default Login;
+export default SellerLogin;

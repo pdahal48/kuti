@@ -80,7 +80,6 @@ CREATE TABLE lahenga
   waist_size INTEGER NOT NULL,
   length INTEGER NOT NULL,
   style TEXT NOT NULL
-
 );
 
 CREATE TABLE jwelery 

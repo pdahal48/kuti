@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { Form, Row, Col, FloatingLabel } from 'react-bootstrap'
+import { Form, Row, Col, FloatingLabel, Alert } from 'react-bootstrap'
 
-const SellerSignUpForm = () => {
-  
+const SellerSignUpForm = ({ signupSeller }) => {
+
+    const [flag, setFlag] = useState(false)
+    const [value, setValue] = useState(null)
+    const navigate = useNavigate()
+
     const [loginFormData, setloginFormData] = useState({
         username: "",
         password: "",
@@ -14,21 +18,20 @@ const SellerSignUpForm = () => {
         business_city: "",
         business_state: "",
         business_zip_code: "",
-        business_phone: "",
-        business_email: "",
+        phone_number: "",
         paypal_email: ""
     });
 
     async function handleSubmit(e) {
         console.log(`submitted`)
         e.preventDefault()
-        // let user = await loginUser(loginFormData)
-        // if(user.success){
-        //     history.push('/')
-        // } else {
-        //     setFlag(true)
-        //     setValue(user.errors[0])
-        // }
+        let user = await signupSeller(loginFormData)
+        if(user.success){
+            navigate('/')
+        } else {
+            setFlag(true)
+            setValue(user.Error)
+        }
     }
 
     const handleChange = (e) => {
@@ -42,6 +45,9 @@ const SellerSignUpForm = () => {
     return (
         <div className="container col-xl-4 col-lg-6 col-md-9 login-body">
             <div className = "card my-5">
+                {flag && 
+                    <Alert variant="warning">{value}</Alert>
+                }
                 <div className = "card-body">
                 <Form onSubmit = {handleSubmit}>
                 <Form.Group>
@@ -80,7 +86,7 @@ const SellerSignUpForm = () => {
                     type="password"
                     name = "password"
                     placeholder="Password"
-                        className="mt-4"
+                    className="mt-4"
                     value = {loginFormData.password}
                     onChange = {handleChange}
                 />
@@ -96,7 +102,7 @@ const SellerSignUpForm = () => {
                         type="text" 
                         name = "business_name"
                         placeholder="Business Name"
-                            className="mt-4"
+                        className="mt-4"
                         value = {loginFormData.business_name}
                         onChange = {handleChange}
                     />
@@ -110,7 +116,7 @@ const SellerSignUpForm = () => {
                         type="text" 
                         name = "business_address"
                         placeholder="Business street address"
-                            className="mt-4"
+                        className="mt-4"
                         value = {loginFormData.business_address}
                         onChange = {handleChange}
                     />
@@ -162,7 +168,7 @@ const SellerSignUpForm = () => {
                         type="text" 
                         name = "email"
                         placeholder="Business Email"
-                            className="mt-4"
+                        className="mt-4"
                         value = {loginFormData.email}
                         onChange = {handleChange}
                     />
@@ -189,10 +195,10 @@ const SellerSignUpForm = () => {
                         <FloatingLabel label="Business Phone">
                             <Form.Control 
                                 type="text" 
-                                name = "business_phone"
+                                name = "phone_number"
                                 placeholder="Business Phone"
                                 className="mt-4"
-                                value = {loginFormData.business_phone}
+                                value = {loginFormData.phone_number}
                                 onChange = {handleChange}
                             />
                     </FloatingLabel>

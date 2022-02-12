@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'
-import { Form, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col, Alert } from 'react-bootstrap'
 
-const CustomerSignUpForm = ({ handleModalsClose }) => {
+const CustomerSignUpForm = ({ handleModalsClose, signupCustomer }) => {
   
-    const history = useNavigate()
-    const [loginFormData, setloginFormData] = useState({
+    const [flag, setFlag] = useState(false)
+    const [value, setValue] = useState(null)
+    const navigate = useNavigate()
+
+    const [signupFormData, setsignupFormData] = useState({
         email: "",
         fullName: "",
         username: "",
@@ -13,29 +16,31 @@ const CustomerSignUpForm = ({ handleModalsClose }) => {
     });
 
     async function handleSubmit(e) {
-        console.log(`submitted`)
         e.preventDefault()
-        // let user = await loginUser(loginFormData)
-        // if(user.success){
-        //     history.push('/')
-        // } else {
-        //     setFlag(true)
-        //     setValue(user.errors[0])
-        // }
+        let user = await signupCustomer(signupFormData);
+        if(user.success){
+            navigate('/')
+        } else {
+            setFlag(true)
+            setValue(user.Error)
+        }
     }
 
     const handleChange = (e) => {
         const {name, value} = e.target
-        setloginFormData(data => ({
+        setsignupFormData(data => ({
             ...data,
             [name]: value
         }))
     }
 
     return (
-        <div className="login-body">
+        <div className="signup-body">
         <Row className="justify-content-center text-center">
         <Col className="col-8">
+        {flag && 
+            <Alert variant="warning">{value}</Alert>
+        }
             <div className = "card my-5">
                 <div className = "card-body">
                 <Row className="login-icon mb-3">
@@ -51,7 +56,7 @@ const CustomerSignUpForm = ({ handleModalsClose }) => {
                             name = "fullName"
                             placeholder="Full Name"
                             className="mt-2"
-                            value = {loginFormData.fullName}
+                            value = {signupFormData.fullName}
                             onChange = {handleChange}
                         />
                     <Form.Control 
@@ -59,7 +64,7 @@ const CustomerSignUpForm = ({ handleModalsClose }) => {
                             name = "email"
                             placeholder="Email"
                             className="mt-2"
-                            value = {loginFormData.email}
+                            value = {signupFormData.email}
                             onChange = {handleChange}
                         />
                         <Form.Control 
@@ -67,7 +72,7 @@ const CustomerSignUpForm = ({ handleModalsClose }) => {
                             name = "username"
                             placeholder="Username"
                             className="mt-2"
-                            value = {loginFormData.username}
+                            value = {signupFormData.username}
                             onChange = {handleChange}
                         />
                     </Form.Group>
@@ -77,7 +82,7 @@ const CustomerSignUpForm = ({ handleModalsClose }) => {
                             name = "password"
                             placeholder="Password"
                             className="mt-2"
-                            value = {loginFormData.password}
+                            value = {signupFormData.password}
                             onChange = {handleChange}
                         />
                     </Form.Group>

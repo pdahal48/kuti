@@ -24,7 +24,7 @@ import DashboardList from "./sellerDashboard/DashboardList";
  * Visiting a non-existant route redirects to the homepage.
  */
 
-function SiteRoutes ({ showCustomerRegistration }) {
+function SiteRoutes ({ showCustomerRegistration, signupSeller }) {
   return (
       <div className="pt-0">
         <Routes>
@@ -36,7 +36,7 @@ function SiteRoutes ({ showCustomerRegistration }) {
           <Route path="/login" element={<Login showCustomerRegistration = {showCustomerRegistration}/>}></Route>
           <Route path="/login-help" element={<LoginHelp />}></Route>
           <Route path="/register" element={<SignUpFrom />}></Route>
-          <Route path="/seller-registration" element={<SellerSignUpForm />}></Route>
+          <Route path="/seller-registration" element={<SellerSignUpForm signupSeller = {signupSeller}/>}></Route>
           <Route path="/seller-dashboard" element={<DashboardList />}></Route>
 
           {/* <Route exact path="/people">

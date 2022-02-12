@@ -25,8 +25,7 @@ class Seller {
     const result = await db.query(
           `SELECT username, 
               password, 
-              fullName, 
-              is_admin, 
+              fullName,
               is_seller
            FROM sellers
            WHERE username = $1`,

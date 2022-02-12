@@ -2,15 +2,41 @@ const express = require('express')
 const router = new express.Router()
 const jsonschema = require('jsonschema')
 const userSchema = require('../schemas/newCustomerSchema.json')
+const userAuth = require('../Schemas/userAuth.json')
 const Customer = require('../Models/customer')
 const { BadRequestError } = require("../expressError");
 const { ensureCreator, ensureAdmin, ensureCorrectUserOrAdmin } = require('../Middleware/auth')
+const { createToken } = require('../Helpers/tokens')
 const db = require('../db')
 
 router.get('/', async (req, res, next) => {
     try {
         const result = await Customer.findAll()
         return res.json(result);
+    } catch(e) {
+        return next (e)
+    }
+})
+
+//allows user to login
+router.post('/login', async (req, res, next) => {
+
+    const validator = jsonschema.validate(req.body, userAuth)
+    if (!validator.valid) {
+        const errs = validator.errors.map(e => e.stack);
+        console.log(errs)
+        res.json({msg: "Invalid username/password"})
+    }
+    try {
+        const { username, password } = req.body
+        if (!username) {
+            return res.json({msg: "Username is required"})
+        } else if (!password) {
+            return res.json({msg: "Password is required"})
+        }
+        const user = await Customer.authenticate(username, password)
+        const token = createToken(user)
+        return res.json({ user, token })
     } catch(e) {
         return next (e)
     }
@@ -34,7 +60,6 @@ router.put("/:username", async function (req, res, next) {
         next(e)
     }
   });
-  
 
 router.post('/', async (req, res,next) => {
     try {
@@ -44,7 +69,8 @@ router.post('/', async (req, res,next) => {
             throw new BadRequestError(errs);
         }        
         const customer = await Customer.register(req.body)
-        return res.status(201).json({ customer })
+        const token = createToken(customer)
+        return res.status(201).json({ customer, token })
     } catch(e) {
         return next(e)
     }

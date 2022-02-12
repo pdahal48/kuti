@@ -60,4 +60,48 @@ export class API {
     let res = await this.request(`lahengas`);
     return res.lahengas;
   }
+
+  //Customer Auths
+  static async signup(customerObj) {
+    try {
+      let res = await this.request(`customers`, customerObj, "post");
+      return res;
+    } catch(e) {
+      return {error: e};
+    }
+  }
+
+  /** Logs in the user */
+  static async login(data) {
+  let res = await this.request(`customers/login`, data, "post");
+  return res.token;
+  }
+
+  //grabs individual user
+  static async get(name) {
+    let res = await this.request(`customers/${name}`);
+    return res;
+  }
+
+    //Seller Auths
+    static async signupSeller(sellerObj) {
+      try {
+        let res = await this.request(`sellers`, sellerObj, "post");
+        return res;
+      } catch(e) {
+        return {error: e};
+      }
+    }
+  
+    /** Logs in the user */
+    static async loginSeller(data) {
+    let res = await this.request(`sellers/login`, data, "post");
+    return res.token;
+    }
+  
+    //grabs individual user
+    static async get(name) {
+      let res = await this.request(`sellers/${name}`);
+      return res;
+    }
 }
