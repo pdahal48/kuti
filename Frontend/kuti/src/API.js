@@ -100,7 +100,7 @@ export class API {
     }
   
     //grabs individual user
-    static async get(name) {
+    static async getSeller(name) {
       let res = await this.request(`sellers/${name}`);
       return res;
     }

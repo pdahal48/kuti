@@ -57,7 +57,7 @@ class Seller {
         
       const duplicateCheck = await db.query(
         `SELECT username
-          FROM sellers
+          FROM customers
           WHERE username = $1`,
       [username],
     );
@@ -98,6 +98,25 @@ class Seller {
           paypal_email
         ],
     );
+
+    const CustomerResult = await db.query(
+      `INSERT INTO customers
+        (username, 
+        fullname,
+        password, 
+        email,
+        is_seller
+        )
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING *`,
+    [
+      username, 
+      fullName, 
+      hashedPassword, 
+      email,
+      true
+    ],
+);
     
     const user = result.rows[0];
     return user;

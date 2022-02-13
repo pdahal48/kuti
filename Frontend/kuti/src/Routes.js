@@ -2,9 +2,7 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from './Home';
 import Login from "./Login/Login";
-// import SignUp from "./Users/SignUp";
 import Jweleries from "./Jweleries/JweleriesList";
-// import PrivateRoutes from "./PrivateRoutes";
 import SareeList from './Sarees/SareeList';
 import LahengaList from './Lahengas/LahengaList'
 import SareeDetailList from "./Sarees/SareeDetailList";
@@ -12,6 +10,7 @@ import LoginHelp from "./Login/LoginHelp";
 import SignUpFrom from './Customers/SignUpForm';
 import SellerSignUpForm from "./Sellers/SignUpForm";
 import DashboardList from "./sellerDashboard/DashboardList";
+import AddItemForm from "./Sellers/AddItemForm";
 
 // import AboutUs from "./AboutUs";
 // import PaymentSuccessful from "./PaymentSuccess";
@@ -38,6 +37,7 @@ function SiteRoutes ({ showCustomerRegistration, signupSeller }) {
           <Route path="/register" element={<SignUpFrom />}></Route>
           <Route path="/seller-registration" element={<SellerSignUpForm signupSeller = {signupSeller}/>}></Route>
           <Route path="/seller-dashboard" element={<DashboardList />}></Route>
+          <Route path="/add-item" element={<AddItemForm />}></Route>
 
           {/* <Route exact path="/people">
             <PeopleList />

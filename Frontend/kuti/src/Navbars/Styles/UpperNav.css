@@ -10,3 +10,7 @@
 .login-logo a:hover {
     color: black;
 }
+
+.dashboard-icon {
+    cursor: pointer;
+}

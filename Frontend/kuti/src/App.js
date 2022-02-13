@@ -12,8 +12,8 @@ import useLocalStorage from './Hooks/LocalStorage'
 import jwt from 'jsonwebtoken'
 import LoadingSpinner from "./LoadingSpinner";
 import { API } from './API';
-import './App.css';
 import CustomersContext from './Customers/CustomersContext';
+import './App.css';
 
 export const TOKEN_STORAGE_ID = "user-token";
 
@@ -21,9 +21,7 @@ function App() {
 
   const [showLogin, setShowLogin] = useState(false);
   const [showCustomerRegistration, setshowCustRegistration] = useState(false);
-
   const [showSellerLogin, setShowSellerLogin] = useState(false);
-  const [showSellerRegistration, setshowSellerRegistration] = useState(false);
 
   const [currentUser, setCurrentUser] = useState(null)
   const [infoLoaded, setInfoLoaded] = useState(false);
@@ -62,11 +60,12 @@ function App() {
 
   useEffect(function loadUserInfo() {
     console.debug("App useEffect loadUserInfo", "token=", currUserToken);
-
+    let str = JSON.stringify(currUserToken)
     async function getCurrentUser() {
       if (currUserToken) {
         try {
           let { username } = jwt.decode(currUserToken);
+          console.log(`current user is `)
 
           // put the currUserToken on the Api class so it can use it to call the API.
           API.token = currUserToken;

@@ -1,14 +1,14 @@
 import React, { useState, useContext } from "react";
-import { NavLink, Link } from "react-router-dom";
 import CustomersContext from "../Customers/CustomersContext";
 import { Navbar, Form, FormControl, Row, Col, Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faStoreAlt, faShoppingCart, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faStoreAlt, faShoppingCart, faSignOutAlt, faChartLine } from '@fortawesome/free-solid-svg-icons'
 import './Styles/UpperNav.css'
+import { useNavigate, Link } from "react-router-dom";
 const login = <FontAwesomeIcon icon={faUser} size="1x"/>
 const cart = <FontAwesomeIcon icon={faShoppingCart} size="1x"/>
 const logoutIcon = <FontAwesomeIcon icon={faSignOutAlt} size="1x"/>
-const SellerLogin = <FontAwesomeIcon icon={faStoreAlt} size="1x"/>
+const dashboardIcon = <FontAwesomeIcon icon={faChartLine} size="1x"/>
 
 /** Navigation bar for site. Shows up on every page.
  *
@@ -18,9 +18,10 @@ const SellerLogin = <FontAwesomeIcon icon={faStoreAlt} size="1x"/>
  * Rendered by App.
  */
 
-function UpperNav({ showLogin, showSellerLogin, showCustomerRegistration, logout }) {
+function UpperNav({ showLogin, logout }) {
 
   const { currentUser } = useContext(CustomersContext);
+  const navigate = useNavigate()
 
   function loggedInNav() {
     return (
@@ -43,13 +44,21 @@ function UpperNav({ showLogin, showSellerLogin, showCustomerRegistration, logout
                   <Navbar.Brand href="/"><img src="https://medias.utsavfashion.com/skin/frontend/ultimo/default/images/utsavfashion-logo.png"></img></Navbar.Brand>
                 </Col>
                 <Col onClick={logout} className="login-logo col-1 text-center text-dark">
-                  {logoutIcon}<br></br>
-                  logout
+                  <Link to="/">
+                    {logoutIcon}<br></br>
+                    logout
+                  </Link>
                 </Col>
-                <Col className="col-1">
-                  {cart} <br></br>
-                  cart
-            </Col>
+                {currentUser.customer.is_seller
+                ? <Col className="col-1 dashboard-icon" onClick = {() => navigate('/seller-dashboard')}>
+                    {dashboardIcon} <br></br>
+                    Dashboard
+                    </Col>
+                : <Col className="col-1">
+                    {cart} <br></br>
+                    cart
+                  </Col>
+                }
               </Navbar.Collapse>
             </Navbar>
           </Row>
@@ -79,10 +88,6 @@ function UpperNav({ showLogin, showSellerLogin, showCustomerRegistration, logout
                               </Col>
                               <Col onClick={showLogin} className="login-logo col-1 text-center text-dark">
                                   {login}<br></br>
-                                  login
-                              </Col>
-                              <Col onClick={showSellerLogin} className="login-logo col-1 text-center text-dark">
-                                  {SellerLogin} <br></br>
                                   login
                               </Col>
                               <Col className="col-1">
