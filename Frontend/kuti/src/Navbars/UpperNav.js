@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import CustomersContext from "../Customers/CustomersContext";
 import { Navbar, Form, FormControl, Row, Col, Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faStoreAlt, faShoppingCart, faSignOutAlt, faChartLine } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faShoppingCart, faSignOutAlt, faChartLine } from '@fortawesome/free-solid-svg-icons'
 import './Styles/UpperNav.css'
 import { useNavigate, Link } from "react-router-dom";
 const login = <FontAwesomeIcon icon={faUser} size="1x"/>

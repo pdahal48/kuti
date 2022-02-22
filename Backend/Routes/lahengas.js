@@ -1,7 +1,7 @@
 const express = require('express')
 const router = new express.Router()
-// const jsonschema = require('jsonschema')
-// const shelterSchema = require('../schemas/newShelterSchema.json')
+const jsonschema = require('jsonschema')
+const lahengaSchema = require('../schemas/newLahengaSchema.json')
 const Lahenga = require('../Models/lahenga')
 const { BadRequestError } = require("../expressError");
 const { ensureCreator, ensureAdmin } = require('../Middleware/auth')
@@ -38,11 +38,11 @@ router.put("/:id", async function (req, res, next) {
 
 router.post('/', async (req, res,next) => {
     try {
-        // const validator = jsonschema.validate(req.body, shelterSchema)
-        // if (!validator.valid) {
-        //     const errs = validator.errors.map(e => e.stack);
-        //     throw new BadRequestError(errs);
-        // }        
+        const validator = jsonschema.validate(req.body, lahengaSchema)
+        if (!validator.valid) {
+            const errs = validator.errors.map(e => e.stack);
+            throw new BadRequestError(errs);
+        }
         const lahenga = await Lahenga.add(req.body)
         return res.status(201).json({ lahenga })
     } catch(e) {

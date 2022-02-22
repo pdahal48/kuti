@@ -1,10 +1,16 @@
 import React, { useState } from 'react'
 import { Form, Row, Col, FloatingLabel, Alert } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
+import { API } from '../API';
 import './ItemStyles.css'
 
-const NewLahenga = ({ handleSubmit }) => {
+const NewLahenga = ({ handleSubmit, currentUser }) => {
 
-    const [loginFormData, setloginFormData] = useState({
+    const [flag, setFlag] = useState(false);
+    const [value, setValue] = useState(null);
+    const navigate = useNavigate();
+
+    const INITIAL_STATE = {
         name: "",
         material: "",
         description: "",
@@ -15,19 +21,39 @@ const NewLahenga = ({ handleSubmit }) => {
         waist_size: "",
         length: "",
         style: "",
-        image: ""
-    });
+        image: "https://kalkifashion.com.imgeng.in/media/catalog/product/e/v/evergreen-and-maroon-saree-in-satin-blend-with-patola-print-and-gotta-patti-embroidered-border-design-online-kalki-fashion-k1141974y-sg74993_2_.jpg?imgeng=/w_317/h_448"
+    }
 
+    const [imagesState, setImagesState] = useState({
+        image2: "",
+        image3: ""
+    })
+
+    const [loginFormData, setloginFormData] = useState(INITIAL_STATE);
+    
     async function handleSubmit(e) {
-        console.log(`submitted`)
-        e.preventDefault()
-        // let user = await signupSeller(loginFormData)
-        // if(user.success){
-        //     navigate('/')
-        // } else {
-        //     setFlag(true)
-        //     setValue(user.Error)
-        // }
+        try {
+            e.preventDefault()
+            uploadImages();
+
+            let newLahenga = await API.uploadLahenga({seller_username: currentUser.customer.username,
+                sale_price: loginFormData.price,
+                ...loginFormData})
+            if(newLahenga.lahenga){
+                setFlag(true);
+                setValue(`${loginFormData.name} has been added`)
+                setloginFormData(INITIAL_STATE);
+            } else {
+                //not sure if this will ever be hit
+                console.log(newLahenga)
+                setFlag(true)
+                setValue(newLahenga.Error)
+            }
+        } catch (e) {
+            const err = e[0].split(".");
+            setFlag(true)
+            setValue(err[1])
+        }
     }
 
     const handleChange = (e) => {
@@ -38,8 +64,31 @@ const NewLahenga = ({ handleSubmit }) => {
         }))
     }
 
+    const uploadImages = async () => {
+        let imageField2 = document.getElementById('#image2');
+        let image2File = imageField2.files[0]
+
+        console.log(`image2File is ${imageField2}`)
+
+        let imageField3 = document.querySelector('#image3');
+        let image3File = imageField3[0]
+
+        let imageFieldArray = [image2File, image3File];
+
+        for(let i=0; i<2; i++) {
+            const { url } = await API.getImageUrl();
+            API.postImageToS3({ url, imageFile: imageFieldArray[i] });
+            API.uploadLahengaToDB(1, url);
+        }
+    }
+
     return (
         <div>
+            <div className="mt-3">
+            {flag && 
+                <Alert variant="warning">{value}</Alert>
+            }
+            </div>
             <Form onSubmit = {handleSubmit}>
                 <Row>
                 <Col className="col-5 me-auto">
@@ -49,10 +98,10 @@ const NewLahenga = ({ handleSubmit }) => {
                         <FloatingLabel label="Name">
                         <Form.Control 
                             type="text" 
-                            name = "Name"
+                            name = "name"
                             placeholder="Name"
                             className="mt-4"
-                            value = {loginFormData.Name}
+                            value = {loginFormData.name}
                             onChange = {handleChange}
                         />
                         </FloatingLabel>
@@ -189,7 +238,7 @@ const NewLahenga = ({ handleSubmit }) => {
                         <FloatingLabel label="Length">
                             <Form.Control 
                                 type="number" 
-                                name = "phone_number"
+                                name = "length"
                                 placeholder="Length"
                                 className="mt-4"
                                 value = {loginFormData.length}
@@ -203,40 +252,40 @@ const NewLahenga = ({ handleSubmit }) => {
             </Row>
             <Row>
             <Col className="col-3 mt-4 me-auto text-start">
-            <Form.Label>Image</Form.Label>
+            <Form.Label>Images</Form.Label>
             </Col>
             <Col className="col-9 me-auto">
                 <Form.Control 
-                    type="file" 
-                    name = "phone_number"
+                    type="string" 
+                    name = "image"
                     className="mt-4"
-                    value = {loginFormData.length}
+                    value = {loginFormData.image}
                     onChange = {handleChange}
                 />
             </Col>
-            </Row><Row>
             <Col className="col-3 mt-4 me-auto text-start">
-            <Form.Label>Image</Form.Label>
             </Col>
             <Col className="col-9 me-auto">
                 <Form.Control 
-                    type="file" 
-                    name = "phone_number"
+                    type="file"
+                    id="image2"
+                    name = "image2"
+                    accept=".jpeg, .png, .jpg"
                     className="mt-4"
-                    value = {loginFormData.length}
+                    value = {imagesState.image2}
                     onChange = {handleChange}
                 />
             </Col>
-            </Row><Row>
             <Col className="col-3 mt-4 me-auto text-start">
-            <Form.Label>Image</Form.Label>
             </Col>
             <Col className="col-9 me-auto">
                 <Form.Control 
-                    type="file" 
-                    name = "phone_number"
+                    type="file"
+                    id="image3"
+                    name = "image3"
+                    accept=".jpeg, .png, .jpg"
                     className="mt-4"
-                    value = {loginFormData.length}
+                    value = {imagesState.image3}
                     onChange = {handleChange}
                 />
             </Col>

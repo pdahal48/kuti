@@ -93,15 +93,44 @@ export class API {
       }
     }
   
-    /** Logs in the user */
+    /** Logs in the seller */
     static async loginSeller(data) {
     let res = await this.request(`sellers/login`, data, "post");
     return res.token;
     }
   
-    //grabs individual user
+    //grabs individual seller
     static async getSeller(name) {
       let res = await this.request(`sellers/${name}`);
       return res;
     }
+
+    //Uploading items endpoint
+    static async uploadLahenga(data) {
+      let res = await this.request(`lahengas`, data, "post");
+      return res;
+    }
+
+    //uploading images to AWS
+    static async getImageUrl(){
+      let res = await this.request(`customers/s3Url`);
+      return res;
+    }
+
+    // post the image direclty to the s3 bucket
+    static async postImageToS3({url, imageFile}) {
+      await fetch(url, {
+        method: "PUT",
+        headers: {      
+        "Content-Type": "multipart/form-data"
+        },
+        body: imageFile
+    })
+  }
+
+  //UPLOADING THE LINKS TO THE LOCAL DATABABSE
+  static async uploadLahengaToDB(saree_id, url){
+    let res = await this.request(`customers/uploadImages`, saree_id, url, "post");
+    return res;
+  }
 }

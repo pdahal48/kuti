@@ -9,6 +9,9 @@ const { ensureCreator, ensureAdmin, ensureCorrectUserOrAdmin } = require('../Mid
 const { createToken } = require('../Helpers/tokens')
 const db = require('../db')
 
+//s3 imports
+const generateUploadURL = require('./s3.js')
+
 router.get('/', async (req, res, next) => {
     try {
         const result = await Customer.findAll()
@@ -76,12 +79,33 @@ router.post('/', async (req, res,next) => {
     }
 })
 
+//generates a url for AWS s3 bucket for image upload
+router.get('/aws/generateURL', async (req, res) => {
+    const url = await generateUploadURL()
+    res.send({ url })
+})
+
 router.delete('/:username', ensureCorrectUserOrAdmin,async (req, res, next) => {
     try {
         await Customer.remove(req.params.username)
         return res.json({deleted: req.params.username})
     } catch (e) {
         return next (e)
+    }
+})
+
+router.post('/uploadImages', async(req, res, next) => {
+    try {
+        console.log(req)
+        let testUpload = await `insert into sarees_images
+            (saree, src)
+            VALUES ($1, $2)
+            RETURNING *`
+            [1, req.url]
+        return testUpload.rows[0];
+
+    } catch(e) {
+        return next(e)
     }
 })
 

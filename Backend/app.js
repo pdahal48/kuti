@@ -1,4 +1,5 @@
 const express  = require('express')
+const dotenv = require('dotenv').config()
 const { NotFoundError } = require("./expressError");
 // const { authenticateJWT } = require('./Middleware/auth')
 const jweleryRoutes = require('./Routes/jweleries')
@@ -6,7 +7,6 @@ const sellerRoutes = require('./Routes/sellers')
 const customerRoutes = require('./Routes/customers')
 const sareeRoutes = require('./Routes/sarees')
 const lahengaRoutes = require('./Routes/lahengas')
-
 const cors = require("cors");
 
 const app = express()

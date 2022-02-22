@@ -36,13 +36,13 @@ VALUES
   (5, 'tbusiness5', 'South indian saree', 'silk', TRUE, 'Traditional saree made from silk perfect for you', FALSE, 68.80, 68.80, 'red', 'bombay sarees', 'casual', 'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/e/m/embroidered-georgette-abaya-style-suit-in-sea-green-v1-kch2853_3.jpg');
 
 INSERT INTO lahenga 
-  (id, seller_username, name, material, used, description, sale, price, sale_price, color, brand, occassion, image, waist_size, hip_size, length, style)
+  (id, seller_username, name, material, used, description, sale, price, sale_price, color, occassion, waist_size, hip_size, length, style)
 VALUES
-  (1, 'tbusiness1', 'Traditional Lahenga', 'silk', FALSE, 'traditional saree made from silk perfect for you', FALSE, 22.50, 15.49, 'red', 'bombay sarees', 'casual', 'https://assets0.mirraw.com/images/9593549/1_long_webp.webp?1632590172', 28, 29, 25, 'no idea'),
-  (2, 'tbusiness2', 'Designer Embroidery Lahengas', 'cotton', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 32.50, 22.50, 'blue', 'bombay sarees', 'casual', 'https://assets0.mirraw.com/images/8813401/02_long_webp.webp?1616156216', 32, 21, 27, 'no idea'),
-  (3, 'tbusiness3', 'Turquoise Embroidered Art Silk', 'silk', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 45.50, 45.50, 'red', 'bombay sarees', 'casual', 'https://assets0.mirraw.com/images/6296150/image_long.jpeg?1532522885', 28, 29, 25, 'no idea'),
-  (4, 'tbusiness4', 'White Embroidered', 'silk', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 85.50, 75.50, 'red', 'bombay sarees', 'casual', 'https://assets0.mirraw.com/images/7377532/image_long_webp.webp?1568211581', 40, 32, 26, 'no idea'),
-  (5, 'tbusiness5', 'Elegant yellow colored', 'silk', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 68.80, 68.80, 'yellow', 'bombay sarees', 'casual', 'https://assets0.mirraw.com/images/8980310/AONE2613_long_webp.webp?1621082071', 18, 39, 15, 'yes idea');
+  (1, 'tbusiness1', 'Traditional Lahenga', 'silk', FALSE, 'traditional saree made from silk perfect for you', TRUE, 22.50, 15.49, 'red', 'casual', 28, 29, 25, 'no idea'),
+  (2, 'tbusiness2', 'Designer Embroidery Lahengas', 'cotton', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 32.50, 22.50, 'blue', 'casual', 32, 21, 27, 'no idea'),
+  (3, 'tbusiness3', 'Turquoise Embroidered Art Silk', 'silk', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 45.50, 45.50, 'red', 'casual', 28, 29, 25, 'no idea'),
+  (4, 'tbusiness4', 'White Embroidered', 'silk', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 85.50, 75.50, 'red', 'casual', 40, 32, 26, 'no idea'),
+  (5, 'tbusiness5', 'Elegant yellow colored', 'silk', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 68.80, 68.80, 'yellow', 'casual', 18, 39, 15, 'yes idea');
 
 INSERT INTO jwelery 
   (id, seller_username, name, material, used, description, sale, price, sale_price, color, brand, occassion, image, size)
@@ -63,3 +63,16 @@ VALUES
   (3, 'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/e/m/embellished-georgette-saree-in-maroon-v1-sfs1142.jpg'),
   (4, 'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/f/o/foil-printed-georgette-scalloped-saree-in-peach-v1-sfs1120.jpg'),
   (5, 'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/e/m/embroidered-georgette-abaya-style-suit-in-sea-green-v1-kch2853_3.jpg');
+
+INSERT INTO lahenga_images 
+  ( lahenga, src )
+VALUES
+(1, 'https://assets0.mirraw.com/images/9593549/1_long_webp.webp?1632590172'),
+(1, 'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/w/o/woven-art-silk-saree-in-green-v1-sela608.jpg'),
+(1, 'https://kalkifashion.com.imgeng.in/media/catalog/product/e/m/emerald-green-saree-in-satin-embellished-with-scattered-red-and-silver-kundan-along-the-border-and-unstitched-blouse-online-kalki-fashion-k003sra3455197y-sg70833_2_.jpg?imgeng=/w_317/h_448'),
+(2, 'https://assets0.mirraw.com/images/8813401/02_long_webp.webp?1616156216'),
+(2, 'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/p/r/printed-satin-saree-in-light-peach-and-pink-v1-stka18.jpg'),
+(2, 'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/e/m/embroidered-georgette-abaya-style-suit-in-sea-green-v1-kch2853_3.jpg'),
+(3, 'https://assets0.mirraw.com/images/6296150/image_long.jpeg?1532522885'),
+(4, 'https://assets0.mirraw.com/images/7377532/image_long_webp.webp?1568211581'),
+(5, 'https://assets0.mirraw.com/images/8980310/AONE2613_long_webp.webp?1621082071')

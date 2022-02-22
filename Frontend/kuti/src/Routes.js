@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from './Home';
 import Login from "./Login/Login";
@@ -11,6 +11,8 @@ import SignUpFrom from './Customers/SignUpForm';
 import SellerSignUpForm from "./Sellers/SignUpForm";
 import DashboardList from "./sellerDashboard/DashboardList";
 import AddItemForm from "./Sellers/AddItemForm";
+import CustomersContext from "./Customers/CustomersContext";
+
 
 // import AboutUs from "./AboutUs";
 // import PaymentSuccessful from "./PaymentSuccess";
@@ -24,6 +26,8 @@ import AddItemForm from "./Sellers/AddItemForm";
  */
 
 function SiteRoutes ({ showCustomerRegistration, signupSeller }) {
+  const { currentUser } = useContext(CustomersContext);
+
   return (
       <div className="pt-0">
         <Routes>
@@ -37,7 +41,7 @@ function SiteRoutes ({ showCustomerRegistration, signupSeller }) {
           <Route path="/register" element={<SignUpFrom />}></Route>
           <Route path="/seller-registration" element={<SellerSignUpForm signupSeller = {signupSeller}/>}></Route>
           <Route path="/seller-dashboard" element={<DashboardList />}></Route>
-          <Route path="/add-item" element={<AddItemForm />}></Route>
+          <Route path="/add-item" element={<AddItemForm currentUser={currentUser}/>}></Route>
 
           {/* <Route exact path="/people">
             <PeopleList />

@@ -7,7 +7,6 @@ import UpperNav from './Navbars/UpperNav.js'
 import Login from './Login/Login';
 import SellerLogin from './Login/SellerLogin';
 import SignUpForm from './Customers/SignUpForm';
-import SellerSignUpForm from './Sellers/SignUpForm';
 import useLocalStorage from './Hooks/LocalStorage'
 import jwt from 'jsonwebtoken'
 import LoadingSpinner from "./LoadingSpinner";
@@ -163,12 +162,12 @@ function App() {
                 logout = {logout}
               />
               <Navbar />
-            </CustomersContext.Provider>
-          </div>
           <Routes 
             showCustomerRegistration = {handleRegistrationShow}
             signupSeller = {signupSeller}
           />
+          </CustomersContext.Provider>
+          </div>
           <Modal show={showLogin} onHide={handleModalsClose} className = "mt-2 pt-5">                      
             <Login 
               showCustomerRegistration = {handleRegistrationShow}

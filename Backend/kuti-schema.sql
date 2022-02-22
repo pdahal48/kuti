@@ -7,6 +7,7 @@ DROP TABLE sarees CASCADE;
 DROP TABLE lahenga CASCADE;
 DROP TABLE jwelery CASCADE;
 DROP TABLE sarees_images;
+DROP TABLE lahenga_images;
 
 CREATE TABLE customers
 (
@@ -71,9 +72,7 @@ CREATE TABLE lahenga
   price INTEGER NOT NULL,
   sale_price INTEGER NOT NULL,
   color TEXT NOT NULL,
-  brand TEXT NOT NULL,
   occassion TEXT NOT NULL,
-  image TEXT NOT NULL,
   used BOOLEAN NOT NULL DEFAULT FALSE,
   sale BOOLEAN NOT NULL DEFAULT FALSE,
   hip_size INTEGER NOT NULL,
@@ -105,5 +104,13 @@ CREATE TABLE sarees_images
   id SERIAL PRIMARY KEY,
   saree INTEGER NOT NULL
     REFERENCES sarees ON DELETE CASCADE,
+  src TEXT NOT NULL
+);
+
+CREATE TABLE lahenga_images
+(
+  id SERIAL PRIMARY KEY,
+  lahenga INTEGER NOT NULL
+    REFERENCES lahenga ON DELETE CASCADE,
   src TEXT NOT NULL
 )

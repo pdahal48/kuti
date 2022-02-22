@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Form, Row, Col, Alert } from 'react-bootstrap'
 import NewLahenga from './NewLahenga';
 import NewSaree from './NewSaree';
 import NewKurti from './NewKurti';
 
-const AddItemForm = () => {
+const AddItemForm = ({ currentUser }) => {
 
     const [flag, setFlag] = useState(false)
     const [value, setValue] = useState(null)
@@ -36,7 +36,7 @@ const AddItemForm = () => {
     const { category } = loginFormData;
 
     return (
-        <div className="container col-xl-5 col-lg-8 col-md-9 mt-3">
+        <div className="container col-xl-6 col-lg-8 col-md-9 mt-3">
         <div className = "card">
         {flag && 
             <Alert variant="warning">{value}</Alert>
@@ -74,7 +74,7 @@ const AddItemForm = () => {
                 category == 'Saree'
                 ? <NewSaree handleChange={handleChange} handleSubmit={handleSubmit} />
                 : category == 'Lahenga'
-                ? <NewLahenga handleChange={handleChange} handleSubmit={handleSubmit} />
+                ? <NewLahenga handleChange={handleChange} handleSubmit={handleSubmit} currentUser={currentUser}/>
                 : category == 'Kurti'
                 ? <NewKurti handleChange={handleChange} handleSubmit={handleSubmit} />
                 : ''

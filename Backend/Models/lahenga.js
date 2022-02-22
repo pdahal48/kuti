@@ -8,35 +8,33 @@ const {
 
 /** Related functions for Lahenga. */
 
-class Jwelery {
-//duplicate items with same names are allowed
+class Lahenga {
+  //duplicate items with same names are allowed
 
   static async add(
-      { seller_username, name, material, description, price, sale_price, color, brand, occassion, image, used, sale, hip_size, waist_size, length, style }) {
+    { seller_username, name, material, description, price, sale_price, color, occassion, image, used = false, sale = false, hip_size, waist_size, length, style }) {
 
     const result = await db.query(
-          `INSERT INTO lahenga
-            (seller_username, name, material, description, price, sale_price, color, brand, occassion, image, used, sale, hip_size, waist_size, length, style)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
+      `INSERT INTO lahenga
+            (seller_username, name, material, description, price, sale_price, color, occassion, used, sale, hip_size, waist_size, length, style)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
            RETURNING *`,
-        [
-          seller_username,
-          name, 
-          material, 
-          description, 
-          price,
-          sale_price,
-          color,
-          brand,
-          occassion,
-          image,
-          used,
-          sale,
-          hip_size,
-          waist_size,
-          length,
-          style
-        ],
+      [
+        seller_username,
+        name,
+        material,
+        description,
+        price,
+        sale_price,
+        color,
+        occassion,
+        used,
+        sale,
+        hip_size,
+        waist_size,
+        length,
+        style
+      ],
     );
     return result.rows[0];
   }
@@ -47,28 +45,38 @@ class Jwelery {
    **/
 
   static async findAll() {
+    // const result = await db.query(
+    //   `SELECT 
+    //     l.id,
+    //     l.seller_username,
+    //     l.name, 
+    //     l.material, 
+    //     l.description, 
+    //     l.price,
+    //     l.sale_price,
+    //     l.color,
+    //     l.occassion,
+    //     l.used,
+    //     l.sale,
+    //     l.hip_size,
+    //     l.waist_size,
+    //     l.length,
+    //     l.style,
+    //     li.src, 
+    //     li.lahenga
+    //     FROM lahenga as l
+    //     INNER JOIN lahenga_images as li
+    //     ON l.id = li.lahenga
+    //     ORDER BY name`,
+    // );
+
     const result = await db.query(
-          `SELECT 
-            id,
-            seller_username,
-            name, 
-            material, 
-            description, 
-            price,
-            sale_price,
-            color,
-            brand,
-            occassion,
-            image,
-            used,
-            sale,
-            hip_size,
-            waist_size,
-            length,
-            style
-           FROM lahenga
-           ORDER BY name`,
-    );
+      `
+      select distinct on (lahenga) *, l.name from lahenga_images as li inner join lahenga as l on li.lahenga = l.id;
+      `
+    )
+
+
     const lahengas = result.rows;
     return { lahengas };
   }
@@ -91,9 +99,7 @@ class Jwelery {
         price,
         sale_price,
         color,
-        brand,
         occassion,
-        image,
         used,
         sale,
         hip_size,
@@ -112,34 +118,38 @@ class Jwelery {
       `SELECT * FROM sellers WHERE username=$1`, [result.seller_username]
     )
 
+    const imagesResult = await db.query(
+      `select src from lahenga_images where lahenga = $1`, [id]
+    )
+
     result.seller = sellerInfo.rows[0]
+    result.image = imagesResult.rows
     return result;
   }
 
   //update the saree information
   static async update(lahengaObj) {
-    const { name, material, description, price, sale_price, color, brand, occassion, image, used, sale, hip_size, waist_size, length, style, id } = lahengaObj;
+    const { name, material, description, price, sale_price, color, occassion, image, used, sale, hip_size, waist_size, length, style, id } = lahengaObj;
     const result = await db.query(
-    `UPDATE lahenga SET 
+      `UPDATE lahenga SET 
         name=$1, 
         material=$2,
         description=$3,
         price=$4,
         sale_price=$5,
         color=$6,
-        brand=$7,
-        occassion=$8,
-        image=$9,
-        used=$10,
-        sale=$11,
-        hip_size=$12,
-        waist_size=$13,
-        length=$14,
-        style=$15
-      WHERE id = $16
+        occassion=$7,
+        image=$8,
+        used=$9,
+        sale=$10,
+        hip_size=$11,
+        waist_size=$12,
+        length=$13,
+        style=$14
+      WHERE id = $15
       RETURNING*`,
       [
-        name, 
+        name,
         material,
         description,
         price,
@@ -157,9 +167,9 @@ class Jwelery {
         id
       ]);
 
-      let lahenga = result.rows[0];
-      if (!lahenga) throw new NotFoundError(`No such Lahenga: ${id}`);
-      return lahenga;
+    let lahenga = result.rows[0];
+    if (!lahenga) throw new NotFoundError(`No such Lahenga: ${id}`);
+    return lahenga;
   }
 
 
@@ -167,11 +177,11 @@ class Jwelery {
 
   static async remove(id) {
     let result = await db.query(
-          `DELETE
+      `DELETE
            FROM lahenga
            WHERE id = $1
            RETURNING name`,
-        [id],
+      [id],
     );
     const lahenga = result.rows[0];
     if (!lahenga) throw new NotFoundError(`No such lahenga: ${id}`);
@@ -179,4 +189,4 @@ class Jwelery {
   }
 }
 
-module.exports = Jwelery;
+module.exports = Lahenga;
