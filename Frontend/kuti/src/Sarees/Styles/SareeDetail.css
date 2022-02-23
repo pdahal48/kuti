@@ -8,3 +8,28 @@
     color: saddlebrown;
     margin-bottom: 5px;
 }
+
+.Assurance-logo {
+    height: 30px;
+    width: 30px;
+    margin-left: 15px;
+}
+
+.Assurance-text {
+    margin-left: 8px;
+}
+
+.Returns-logo {
+    height: 60px;
+    width: 60px;
+}
+
+.Exclusive-logo {
+    height: 40px;
+    width: 40px;
+    margin-left: 12px;
+}
+
+.Exclusive-text {
+    margin-left: 25px;
+}

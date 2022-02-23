@@ -54,7 +54,7 @@ const SareeDetailList = () => {
            <Row className="container justify-content-start mt-3">
            <Col className="col-6">
             {saree.seller && 
-                <SareeSpecs 
+                <SareeSpecs
                     key = {saree.id}
                     name = {saree.name}
                     brand = {saree.brand}

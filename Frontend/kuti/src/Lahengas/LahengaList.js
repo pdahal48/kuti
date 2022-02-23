@@ -19,11 +19,11 @@ const Jweleries = () => {
     return (
         <div className="mt-2">
           {lahengas.length
-              ? (
-                  <div className="card-wrapper">
-                    {lahengas.map(l => {
-                        return (
-                            <ProductCard
+            ? (
+                <div className="card-wrapper">
+                {lahengas.map(l => {
+                    return (
+                        <ProductCard
                             key={l.id}
                             src={l.src}
                             name={l.name}
@@ -31,11 +31,12 @@ const Jweleries = () => {
                             onSale={l.sale}
                             sale_price={l.sale_price}
                             isUsed={l.used}
+                            category = {'lahengas'}
                             id={l.id}
                         />
-                        )
-                    })}
-                  </div>
+                    )
+                })}
+                </div>
               ) : (
                   <p className="lead">Sorry, no results were found!</p>
               )}
