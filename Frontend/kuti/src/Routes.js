@@ -6,6 +6,7 @@ import Jweleries from "./Jweleries/JweleriesList";
 import SareeList from './Sarees/SareeList';
 import LahengaList from './Lahengas/LahengaList'
 import SareeDetailList from "./Sarees/SareeDetailList";
+import LahengaDetailList from "./Lahengas/LahengaDetailList";
 import LoginHelp from "./Login/LoginHelp";
 import SignUpFrom from './Customers/SignUpForm';
 import SellerSignUpForm from "./Sellers/SignUpForm";
@@ -36,6 +37,7 @@ function SiteRoutes ({ showCustomerRegistration, signupSeller }) {
           <Route path="/sarees" element={<SareeList />}></Route>
           <Route path="/lahengas" element={<LahengaList />}></Route>
           <Route path="/sarees/:id" element={<SareeDetailList />}></Route>
+          <Route path="/lahengas/:id" element={<LahengaDetailList />}></Route>
           <Route path="/login" element={<Login showCustomerRegistration = {showCustomerRegistration}/>}></Route>
           <Route path="/login-help" element={<LoginHelp />}></Route>
           <Route path="/register" element={<SignUpFrom />}></Route>

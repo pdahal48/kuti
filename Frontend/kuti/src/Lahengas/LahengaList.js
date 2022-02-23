@@ -22,7 +22,6 @@ const Jweleries = () => {
               ? (
                   <div className="card-wrapper">
                     {lahengas.map(l => {
-                        console.log(l);
                         return (
                             <ProductCard
                             key={l.id}

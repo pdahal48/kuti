@@ -2,21 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { API } from '../API';
 import {Row, Col, Container} from 'react-bootstrap';
-import SareeList from './SareeList';
-import SareeDetail from './SareeDetail';
-import SareeSpecs from './SareeSpecs';
-import SareeDetailPhotos from './SareeDetailPhotos';
+import SareeList from '../Sarees/SareeList';
+import SareeDetail from '../Sarees/SareeDetail';
+import SareeSpecs from '../Sarees/SareeSpecs';
+import SareeDetailPhotos from '../Sarees/SareeDetailPhotos';
 
-const SareeDetailList = () => {
-    const [saree, setSaree] = useState([]);
+const LahengaDetailList = () => {
+    const [lahenga, setLahenga] = useState([]);
     const { id } = useParams();
 
     useEffect(() => {
-        async function getSareeDetail() {
-            const result = await API.getSaree(id);
-            setSaree(result);
+        async function getLahengaDetails() {
+            const result = await API.getLahenga(id);
+            setLahenga(result);
         }
-        getSareeDetail();
+        getLahengaDetails();
     }, [id])
 
     return (
@@ -30,9 +30,10 @@ const SareeDetailList = () => {
                 margin:"0px"
             }}
         >
-        {(saree.images) &&
+            {console.log(lahenga)}
+        {(lahenga.image) &&
             <SareeDetailPhotos 
-                images = {saree.images}
+                images = {lahenga.image}
             />
         }
         </Col>
@@ -42,10 +43,10 @@ const SareeDetailList = () => {
             }}
         >
         <SareeDetail 
-            key = {saree.id}
-            name = {saree.name}
-            desc = {saree.description}
-            price = {saree.price}
+            key = {lahenga.id}
+            name = {lahenga.name}
+            desc = {lahenga.description}
+            price = {lahenga.price}
         />
         </Col>
         </Row>
@@ -53,16 +54,16 @@ const SareeDetailList = () => {
            <Container>
            <Row className="container justify-content-start mt-3">
            <Col className="col-6">
-            {saree.seller && 
+            {lahenga.seller && 
                 <SareeSpecs 
-                    key = {saree.id}
-                    name = {saree.name}
-                    brand = {saree.brand}
-                    color = {saree.color}
-                    material = {saree.material}
-                    occassion = {saree.occassion}
-                    condition = {saree.condition}
-                    seller = {saree.seller}
+                    key = {lahenga.id}
+                    name = {lahenga.name}
+                    brand = {lahenga.brand}
+                    color = {lahenga.color}
+                    material = {lahenga.material}
+                    occassion = {lahenga.occassion}
+                    condition = {lahenga.condition}
+                    seller = {lahenga.seller}
                 />
             }
             </Col>
@@ -76,4 +77,4 @@ const SareeDetailList = () => {
     )
 }
 
-export default SareeDetailList;
+export default LahengaDetailList;

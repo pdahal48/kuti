@@ -56,9 +56,19 @@ export class API {
     return res.saree;
   }
 
+  //Lahengas Routes
+
+  //Get all the lahengas from db
+
   static async getLahengas() {
     let res = await this.request(`lahengas`);
     return res.lahengas;
+  }
+
+  //Get a specific lahenga from the db
+  static async getLahenga(id) {
+    let res = await this.request(`lahengas/${id}`);
+    return res.lahenga;
   }
 
   //Customer Auths

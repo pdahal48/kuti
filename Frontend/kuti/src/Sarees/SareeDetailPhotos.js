@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Container } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 import './Styles/SareeDetailPhotos.css'
 
 const SareeDetailPhotos = ({ images=[] }) => {
@@ -17,21 +17,20 @@ const SareeDetailPhotos = ({ images=[] }) => {
 
     return (
         <div>
-            <Row>
-                <Col className="col-3">
-                    <div className="img-container">
-                        { images.map(i => (
-                            <div onClick = {handleClick}> 
-                                <img className = "secondary-img" src={i.src} />
-                            </div>
-                        ))
-                        }
+        <Row>
+        <Col className="col-3">
+            <div className="img-container">
+                {images.map(i => (
+                    <div onClick = {handleClick}> 
+                        <img className = "secondary-img" src={i.src} />
                     </div>
-                </Col>
-                <Col className="col-9">
-                    <img className= "main-img" src={mainImg}/>
-                </Col>
-            </Row>
+                ))}
+            </div>
+        </Col>
+        <Col className="col-9">
+            <img className= "main-img" src={mainImg}/>
+        </Col>
+        </Row>
         </div>
     )
 }
