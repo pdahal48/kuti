@@ -44,9 +44,13 @@ const LahengaDetailList = () => {
         >
         <SareeDetail 
             key = {lahenga.id}
+            category = "Lahenga"
             name = {lahenga.name}
             desc = {lahenga.description}
             price = {lahenga.price}
+            blouseSize = {lahenga.size}
+            waistSize = {lahenga.waist_size}
+            length = {lahenga.length}
         />
         </Col>
         </Row>
@@ -58,10 +62,8 @@ const LahengaDetailList = () => {
                 <SareeSpecs 
                     key = {lahenga.id}
                     name = {lahenga.name}
-                    brand = {lahenga.brand}
                     color = {lahenga.color}
                     material = {lahenga.material}
-                    occassion = {lahenga.occassion}
                     condition = {lahenga.condition}
                     seller = {lahenga.seller}
                 />

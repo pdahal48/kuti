@@ -43,9 +43,12 @@ const SareeDetailList = () => {
         >
         <SareeDetail 
             key = {saree.id}
+            category = "Saree"
             name = {saree.name}
             desc = {saree.description}
             price = {saree.price}
+            stiched = {saree.stiched}
+            blouseSize = {saree.size}
         />
         </Col>
         </Row>
@@ -57,10 +60,8 @@ const SareeDetailList = () => {
                 <SareeSpecs
                     key = {saree.id}
                     name = {saree.name}
-                    brand = {saree.brand}
                     color = {saree.color}
                     material = {saree.material}
-                    occassion = {saree.occassion}
                     condition = {saree.condition}
                     seller = {saree.seller}
                 />

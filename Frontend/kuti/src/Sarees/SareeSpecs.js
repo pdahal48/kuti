@@ -22,12 +22,10 @@ const SareeSpecs = ({name, brand, color, material, occassion, condition, seller}
                 <Row>
                     <Col className="text-start col-6">
                         <p><b>Name:</b> {name} </p>
-                        <p><b>Brand:</b> {brand}</p>
-                        <p><b>Color:</b> {color}</p>
-                    </Col>
-                    <Col className="col-text-start 6">
                         <p><b>Material:</b> {material}</p> 
-                        <p><b>Occassion:</b> {occassion}</p> 
+                    </Col>
+                    <Col className="col-6 text-start">
+                        <p><b>Color:</b> {color}</p>
                         <p><b>Condition:</b> {condition === 'used' ? 'Used' : 'New'}</p>
                     </Col>
                 </Row>

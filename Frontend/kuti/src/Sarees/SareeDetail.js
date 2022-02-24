@@ -3,7 +3,7 @@ import { Button, Row, Col } from 'react-bootstrap';
 import Moment from 'react-moment'
 import './Styles/SareeDetail.css'
 
-const SareeDetail = ({ price, desc }) => {
+const SareeDetail = ({ price, desc , stiched, blouseSize, category, waistSize, length}) => {
     return (
         <div>
             <Row>
@@ -25,8 +25,25 @@ const SareeDetail = ({ price, desc }) => {
                 <div className="item-price">Price: ${price}</div>
             </Col>
             </Row>
+            {category === "Saree" && 
+                <Row>
+                    <Col className="text-start mt-3">
+                        <h6>Blouse: {stiched ? 'Stiched' : 'Unstiched'}</h6>
+                        <h6>Waist Size: {blouseSize}</h6>
+                    </Col>
+                </Row>
+            }
+            {category === "Lahenga" && 
+                <Row>
+                    <Col className="text-start mt-3">
+                        <h6>Blouse Size: {blouseSize}</h6>
+                        <h6>Waist Size: {waistSize}</h6>
+                        <h6>Length: {length}</h6>
+                    </Col>
+                </Row>
+            }
             <Row>
-                <Col className="mb-3 text-start">
+                <Col className="mb-3 mt-1 text-start">
                     <Button className="btn-primary">Add to Cart</Button>
                 </Col>
             </Row>
