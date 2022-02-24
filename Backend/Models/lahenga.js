@@ -12,13 +12,13 @@ class Lahenga {
   //duplicate items with same names are allowed
 
   static async add(
-    { seller_username, name, material, description, price, sale_price, color, occassion, image, used = false, sale = false, hip_size, waist_size, length, style }) {
+    { seller_username, name, material, description, price, sale_price, color, occassion, image, used = false, sale = false, waist_size, length, size }) {
 
     const result = await db.query(
       `INSERT INTO lahenga
-            (seller_username, name, material, description, price, sale_price, color, occassion, used, sale, hip_size, waist_size, length, style)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
-           RETURNING *`,
+        (seller_username, name, material, description, price, sale_price, color, used, sale, waist_size, length, size)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+        RETURNING *`,
       [
         seller_username,
         name,
@@ -27,13 +27,11 @@ class Lahenga {
         price,
         sale_price,
         color,
-        occassion,
         used,
         sale,
-        hip_size,
         waist_size,
         length,
-        style
+        size
       ],
     );
     return result.rows[0];
@@ -99,13 +97,11 @@ class Lahenga {
         price,
         sale_price,
         color,
-        occassion,
         used,
         sale,
-        hip_size,
         waist_size,
         length,
-        style
+        size
         FROM lahenga
       WHERE id = $1`,
       [id],
@@ -129,7 +125,7 @@ class Lahenga {
 
   //update the saree information
   static async update(lahengaObj) {
-    const { name, material, description, price, sale_price, color, occassion, image, used, sale, hip_size, waist_size, length, style, id } = lahengaObj;
+    const { name, material, description, price, sale_price, color, image, used, sale, waist_size, length, id, size } = lahengaObj;
     const result = await db.query(
       `UPDATE lahenga SET 
         name=$1, 
@@ -138,15 +134,13 @@ class Lahenga {
         price=$4,
         sale_price=$5,
         color=$6,
-        occassion=$7,
-        image=$8,
-        used=$9,
-        sale=$10,
-        hip_size=$11,
-        waist_size=$12,
-        length=$13,
-        style=$14
-      WHERE id = $15
+        image=$7,
+        used=$8,
+        sale=$9,
+        waist_size=$10,
+        length=$11,
+        size=$12,
+      WHERE id = $13
       RETURNING*`,
       [
         name,
@@ -155,16 +149,13 @@ class Lahenga {
         price,
         sale_price,
         color,
-        brand,
-        occassion,
         image,
         used,
         sale,
-        hip_size,
         waist_size,
         length,
-        style,
-        id
+        id,
+        size
       ]);
 
     let lahenga = result.rows[0];

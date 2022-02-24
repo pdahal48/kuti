@@ -27,22 +27,22 @@ VALUES
   ('lisa20', 1000, 'nostreet ave', 'akron', 'ohio', '45011');
 
 INSERT INTO sarees 
-  (id, seller_username, name, material, used, description, sale, price, sale_price, color, brand, occassion, image)
+  (id, seller_username, name, material, used, description, sale, price, sale_price, color, stiched, size, image)
 VALUES
-  (1, 'tbusiness1', 'Traditional saree', 'silk', FALSE, 'Traditional saree made from silk perfect for you', TRUE, 22.50, 15.49, 'red', 'bombay sarees', 'casual', 'https://assets0.mirraw.com/images/9593549/1_long_webp.webp?1632590172'),
-  (2, 'tbusiness2', 'Banarasi saree', 'cotton', FALSE, 'Traditional saree made from silk perfect for you', TRUE, 32.50, 22.50, 'yellow', 'bombay sarees', 'casual', 'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/p/r/printed-satin-saree-in-light-peach-and-pink-v1-stka18.jpg'),
-  (3, 'tbusiness3', 'Authentic Nepali saree', 'silk', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 45.50, 45.50, 'red', 'bombay sarees', 'casual', 'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/e/m/embellished-georgette-saree-in-maroon-v1-sfs1142.jpg'),
-  (4, 'tbusiness4', 'Bombay saree', 'silk', FALSE, 'Traditional saree made from silk perfect for you', TRUE, 85.50, 75.50, 'blue', 'bombay sarees', 'casual', 'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/f/o/foil-printed-georgette-scalloped-saree-in-peach-v1-sfs1120.jpg'),
-  (5, 'tbusiness5', 'South indian saree', 'silk', TRUE, 'Traditional saree made from silk perfect for you', FALSE, 68.80, 68.80, 'red', 'bombay sarees', 'casual', 'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/e/m/embroidered-georgette-abaya-style-suit-in-sea-green-v1-kch2853_3.jpg');
+  (1, 'tbusiness1', 'Traditional saree', 'silk', FALSE, 'Traditional saree made from silk perfect for you', TRUE, 22.50, 15.49, 'red', true, 20, 'https://assets0.mirraw.com/images/9593549/1_long_webp.webp?1632590172'),
+  (2, 'tbusiness2', 'Banarasi saree', 'cotton', FALSE, 'Traditional saree made from silk perfect for you', TRUE, 32.50, 22.50, 'yellow', false, 21, 'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/p/r/printed-satin-saree-in-light-peach-and-pink-v1-stka18.jpg'),
+  (3, 'tbusiness3', 'Authentic Nepali saree', 'silk', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 45.50, 45.50, 'red', false, 22, 'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/e/m/embellished-georgette-saree-in-maroon-v1-sfs1142.jpg'),
+  (4, 'tbusiness4', 'Bombay saree', 'silk', FALSE, 'Traditional saree made from silk perfect for you', TRUE, 85.50, 75.50, 'blue', true, 23, 'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/f/o/foil-printed-georgette-scalloped-saree-in-peach-v1-sfs1120.jpg'),
+  (5, 'tbusiness5', 'South indian saree', 'silk', TRUE, 'Traditional saree made from silk perfect for you', FALSE, 68.80, 68.80, 'red', true, 24, 'https://medias.utsavfashion.com/media/catalog/product/cache/1/small_image/295x/040ec09b1e35df139433887a97daa66f/e/m/embroidered-georgette-abaya-style-suit-in-sea-green-v1-kch2853_3.jpg');
 
 INSERT INTO lahenga 
-  (id, seller_username, name, material, used, description, sale, price, sale_price, color, occassion, waist_size, hip_size, length, style)
+  (id, seller_username, name, material, used, description, sale, price, sale_price, color, waist_size, length, size)
 VALUES
-  (1, 'tbusiness1', 'Traditional Lahenga', 'silk', FALSE, 'traditional saree made from silk perfect for you', TRUE, 22.50, 15.49, 'red', 'casual', 28, 29, 25, 'no idea'),
-  (2, 'tbusiness2', 'Designer Embroidery Lahengas', 'cotton', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 32.50, 22.50, 'blue', 'casual', 32, 21, 27, 'no idea'),
-  (3, 'tbusiness3', 'Turquoise Embroidered Art Silk', 'silk', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 45.50, 45.50, 'red', 'casual', 28, 29, 25, 'no idea'),
-  (4, 'tbusiness4', 'White Embroidered', 'silk', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 85.50, 75.50, 'red', 'casual', 40, 32, 26, 'no idea'),
-  (5, 'tbusiness5', 'Elegant yellow colored', 'silk', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 68.80, 68.80, 'yellow', 'casual', 18, 39, 15, 'yes idea');
+  (1, 'tbusiness1', 'Traditional Lahenga', 'silk', FALSE, 'traditional saree made from silk perfect for you', TRUE, 22.50, 15.49, 'red', 28, 25, 4),
+  (2, 'tbusiness2', 'Designer Embroidery Lahengas', 'cotton', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 32.50, 22.50, 'blue', 32, 21, 5),
+  (3, 'tbusiness3', 'Turquoise Embroidered Art Silk', 'silk', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 45.50, 45.50, 'red', 28, 29, 2),
+  (4, 'tbusiness4', 'White Embroidered', 'silk', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 85.50, 75.50, 'red', 40, 32, 4),
+  (5, 'tbusiness5', 'Elegant yellow colored', 'silk', FALSE, 'Traditional saree made from silk perfect for you', FALSE, 68.80, 68.80, 'yellow', 18, 39, 3);
 
 INSERT INTO jwelery 
   (id, seller_username, name, material, used, description, sale, price, sale_price, color, brand, occassion, image, size)

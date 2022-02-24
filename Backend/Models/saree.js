@@ -12,11 +12,11 @@ class Saree {
 //duplicate items with same names are allowed
 
   static async add(
-      { seller_username, name, material, description, price, sale_price, color, brand, occassion, image, used, sale }) {
+      { seller_username, name, material, description, price, sale_price, color, image, used, sale }) {
 
     const result = await db.query(
           `INSERT INTO sarees
-            (seller_username, name, material, description, price, sale_price, color, brand, occassion, image, used, sale)
+            (seller_username, name, material, description, price, sale_price, color, stiched, size, image, used, sale)
            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
            RETURNING *`,
         [
@@ -27,8 +27,8 @@ class Saree {
           price,
           sale_price,
           color,
-          brand,
-          occassion,
+          stiched, 
+          size,
           image,
           used,
           sale
@@ -53,8 +53,8 @@ class Saree {
             price,
             sale_price,
             color,
-            brand,
-            occassion,
+            stiched,
+            size,
             used,
             sale,
             image
@@ -63,13 +63,7 @@ class Saree {
            `,
     );
 
-    // const imageRes = await db.query(
-    //   `SELECT * FROM sarees_images`
-    // )
-    // console.log(imageRes.rows)
-
     let sarees = result.rows;
-    // sarees.images = imageRes.rows;
     return sarees;
   }
 
@@ -93,8 +87,8 @@ class Saree {
         price,
         sale_price,
         color,
-        brand,
-        occassion
+        stiched,
+        size
         FROM sarees
       WHERE id = $1`,
       [id],
@@ -122,7 +116,7 @@ class Saree {
 
 //update the saree information
   static async update(sareeObj) {
-    const { name, material, used, sale, price, sale_price, color, brand, occassion, image, id } = sareeObj;
+    const { name, material, used, sale, price, sale_price, color, stiched, size, image, id } = sareeObj;
     const result = await db.query(
     `UPDATE sarees SET 
         name=$1, 
@@ -132,10 +126,10 @@ class Saree {
         price=$5,
         sale_price=$6,
         color=$7,
-        brand=$8,
-        occassion=$9,
-        image=$10
-      WHERE id = $11
+        stiched=$8,
+        size=$9,
+        image=$10,
+      WHERE id=$11
       RETURNING*`,
       [
         name, 
@@ -145,8 +139,8 @@ class Saree {
         price,
         sale_price,
         color,
-        brand,
-        occassion,
+        stiched,
+        size,
         image,
         id
       ]);
