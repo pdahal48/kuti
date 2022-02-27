@@ -13,6 +13,10 @@ import SellerSignUpForm from "./Sellers/SignUpForm";
 import DashboardList from "./sellerDashboard/DashboardList";
 import AddItemForm from "./Sellers/AddItemForm";
 import CustomersContext from "./Customers/CustomersContext";
+import AboutPage from "./Kuti-Info/AboutPage";
+import Contactus from "./Kuti-Info/Contactus";
+import HowTos from "./Kuti-Info/HowtoVideos";
+import PrivacyPolicy from "./Kuti-Info/PrivacyPolicy";
 
 
 // import AboutUs from "./AboutUs";
@@ -44,6 +48,10 @@ function SiteRoutes ({ showCustomerRegistration, signupSeller }) {
           <Route path="/seller-registration" element={<SellerSignUpForm signupSeller = {signupSeller}/>}></Route>
           <Route path="/seller-dashboard" element={<DashboardList />}></Route>
           <Route path="/add-item" element={<AddItemForm currentUser={currentUser}/>}></Route>
+          <Route path="/about-kuti" element={<AboutPage />}></Route>
+          <Route path="/contact" element={<Contactus />}></Route>
+          <Route path="/help-videos" element={<HowTos />}></Route>
+          <Route path="/privacy-policy" element={<PrivacyPolicy />}></Route>
 
           {/* <Route exact path="/people">
             <PeopleList />

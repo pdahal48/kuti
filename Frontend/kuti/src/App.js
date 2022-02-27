@@ -12,6 +12,7 @@ import jwt from 'jsonwebtoken'
 import LoadingSpinner from "./LoadingSpinner";
 import { API } from './API';
 import CustomersContext from './Customers/CustomersContext';
+import { FooterContainer } from './Footer/containers/footer';
 import './App.css';
 
 export const TOKEN_STORAGE_ID = "user-token";
@@ -186,14 +187,8 @@ function App() {
               signupCustomer={signupCustomer}
             />
           </Modal>
+          <FooterContainer />
         </BrowserRouter>
-
-        <footer className="font-small blue mb-5">
-          <div className="footer-copyright text-center py-3">© 2021 Copyright:
-            <a href="/"> kutti.com</a> <br></br>
-            <a href="/about"> About us</a>
-          </div>
-        </footer>
     </div> 
   );
 }
