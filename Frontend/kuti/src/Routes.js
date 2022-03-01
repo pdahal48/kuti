@@ -17,7 +17,7 @@ import AboutPage from "./Kuti-Info/AboutPage";
 import Contactus from "./Kuti-Info/Contactus";
 import HowTos from "./Kuti-Info/HowtoVideos";
 import PrivacyPolicy from "./Kuti-Info/PrivacyPolicy";
-
+import UnderConstructionPage from "./UnderConstruction";
 
 // import AboutUs from "./AboutUs";
 // import PaymentSuccessful from "./PaymentSuccess";
@@ -50,8 +50,7 @@ function SiteRoutes ({ showCustomerRegistration, signupSeller }) {
           <Route path="/add-item" element={<AddItemForm currentUser={currentUser}/>}></Route>
           <Route path="/about-kuti" element={<AboutPage />}></Route>
           <Route path="/contact" element={<Contactus />}></Route>
-          <Route path="/help-videos" element={<HowTos />}></Route>
-          <Route path="/privacy-policy" element={<PrivacyPolicy />}></Route>
+          <Route path="/help-videos" element={<UnderConstructionPage />}></Route>
 
           {/* <Route exact path="/people">
             <PeopleList />

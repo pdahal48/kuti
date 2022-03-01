@@ -52,7 +52,7 @@ const SellerSignUpForm = ({ signupSeller }) => {
                 <Form onSubmit = {handleSubmit}>
                 <Form.Group>
                     <Row>
-                        <Col className="">
+                        <Col>
                         <FloatingLabel label="Full Name">
                         <Form.Control 
                             type="text" 

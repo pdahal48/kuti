@@ -21,8 +21,8 @@ export function FooterContainer() {
                 </Footer.Column>
                 <Footer.Column>
                 <Footer.Title>Contact Us</Footer.Title>
+                    <Footer.Link href="#">Request a Refund</Footer.Link>
                     <Footer.Link href="#">Contact Form</Footer.Link>
-                    <Footer.Link href="#">Compalint Form</Footer.Link>
                     <Footer.Link href="#">Support</Footer.Link>
                 </Footer.Column>
                 <Footer.Column>
