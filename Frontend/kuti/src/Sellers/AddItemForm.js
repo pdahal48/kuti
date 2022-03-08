@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Form, Row, Col, Alert } from 'react-bootstrap'
-import NewLahenga from './NewLahenga';
+import NewLahenga from '../Lahengas/NewLahenga';
 import NewSaree from './NewSaree';
 import NewKurti from './NewKurti';
 

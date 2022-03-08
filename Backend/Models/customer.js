@@ -165,6 +165,18 @@ class Customer {
       return customer;
   }
 
+  static async uploadImages({lahengaId, src}) {
+    let result = await db.query(
+      `INSERT INTO lahenga_images
+          (lahenga, src)
+        VALUES 
+          ($1, $2)
+        RETURNING *`,
+      [lahengaId, src]
+    )
+    return result.rows[0];
+  }
+
   /** Delete given user from database; returns undefined. */
 
   static async remove(username) {

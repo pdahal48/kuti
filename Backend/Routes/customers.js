@@ -94,16 +94,12 @@ router.delete('/:username', ensureCorrectUserOrAdmin,async (req, res, next) => {
     }
 })
 
-router.post('/uploadImages', async(req, res, next) => {
+router.post('/db/uploadImages', async(req, res, next) => {
     try {
-        console.log(req)
-        let testUpload = await `insert into sarees_images
-            (saree, src)
-            VALUES ($1, $2)
-            RETURNING *`
-            [1, req.url]
-        return testUpload.rows[0];
-
+        const { lahengaId, imageUrl } = req.body;
+        console.log(`lahengaId in the customers page is ${lahengaId} and url is ${imageUrl}`)
+        const newImage = await Customer.uploadImages({lahengaId, src: imageUrl});
+        return res.json({ newImage })
     } catch(e) {
         return next(e)
     }

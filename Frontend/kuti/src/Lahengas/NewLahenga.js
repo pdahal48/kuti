@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
 import { Form, Row, Col, FloatingLabel, Alert } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
 import { API } from '../API';
-import './ItemStyles.css'
+import './Styles/ItemStyles.css'
 
 const NewLahenga = ({ handleSubmit, currentUser }) => {
 
     const [flag, setFlag] = useState(false);
     const [value, setValue] = useState(null);
-    const navigate = useNavigate();
 
     const INITIAL_STATE = {
         name: "",
@@ -16,33 +14,30 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
         description: "",
         price: "",
         color: "",
-        occassion: "",
         hip_size: "",
         waist_size: "",
-        length: "",
-        style: "",
-        image: "https://kalkifashion.com.imgeng.in/media/catalog/product/e/v/evergreen-and-maroon-saree-in-satin-blend-with-patola-print-and-gotta-patti-embroidered-border-design-online-kalki-fashion-k1141974y-sg74993_2_.jpg?imgeng=/w_317/h_448"
+        length: ""
     }
 
+    const [loginFormData, setloginFormData] = useState(INITIAL_STATE);
     const [imagesState, setImagesState] = useState({
+        image1: "",
         image2: "",
         image3: ""
     })
-
-    const [loginFormData, setloginFormData] = useState(INITIAL_STATE);
     
     async function handleSubmit(e) {
         try {
             e.preventDefault()
-            uploadImages();
 
             let newLahenga = await API.uploadLahenga({seller_username: currentUser.customer.username,
                 sale_price: loginFormData.price,
                 ...loginFormData})
             if(newLahenga.lahenga){
+                uploadImages(newLahenga.lahenga.id);
+                setloginFormData(INITIAL_STATE);
                 setFlag(true);
                 setValue(`${loginFormData.name} has been added`)
-                setloginFormData(INITIAL_STATE);
             } else {
                 //not sure if this will ever be hit
                 console.log(newLahenga)
@@ -64,21 +59,30 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
         }))
     }
 
-    const uploadImages = async () => {
-        let imageField2 = document.getElementById('#image2');
+    const handleImagesChange = (e) => {
+        const {name, value} = e.target
+        setImagesState(data => ({
+            ...data,
+            [name]: value
+        }))
+    }
+
+    const uploadImages = async (lahengaId) => {
+        let imageField1 = document.getElementById('image1');
+        let imageField2 = document.getElementById('image2');
+        let imageField3 = document.getElementById('image3');
+
+        let image1File = imageField1.files[0]
         let image2File = imageField2.files[0]
+        let image3File = imageField3.files[0]
 
-        console.log(`image2File is ${imageField2}`)
+        let imageFieldArray = [image1File, image2File, image3File];
 
-        let imageField3 = document.querySelector('#image3');
-        let image3File = imageField3[0]
-
-        let imageFieldArray = [image2File, image3File];
-
-        for(let i=0; i<2; i++) {
+        for(let i=0; i<imageFieldArray.length; i++) {
             const { url } = await API.getImageUrl();
-            API.postImageToS3({ url, imageFile: imageFieldArray[i] });
-            API.uploadLahengaToDB(1, url);
+            API.postImageToS3(url, imageFieldArray[i]);
+            const imageUrl = url.split('?')[0];
+            API.uploadLahengaToDB({lahengaId, imageUrl});
         }
     }
 
@@ -139,31 +143,16 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
                         </Col>
                     </Row>
                     <Row>
-                    <Col>
-                    <FloatingLabel label="occassion">
+                <Col>
+                    <FloatingLabel label="color">
                     <Form.Control 
                         type="text" 
-                        name = "occassion"
-                        placeholder="occassion"
+                        name = "color"
+                        placeholder="color"
                         className="mt-4"
-                        value = {loginFormData.occassion}
+                        value = {loginFormData.color}
                         onChange = {handleChange}
                     />
-                    </FloatingLabel>
-
-                    </Col>
-                    </Row>
-                    <Row>
-                    <Col>
-                        <FloatingLabel label="Style">
-                            <Form.Control 
-                                type="string" 
-                                name = "style"
-                                placeholder="Style"
-                                className="mt-4"
-                                value = {loginFormData.style}
-                                onChange = {handleChange}
-                            />
                     </FloatingLabel>
                     </Col>
                 </Row>
@@ -187,21 +176,6 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
                     />
                     </FloatingLabel>
                     </Col>
-                </Row>
-                <Row>
-                <Col>
-                    <FloatingLabel label="color">
-                    <Form.Control 
-                        type="text" 
-                        name = "color"
-                        placeholder="color"
-                        className="mt-4"
-                        value = {loginFormData.color}
-                        onChange = {handleChange}
-                    />
-                    </FloatingLabel>
-                    </Col>
-                    
                 </Row>
                 <Row>
                     <Col>
@@ -256,11 +230,13 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
             </Col>
             <Col className="col-9 me-auto">
                 <Form.Control 
-                    type="string" 
-                    name = "image"
+                    type="file" 
+                    id="image1"
+                    name = "image1"
                     className="mt-4"
-                    value = {loginFormData.image}
-                    onChange = {handleChange}
+                    accept=".jpeg, .png, .jpg"
+                    value = {imagesState.image}
+                    onChange = {handleImagesChange}
                 />
             </Col>
             <Col className="col-3 mt-4 me-auto text-start">
@@ -273,7 +249,7 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
                     accept=".jpeg, .png, .jpg"
                     className="mt-4"
                     value = {imagesState.image2}
-                    onChange = {handleChange}
+                    onChange = {handleImagesChange}
                 />
             </Col>
             <Col className="col-3 mt-4 me-auto text-start">
@@ -286,18 +262,17 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
                     accept=".jpeg, .png, .jpg"
                     className="mt-4"
                     value = {imagesState.image3}
-                    onChange = {handleChange}
+                    onChange = {handleImagesChange}
                 />
             </Col>
             </Row>
-            
             <Form.Group>
                 <Row className="container justify-content-center">
                     <Col className="mt-2">
                         <Form.Control 
                         type="submit"
                         value = "Submit"
-                            className="mt-4"
+                        className="mt-4"
                         className="btn btn-primary mt-2"
                         />
                     </Col>

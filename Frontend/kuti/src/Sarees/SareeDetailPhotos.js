@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col } from 'react-bootstrap'
+import { useParams } from 'react-router-dom'
 import './Styles/SareeDetailPhotos.css'
 
 const SareeDetailPhotos = ({ images=[] }) => {
-    const[mainImg, setMainImg] = useState([]);
+    const[mainImg, setMainImg] = useState();
+    const { id } = useParams();
+    console.log(`id is ${id}`);
         
     useEffect(() => {
         setMainImg(images[0].src)
-    }, [])
+    }, [id])
 
     const handleClick = (e) => {
         if (e.target.src) {
             setMainImg(e.target.src)
+            images=[];
         }
     }
 

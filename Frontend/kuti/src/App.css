@@ -7,3 +7,12 @@
   background-repeat: no-repeat, repeat;
   height: 500px; /* You must set a specified height */
 }
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+
+}
+
+.signup-header {
+  font-weight: bold;
+  color: rgb(110, 59, 59);
+}

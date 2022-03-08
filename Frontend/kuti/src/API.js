@@ -123,24 +123,24 @@ export class API {
 
     //uploading images to AWS
     static async getImageUrl(){
-      let res = await this.request(`customers/s3Url`);
+      let res = await this.request(`customers/aws/generateURL`);
       return res;
     }
 
     // post the image direclty to the s3 bucket
-    static async postImageToS3({url, imageFile}) {
-      await fetch(url, {
+    static async postImageToS3(url, imageFile) {
+      let res = await fetch(url, {
         method: "PUT",
         headers: {      
         "Content-Type": "multipart/form-data"
         },
         body: imageFile
     })
+    return res;
   }
 
   //UPLOADING THE LINKS TO THE LOCAL DATABABSE
-  static async uploadLahengaToDB(saree_id, url){
-    let res = await this.request(`customers/uploadImages`, saree_id, url, "post");
-    return res;
+  static async uploadLahengaToDB(data){
+    await this.request(`customers/db/uploadImages`, data, "post");
   }
 }

@@ -69,14 +69,14 @@ CREATE TABLE lahenga
   name TEXT NOT NULL,
   material TEXT NOT NULL,
   description TEXT NOT NULL,
-  price INTEGER NOT NULL,
-  sale_price INTEGER NOT NULL,
+  price TEXT NOT NULL,
+  sale_price TEXT NOT NULL,
   color TEXT NOT NULL,
   used BOOLEAN NOT NULL DEFAULT FALSE,
   sale BOOLEAN NOT NULL DEFAULT FALSE,
   waist_size INTEGER NOT NULL,
   length INTEGER NOT NULL,
-  size INTEGER NOT NULL
+  blouse_size INTEGER NOT NULL
 );
 
 CREATE TABLE jwelery 

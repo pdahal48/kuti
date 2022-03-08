@@ -12,12 +12,12 @@ class Lahenga {
   //duplicate items with same names are allowed
 
   static async add(
-    { seller_username, name, material, description, price, sale_price, color, occassion, image, used = false, sale = false, waist_size, length, size }) {
+    { seller_username, name, material, description, price, sale_price, color, used = false, sale = false, waist_size, length, blouse_size }) {
 
     const result = await db.query(
       `INSERT INTO lahenga
-        (seller_username, name, material, description, price, sale_price, color, used, sale, waist_size, length, size)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+        (seller_username, name, material, description, price, sale_price, color, used, sale, waist_size, length, blouse_size)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
         RETURNING *`,
       [
         seller_username,
@@ -31,7 +31,7 @@ class Lahenga {
         sale,
         waist_size,
         length,
-        size
+        blouse_size
       ],
     );
     return result.rows[0];
@@ -101,7 +101,7 @@ class Lahenga {
         sale,
         waist_size,
         length,
-        size
+        blouse_size
         FROM lahenga
       WHERE id = $1`,
       [id],
@@ -125,7 +125,7 @@ class Lahenga {
 
   //update the saree information
   static async update(lahengaObj) {
-    const { name, material, description, price, sale_price, color, image, used, sale, waist_size, length, id, size } = lahengaObj;
+    const { name, material, description, price, sale_price, color, image, used, sale, waist_size, length, id, blouse_size } = lahengaObj;
     const result = await db.query(
       `UPDATE lahenga SET 
         name=$1, 
@@ -139,7 +139,7 @@ class Lahenga {
         sale=$9,
         waist_size=$10,
         length=$11,
-        size=$12,
+        blouse_size=$12,
       WHERE id = $13
       RETURNING*`,
       [
@@ -155,7 +155,7 @@ class Lahenga {
         waist_size,
         length,
         id,
-        size
+        blouse_size
       ]);
 
     let lahenga = result.rows[0];

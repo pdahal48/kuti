@@ -48,7 +48,7 @@ const LahengaDetailList = () => {
             name = {lahenga.name}
             desc = {lahenga.description}
             price = {lahenga.price}
-            blouseSize = {lahenga.size}
+            blouseSize = {lahenga.blouse_size}
             waistSize = {lahenga.waist_size}
             length = {lahenga.length}
         />
