@@ -34,7 +34,7 @@ export const SellerSignUpSchema = Yup.object({
         .min(5, 'Please be more descriptive')
         .max(5, 'Please be brief')
         .required('5-digit zip code required'),
-    business_email: string()
+    email: string()
         .min(3, 'Please be more descriptive')
         .max(50, 'Please be brief')
         .required('Business email is required'),
@@ -42,7 +42,7 @@ export const SellerSignUpSchema = Yup.object({
         .min(2, 'Please be more descriptive')
         .max(50, 'Please be brief')
         .required('Paypal email is required'),
-    business_phone: string()
+    phone_number: string()
         .min(10, 'Please be more descriptive')
         .max(10, 'Please be brief')
         .required('Business phone number is required'),

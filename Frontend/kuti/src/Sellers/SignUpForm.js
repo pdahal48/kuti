@@ -1,20 +1,22 @@
 import React from 'react';
-// import { useNavigate } from 'react-router-dom'
-import { Row, Col, FloatingLabel, Form, Container } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
+import { Row, Col, FloatingLabel, Form, Container, Button } from 'react-bootstrap'
 import { Formik } from 'formik';
 import { SellerSignUpSchema } from './SellerSignUpSchema';
+import usStates from './States.json'
 
 const SellerSignUpForm = ({ signupSeller }) => {
 
-    const handleSubmit = (e) => {
-        console.log('Submitted');
-        e.preventDefault()
-        // const user = signupSeller(values)
-        // if (user.success){
-        //     // navigate('/')
-        //     console.log(`Success`)
-        // }
-    }
+    const navigate = useNavigate();
+
+    const handleSubmit = (values) => {
+        const user = signupSeller(values)
+        if (user.success){
+            navigate('/')
+            console.log(`Success`)
+        }
+      }
+      console.log(usStates[0])
     
     return (
         <Row className="mt-4 justify-content-center">
@@ -36,12 +38,23 @@ const SellerSignUpForm = ({ signupSeller }) => {
 
             validationSchema = { SellerSignUpSchema }
 
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={(values, actions) => {
                 setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-                }, 400);
+                  alert(JSON.stringify(values, null, 2));
+                  actions.setSubmitting(false);
+                }, 1000);
+                console.log(values)
             }}
+
+            // onSubmit={(values, e) => {
+            //     console.log('Submitted');
+            //     e.preventDefault()
+            //     const user = signupSeller(values)
+            //     if (user.success){
+            //         navigate('/')
+            //         console.log(`Success`)
+            //     }
+            // }}
             >
 
             {({
@@ -50,17 +63,19 @@ const SellerSignUpForm = ({ signupSeller }) => {
                 handleChange,
                 handleBlur,
             }) => (
-            <Form onSubmit={handleSubmit}>
+            <Form>
             <Row className="justify-content-center">
                 <Col className="col-4 text-start me-auto">
-                <Col className="errors text-danger">
+                    <div className="signup-header">
+                        Enter your personal Information <br></br>
+                        <Col className="errors text-danger text-start">
                     {
                         Object.values(errors)[0]
                     }
                 </Col>
-                    <span className="signup-header">Enter your personal Information</span>
+                    </div>
                     <Form.Group>
-                        <Row className="mt-3">
+                        <Row className="">
                             <Col className="col-10">
                                 <FloatingLabel label="Full Name">
                                     <Form.Control 
@@ -112,17 +127,17 @@ const SellerSignUpForm = ({ signupSeller }) => {
                 </Col>
                 <Col className="col-1 border-start border-3 my-2"></Col>
                 <Col className="col-6">
-                <span className="signup-header">Enter your business Information</span>
+                <div className="signup-header text-start">Enter your business Information</div>
                     <Form.Group>
                         <Row className="mt-3">
                             <Col>
-                            <FloatingLabel label="Business Name">
+                            <FloatingLabel label="Name">
                             <Form.Control 
                                 type="text" 
                                 name = "business_name"
                                 id="business_name"
-                                placeholder="Business Name"
                                 className="mt-3"
+                                placeholder="Name"
                                 value = {values.business_name}
                                 onChange = {handleChange}
                                 onBlur={handleBlur}
@@ -132,13 +147,13 @@ const SellerSignUpForm = ({ signupSeller }) => {
                         </Row>
                         <Row>
                             <Col className="col-12">
-                                <FloatingLabel label="Business Address">
+                                <FloatingLabel label="Street Address">
                                     <Form.Control 
                                         type="text" 
                                         name = "business_address"
                                         id="business_address"
-                                        placeholder="Business street address"
                                         className="mt-4"
+                                        placeholder="Street Address"
                                         value = {values.business_address}
                                         onChange = {handleChange}
                                         onBlur={handleBlur}
@@ -148,13 +163,13 @@ const SellerSignUpForm = ({ signupSeller }) => {
                         </Row>
                         <Row>
                             <Col>
-                                <FloatingLabel label="Business City">
+                                <FloatingLabel label="City">
                                 <Form.Control 
                                     type="text" 
                                     name = "business_city"
                                     id="business_city"
-                                    placeholder="Business City"
                                     className="mt-4"
+                                    placeholder="City"
                                     value = {values.business_city}
                                     onChange = {handleChange}
                                     onBlur={handleBlur}
@@ -162,17 +177,32 @@ const SellerSignUpForm = ({ signupSeller }) => {
                                 </FloatingLabel>
                             </Col>
                             <Col>
-                            <FloatingLabel label="Business State">
-                                <Form.Control 
-                                    type="text" 
+                            <FloatingLabel label="State">
+                                <Form.Select
+                                    className="mt-4"
                                     name = "business_state"
                                     id="business_state"
-                                    placeholder="Business State"
                                     className="mt-4"
+                                    placeholder="State"
                                     value = {values.business_state}
                                     onChange = {handleChange}
-                                    onBlur={handleBlur}
-                                />
+                                >
+                                    {
+                                        usStates.map(st => (
+                                            <option>{st.code}</option>
+                                        ))
+                                    }
+                                </Form.Select>
+                                    {/* // type="text" 
+                                    // name = "business_state"
+                                    // id="business_state"
+                                    // className="mt-4"
+                                    // placeholder="State"
+                                    // value = {values.business_state}
+                                    // onChange = {handleChange}
+                                    // onBlur={handleBlur} */}
+                                    
+                                
                             </FloatingLabel>
                             </Col>
                             <Col>
@@ -192,12 +222,12 @@ const SellerSignUpForm = ({ signupSeller }) => {
                         </Row>
                         <Row>
                             <Col>
-                            <FloatingLabel label="Business Email">
+                            <FloatingLabel label="Email">
                             <Form.Control 
                                 type="text" 
                                 name = "email"
                                 id="email"
-                                placeholder="Business Email"
+                                placeholder="Email"
                                 className="mt-4"
                                 value = {values.email}
                                 onChange = {handleChange}
@@ -211,7 +241,7 @@ const SellerSignUpForm = ({ signupSeller }) => {
                                 type="text" 
                                 name = "paypal_email"
                                 id="paypal_email"
-                                placeholder="Paypal email for payments"
+                                placeholder="Paypal Email"
                                 className="mt-4"
                                 value = {values.paypal_email}
                                 onChange = {handleChange}
@@ -224,12 +254,12 @@ const SellerSignUpForm = ({ signupSeller }) => {
                         </Row>
                         <Row>
                             <Col className="col-6">
-                                <FloatingLabel label="Business Phone">
+                                <FloatingLabel label="Phone">
                                     <Form.Control 
                                         type="text" 
                                         name = "phone_number"
                                         id="phone_number"
-                                        placeholder="Business Phone"
+                                        placeholder="Phone"
                                         className="mt-4"
                                         value = {values.phone_number}
                                         onChange = {handleChange}
@@ -240,14 +270,11 @@ const SellerSignUpForm = ({ signupSeller }) => {
                         </Row>
                     </Form.Group>
                     <Form.Group>
-                        <Row className="justify-content-center">
-                            <Col className="mt-2">
-                                <Form.Control 
-                                type="submit"
-                                value = "Submit"
-                                className="mt-4"
-                                className="btn btn-primary mt-2"
-                                />
+                        <Row>
+                            <Col className="text-start mt-3">
+                                <Button onClick={(event) => ( event.preventDefault(), handleSubmit(values))} type="submit">
+                                    Submit
+                                </Button>
                             </Col>
                         </Row>
                     </Form.Group>
@@ -258,7 +285,6 @@ const SellerSignUpForm = ({ signupSeller }) => {
     </Formik>
     </Col>
 </Row>
-
 )}
 
 export default SellerSignUpForm;
