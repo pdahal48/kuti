@@ -21,18 +21,18 @@ CREATE TABLE customers
 
 CREATE TABLE sellers
 (
-    username TEXT PRIMARY KEY CHECK (length(username) <= 25),
-    password TEXT NOT NULL,
-    fullName TEXT NOT NULL,
-    business_name TEXT,
-    business_address TEXT NOT NULL,
-    business_city TEXT NOT NULL,
-    business_state TEXT NOT NULL,
-    business_zip_code TEXT NOT NULL,
-    phone_number TEXT NOT NULL,
-    email TEXT NOT NULL,
-    paypal_email TEXT NOT NULL,
-    is_seller BOOLEAN NOT NULL DEFAULT true
+  username TEXT PRIMARY KEY CHECK (length(username) <= 25),
+  password TEXT NOT NULL,
+  fullName TEXT NOT NULL,
+  business_name TEXT,
+  business_address TEXT NOT NULL,
+  business_city TEXT NOT NULL,
+  business_state TEXT NOT NULL,
+  business_zip_code TEXT NOT NULL,
+  phone_number TEXT NOT NULL,
+  email TEXT NOT NULL UNIQUE,
+  paypal_email TEXT NOT NULL UNIQUE,
+  is_seller BOOLEAN NOT NULL DEFAULT true
 );
 
 CREATE TABLE shipping_address
