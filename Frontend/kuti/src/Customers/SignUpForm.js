@@ -26,11 +26,11 @@ const CustomerSignUpForm = ({ handleModalsClose, signupCustomer }) => {
 
     return (
         <div className="signup-body">
+        {flag && 
+            <Alert variant="danger">{value}</Alert>
+        }
         <Row className="justify-content-center text-center">
         <Col className="col-8">
-            {flag && 
-                <Alert variant="danger">{value}</Alert>
-            }
             <div className = "card my-5">
                 <div className = "card-body">
                 <Row className="login-icon mb-3">

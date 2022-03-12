@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { Row, Col, FloatingLabel, Form, Button } from 'react-bootstrap'
+import { Row, Col, FloatingLabel, Form, Button, Alert } from 'react-bootstrap'
 import { Formik } from 'formik';
 import { SellerSignUpSchema } from './SellerSignUpSchema';
 import usStates from './States.json'
 
 const SellerSignUpForm = ({ signupSeller }) => {
 
+    const [flag, setFlag] = useState(false)
+    const [value, setValue] = useState(null)
     const navigate = useNavigate();
 
-    const handleSubmit = async (values) => {
+    const handleSubmit = async (event, values) => {
         try {
+            event.preventDefault();
             const user = await signupSeller(values)
             if (user.success){
                 navigate('/')
+            } else {
+                setFlag(true)
+                setValue(user.Error)
             }
         } catch(e) {
             console.log(e)
@@ -22,7 +28,10 @@ const SellerSignUpForm = ({ signupSeller }) => {
     
     return (
         <Row className="mt-4 justify-content-center">
-            <Col className="col-7 p-4">
+            <Col className="col-sm-12 col-lg-9 col-xl-6 p-4 signup-card">
+            {flag && 
+                <Alert variant="danger">{value}</Alert>
+            }
             <Formik
                 initialValues = {{
                     username: "",
@@ -264,7 +273,7 @@ const SellerSignUpForm = ({ signupSeller }) => {
                     <Form.Group>
                         <Row>
                             <Col className="text-start mt-3">
-                                <Button onClick={(event) => ( event.preventDefault(), handleSubmit(values))} type="submit">
+                                <Button onClick={(event) => (handleSubmit(event, values))} type="submit">
                                     Submit
                                 </Button>
                             </Col>
