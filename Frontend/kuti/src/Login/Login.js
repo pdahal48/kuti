@@ -23,7 +23,7 @@ const Login = ({ showCustomerRegistration, loginCustomer }) => {
                 setValue(user.errors[0])
             }
         } catch(e) {
-
+            console.log(e)
         }
 
     }

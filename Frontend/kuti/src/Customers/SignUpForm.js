@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'
-import { Form, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col, Alert, Button } from 'react-bootstrap'
 import { CustomerSignUpSchema } from './CustomersSignUpSchema'
 import { Formik } from 'formik';
 
 const CustomerSignUpForm = ({ handleModalsClose, signupCustomer }) => {
   
+    const [flag, setFlag] = useState(false)
+    const [value, setValue] = useState(null)
     const navigate = useNavigate()
 
-    async function handleSubmit(values) {
-        let user = await signupCustomer(values);
-        if(user.success){
-            navigate('/')
+    async function handleSubmit(event, values) {
+        try {
+            let user = await signupCustomer(values);
+            if(user.success){
+                navigate('/')
+            } else {
+                setFlag(true)
+                setValue(user.Error)
+            }
+        } catch(e) {
+            console.log(e)
         }
     }
 
@@ -19,6 +28,9 @@ const CustomerSignUpForm = ({ handleModalsClose, signupCustomer }) => {
         <div className="signup-body">
         <Row className="justify-content-center text-center">
         <Col className="col-8">
+            {flag && 
+                <Alert variant="danger">{value}</Alert>
+            }
             <div className = "card my-5">
                 <div className = "card-body">
                 <Row className="login-icon mb-3">
@@ -85,12 +97,13 @@ const CustomerSignUpForm = ({ handleModalsClose, signupCustomer }) => {
                         />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Control 
-                            type="submit"
-                            value = "Submit"
-                            className="mt-3"
-                            className="btn btn-primary mt-2"
-                        />
+                        <Row>
+                            <Col className="text-start mt-2">
+                                <Button onClick={(event) => ( event.preventDefault(), handleSubmit(event, values))} type="submit">
+                                    Submit
+                                </Button>
+                            </Col>
+                        </Row>
                     </Form.Group>
 
                     <Row className="mt-2">
