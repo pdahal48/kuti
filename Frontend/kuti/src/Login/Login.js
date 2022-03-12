@@ -1,32 +1,39 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'
-import { Form, Alert, Row, Col, Button } from 'react-bootstrap'
+import { Form, Row, Col, Button, Alert } from 'react-bootstrap'
 import { LoginSchema } from './LoginSchema'
 import { Formik } from 'formik'
 import './Styles/Login.css'
 
 const Login = ({ showCustomerRegistration, loginCustomer }) => {
 
+    const [flag, setFlag] = useState(false)
+    const [value, setValue] = useState(null)
     const navigate = useNavigate()
 
-    async function handleSubmit(values) {
-        let user = await loginCustomer(values)
-        if(user.success){
-            navigate('/')
-        }
-    }
+    async function handleSubmit(event, values) {
+        try {
+            event.preventDefault();
+            console.log(`Form submitted`)
+            let user = await loginCustomer(values)
+            if(user.success){
+                navigate('/')
+            } else {
+                setFlag(true)
+                setValue(user.errors[0])
+            }
+        } catch(e) {
 
-    // const handleChange = (e) => {
-    //     const {name, value} = e.target
-    //     setloginFormData(data => ({
-    //         ...data,
-    //         [name]: value
-    //     }))
-    // }
+        }
+
+    }
 
     return (
         <Row className="justify-content-center text-center container">
-            <Col className="col-7 p-0">
+            <Col className="col-7 p-0 mt-1 mb-0">
+            {flag && 
+                <Alert variant="danger">{value}</Alert>
+            }
                 <div className = "card my-5">
                 <div className = "card-body">
                 <Row className="login-icon mb-3">
@@ -48,7 +55,6 @@ const Login = ({ showCustomerRegistration, loginCustomer }) => {
                         alert(JSON.stringify(values, null, 2));
                         actions.setSubmitting(false);
                         }, 1000);
-                        console.log(values)
                     }}
                 >
                     {({ values, errors, handleChange, handleBlur }) => (
@@ -80,7 +86,7 @@ const Login = ({ showCustomerRegistration, loginCustomer }) => {
                         <Form.Group>
                         <Row>
                             <Col className="text-start mt-2">
-                                <Button onClick={(event) => ( event.preventDefault(), handleSubmit(values))} type="submit">
+                                <Button onClick={(event) => ( event.preventDefault(), handleSubmit(event, values))} type="submit">
                                     Submit
                                 </Button>
                             </Col>

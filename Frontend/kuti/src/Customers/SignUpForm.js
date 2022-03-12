@@ -1,46 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, Link } from 'react-router-dom'
-import { Form, Row, Col, Alert } from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
+import { CustomerSignUpSchema } from './CustomersSignUpSchema'
+import { Formik } from 'formik';
 
 const CustomerSignUpForm = ({ handleModalsClose, signupCustomer }) => {
   
-    const [flag, setFlag] = useState(false)
-    const [value, setValue] = useState(null)
     const navigate = useNavigate()
 
-    const [signupFormData, setsignupFormData] = useState({
-        email: "",
-        fullName: "",
-        username: "",
-        password: ""
-    });
-
-    async function handleSubmit(e) {
-        e.preventDefault()
-        let user = await signupCustomer(signupFormData);
+    async function handleSubmit(values) {
+        let user = await signupCustomer(values);
         if(user.success){
             navigate('/')
-        } else {
-            setFlag(true)
-            setValue(user.Error)
         }
-    }
-
-    const handleChange = (e) => {
-        const {name, value} = e.target
-        setsignupFormData(data => ({
-            ...data,
-            [name]: value
-        }))
     }
 
     return (
         <div className="signup-body">
         <Row className="justify-content-center text-center">
         <Col className="col-8">
-        {flag && 
-            <Alert variant="warning">{value}</Alert>
-        }
             <div className = "card my-5">
                 <div className = "card-body">
                 <Row className="login-icon mb-3">
@@ -49,14 +27,34 @@ const CustomerSignUpForm = ({ handleModalsClose, signupCustomer }) => {
                     </Col>
                 </Row>
                 <Col>
+                <Formik
+                    initialValues = {{
+                        fullName: "",
+                        email: "",
+                        username: "",
+                        password: ""
+                    }}
+
+                    validationSchema = { CustomerSignUpSchema }
+
+                    onSubmit={(values, actions) => {
+                        actions.setSubmitting(false);
+                    }}
+                >
+                {({ values, errors, handleChange, handleBlur }) => (
                 <Form onSubmit = {handleSubmit}>
+                    <Col className="text-danger mb-2">
+                        {
+                            Object.values(errors)[0]
+                        }
+                    </Col>
                     <Form.Group>
                     <Form.Control 
                             type="text" 
                             name = "fullName"
                             placeholder="Full Name"
                             className="mt-2"
-                            value = {signupFormData.fullName}
+                            value = {values.fullName}
                             onChange = {handleChange}
                         />
                     <Form.Control 
@@ -64,7 +62,7 @@ const CustomerSignUpForm = ({ handleModalsClose, signupCustomer }) => {
                             name = "email"
                             placeholder="Email"
                             className="mt-2"
-                            value = {signupFormData.email}
+                            value = {values.email}
                             onChange = {handleChange}
                         />
                         <Form.Control 
@@ -72,7 +70,7 @@ const CustomerSignUpForm = ({ handleModalsClose, signupCustomer }) => {
                             name = "username"
                             placeholder="Username"
                             className="mt-2"
-                            value = {signupFormData.username}
+                            value = {values.username}
                             onChange = {handleChange}
                         />
                     </Form.Group>
@@ -82,7 +80,7 @@ const CustomerSignUpForm = ({ handleModalsClose, signupCustomer }) => {
                             name = "password"
                             placeholder="Password"
                             className="mt-2"
-                            value = {signupFormData.password}
+                            value = {values.password}
                             onChange = {handleChange}
                         />
                     </Form.Group>
@@ -103,6 +101,8 @@ const CustomerSignUpForm = ({ handleModalsClose, signupCustomer }) => {
                         </Col>
                     </Row>
                 </Form>
+                )}
+                </Formik>
                 </Col>
                 </div>
                 </div>
