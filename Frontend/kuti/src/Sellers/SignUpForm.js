@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'
-import { Row, Col, FloatingLabel, Form, Container, Button } from 'react-bootstrap'
+import { Row, Col, FloatingLabel, Form, Button } from 'react-bootstrap'
 import { Formik } from 'formik';
 import { SellerSignUpSchema } from './SellerSignUpSchema';
 import usStates from './States.json'
@@ -9,18 +9,20 @@ const SellerSignUpForm = ({ signupSeller }) => {
 
     const navigate = useNavigate();
 
-    const handleSubmit = (values) => {
-        const user = signupSeller(values)
-        if (user.success){
-            navigate('/')
-            console.log(`Success`)
+    const handleSubmit = async (values) => {
+        try {
+            const user = await signupSeller(values)
+            if (user.success){
+                navigate('/')
+            }
+        } catch(e) {
+            console.log(e)
         }
-      }
-      console.log(usStates[0])
+    }
     
     return (
         <Row className="mt-4 justify-content-center">
-            <Col className="col-7 card p-4">
+            <Col className="col-7 p-4">
             <Formik
                 initialValues = {{
                     username: "",
@@ -36,25 +38,15 @@ const SellerSignUpForm = ({ signupSeller }) => {
                     paypal_email: ""
                 }}
 
-            validationSchema = { SellerSignUpSchema }
+                validationSchema = { SellerSignUpSchema }
 
-            onSubmit={(values, actions) => {
-                setTimeout(() => {
-                  alert(JSON.stringify(values, null, 2));
-                  actions.setSubmitting(false);
-                }, 1000);
-                console.log(values)
-            }}
-
-            // onSubmit={(values, e) => {
-            //     console.log('Submitted');
-            //     e.preventDefault()
-            //     const user = signupSeller(values)
-            //     if (user.success){
-            //         navigate('/')
-            //         console.log(`Success`)
-            //     }
-            // }}
+                onSubmit={(values, actions) => {
+                    setTimeout(() => {
+                    alert(JSON.stringify(values, null, 2));
+                    actions.setSubmitting(false);
+                    }, 1000);
+                    console.log(values)
+                }}
             >
 
             {({
@@ -75,7 +67,7 @@ const SellerSignUpForm = ({ signupSeller }) => {
                 </Col>
                     </div>
                     <Form.Group>
-                        <Row className="">
+                        <Row>
                             <Col className="col-10">
                                 <FloatingLabel label="Full Name">
                                     <Form.Control 

@@ -1,46 +1,32 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'
-import { Form, Alert, Row, Col } from 'react-bootstrap'
+import { Form, Alert, Row, Col, Button } from 'react-bootstrap'
+import { LoginSchema } from './LoginSchema'
+import { Formik } from 'formik'
 import './Styles/Login.css'
 
 const Login = ({ showCustomerRegistration, loginCustomer }) => {
 
-    const [flag, setFlag] = useState(false)
-    const [value, setValue] = useState(null)
-
     const navigate = useNavigate()
-    
-    const [loginFormData, setloginFormData] = useState({
-        username: "",
-        password: ""
-    });
 
-    async function handleSubmit(e) {
-        e.preventDefault()
-        let user = await loginCustomer(loginFormData)
+    async function handleSubmit(values) {
+        let user = await loginCustomer(values)
         if(user.success){
             navigate('/')
-        } else {
-            setFlag(true)
-            setValue(user.errors[0])
         }
     }
 
-    const handleChange = (e) => {
-        const {name, value} = e.target
-        setloginFormData(data => ({
-            ...data,
-            [name]: value
-        }))
-    }
+    // const handleChange = (e) => {
+    //     const {name, value} = e.target
+    //     setloginFormData(data => ({
+    //         ...data,
+    //         [name]: value
+    //     }))
+    // }
 
     return (
-        <div className="login-body">
-        <Row className="justify-content-center text-center">
-            <Col className="col-7">
-                {flag && 
-                <Alert variant="warning">{value}</Alert>
-                }
+        <Row className="justify-content-center text-center container">
+            <Col className="col-7 p-0">
                 <div className = "card my-5">
                 <div className = "card-body">
                 <Row className="login-icon mb-3">
@@ -49,14 +35,37 @@ const Login = ({ showCustomerRegistration, loginCustomer }) => {
                     </Col>
                 </Row>
                 <Col>
+                <Formik
+                    initialValues = {{
+                        username: "",
+                        password: ""
+                    }}
+
+                    validationSchema = { LoginSchema }
+
+                    onSubmit={(values, actions) => {
+                        setTimeout(() => {
+                        alert(JSON.stringify(values, null, 2));
+                        actions.setSubmitting(false);
+                        }, 1000);
+                        console.log(values)
+                    }}
+                >
+                    {({ values, errors, handleChange, handleBlur }) => (
                     <Form onSubmit = {handleSubmit}>
+                    <Col className="text-danger mb-2">
+                        {
+                            Object.values(errors)[0]
+                        }
+                    </Col>
                         <Form.Group className="mb-2">
                             <Form.Control 
                                 type="text" 
                                 name = "username"
                                 placeholder="Username"
-                                value = {loginFormData.username}
+                                value = {values.username}
                                 onChange = {handleChange}
+                                onBlur={handleBlur}
                                 />
                         </Form.Group>
                         <Form.Group>
@@ -64,17 +73,19 @@ const Login = ({ showCustomerRegistration, loginCustomer }) => {
                                 type="password"
                                 name = "password"
                                 placeholder="Password"
-                                value = {loginFormData.password}
+                                value = {values.password}
                                 onChange = {handleChange}
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Control 
-                                type="submit"
-                                value = "Submit"
-                                className="btn btn-primary mt-2"
-                            />
-                        </Form.Group>
+                        <Row>
+                            <Col className="text-start mt-2">
+                                <Button onClick={(event) => ( event.preventDefault(), handleSubmit(values))} type="submit">
+                                    Submit
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Form.Group>
                         <Row>
                             <Col onClick={ showCustomerRegistration } className="mt-3 register-link text-start">
                                 <Link to="/">
@@ -90,12 +101,13 @@ const Login = ({ showCustomerRegistration, loginCustomer }) => {
                             </Col>
                         </Row>
                     </Form>
+                    )}
+                    </Formik>
                 </Col>
                 </div>  
                 </div>
             </Col>
         </Row>
-    </div>
     )
 }
 
