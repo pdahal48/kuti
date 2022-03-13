@@ -33,7 +33,10 @@ CREATE TABLE sellers
   email TEXT NOT NULL UNIQUE,
   paypal_email TEXT NOT NULL UNIQUE,
   is_seller BOOLEAN NOT NULL DEFAULT true
+
 );
+
+ALTER TABLE sellers ADD UNIQUE(business_name, business_address, business_city, business_state);
 
 CREATE TABLE shipping_address
 (

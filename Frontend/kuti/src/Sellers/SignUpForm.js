@@ -28,7 +28,7 @@ const SellerSignUpForm = ({ signupSeller }) => {
     
     return (
         <Row className="mt-4 justify-content-center">
-            <Col className="col-sm-12 col-lg-9 col-xl-6 p-4 signup-card">
+            <Col className="col-sm-12 col-md-11 col-lg-9 col-xl-6 p-4 signup-card">
             {flag && 
                 <Alert variant="danger">{value}</Alert>
             }
