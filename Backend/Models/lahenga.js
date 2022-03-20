@@ -12,12 +12,12 @@ class Lahenga {
   //duplicate items with same names are allowed
 
   static async add(
-    { seller_username, name, material, description, price, sale_price, color, used = false, sale = false, waist_size, length, blouse_size }) {
+    { seller_username, name, material, description, price, sale_price, color, quantity, used=false, sale=false, waist_size, length, blouse_size }) {
 
     const result = await db.query(
       `INSERT INTO lahenga
-        (seller_username, name, material, description, price, sale_price, color, used, sale, waist_size, length, blouse_size)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+        (seller_username, name, material, description, price, sale_price, color, quantity, used, sale, waist_size, length, blouse_size)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
         RETURNING *`,
       [
         seller_username,
@@ -27,6 +27,7 @@ class Lahenga {
         price,
         sale_price,
         color,
+        quantity,
         used,
         sale,
         waist_size,
@@ -73,8 +74,7 @@ class Lahenga {
       select distinct on (lahenga) *, l.name from lahenga_images as li inner join lahenga as l on li.lahenga = l.id;
       `
     )
-
-
+    
     const lahengas = result.rows;
     return { lahengas };
   }
@@ -88,22 +88,7 @@ class Lahenga {
 
   static async get(id) {
     const lahengaRes = await db.query(
-      `SELECT 
-        id,
-        seller_username,
-        name, 
-        material, 
-        description, 
-        price,
-        sale_price,
-        color,
-        used,
-        sale,
-        waist_size,
-        length,
-        blouse_size
-        FROM lahenga
-      WHERE id = $1`,
+      `SELECT * FROM lahenga WHERE id = $1`,
       [id],
     );
 
@@ -111,12 +96,9 @@ class Lahenga {
     if (!result) throw new NotFoundError(`No Lahenga found: ${id}`);
 
     const sellerInfo = await db.query(
-      `SELECT * FROM sellers WHERE username=$1`, [result.seller_username]
-    )
-
+      `SELECT * FROM sellers WHERE username=$1`, [result.seller_username])
     const imagesResult = await db.query(
-      `select src from lahenga_images where lahenga = $1`, [id]
-    )
+      `SELECT src FROM lahenga_images WHERE lahenga = $1`, [id])
 
     result.seller = sellerInfo.rows[0]
     result.image = imagesResult.rows
@@ -125,7 +107,7 @@ class Lahenga {
 
   //update the saree information
   static async update(lahengaObj) {
-    const { name, material, description, price, sale_price, color, image, used, sale, waist_size, length, id, blouse_size } = lahengaObj;
+    const { name, material, description, price, sale_price, color, quantity, image, used, sale, waist_size, length, id, blouse_size } = lahengaObj;
     const result = await db.query(
       `UPDATE lahenga SET 
         name=$1, 
@@ -134,13 +116,14 @@ class Lahenga {
         price=$4,
         sale_price=$5,
         color=$6,
-        image=$7,
-        used=$8,
-        sale=$9,
-        waist_size=$10,
-        length=$11,
-        blouse_size=$12,
-      WHERE id = $13
+        quantity=$7
+        image=$8,
+        used=$9,
+        sale=$10,
+        waist_size=$11,
+        length=$12,
+        blouse_size=$13,
+      WHERE id = $14
       RETURNING*`,
       [
         name,
@@ -149,6 +132,7 @@ class Lahenga {
         price,
         sale_price,
         color,
+        quantity,
         image,
         used,
         sale,

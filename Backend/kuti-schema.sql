@@ -58,11 +58,11 @@ CREATE TABLE sarees
   price INTEGER NOT NULL,
   sale_price INTEGER NOT NULL,
   color TEXT NOT NULL,
+  quantity Text Not NUll,
   used BOOLEAN NOT NULL DEFAULT FALSE,
   sale BOOLEAN NOT NULL DEFAULT FALSE,
   stiched BOOLEAN NOT NULL,
-  size INTEGER NOT NULL,
-  image TEXT NOT NULL
+  blouse_size INTEGER NOT NULL
 );
 
 CREATE TABLE lahenga
@@ -75,6 +75,7 @@ CREATE TABLE lahenga
   price TEXT NOT NULL,
   sale_price TEXT NOT NULL,
   color TEXT NOT NULL,
+  quantity Text Not NUll,
   used BOOLEAN NOT NULL DEFAULT FALSE,
   sale BOOLEAN NOT NULL DEFAULT FALSE,
   waist_size INTEGER NOT NULL,

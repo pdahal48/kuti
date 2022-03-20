@@ -12,11 +12,11 @@ class Saree {
 //duplicate items with same names are allowed
 
   static async add(
-      { seller_username, name, material, description, price, sale_price, color, image, used, sale }) {
+      { seller_username, name, material, description, price, sale_price, color, quantity, used=false, sale=false, stiched, blouse_size }) {
 
     const result = await db.query(
           `INSERT INTO sarees
-            (seller_username, name, material, description, price, sale_price, color, stiched, size, image, used, sale)
+            (seller_username, name, material, description, price, sale_price, color, quantity, used, sale, stiched, blouse_size)
            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
            RETURNING *`,
         [
@@ -27,11 +27,11 @@ class Saree {
           price,
           sale_price,
           color,
-          stiched, 
-          size,
-          image,
+          quantity,
           used,
-          sale
+          sale,
+          stiched, 
+          blouse_size
         ],
     );
     return result.rows[0];
@@ -44,27 +44,12 @@ class Saree {
 
   static async findAll() {
     const result = await db.query(
-          `SELECT
-            id,
-            seller_username,
-            name, 
-            material, 
-            description, 
-            price,
-            sale_price,
-            color,
-            stiched,
-            size,
-            used,
-            sale,
-            image
-           FROM sarees
-           ORDER BY id
-           `,
-    );
+      `SELECT DISTINCT ON (saree) *, s.name 
+      FROM sarees_images AS si 
+      INNER JOIN sarees as s on si.saree = s.id;`);
 
     let sarees = result.rows;
-    return sarees;
+    return { sarees };
   }
 
   /** Given a saree name, return data about the saree.
@@ -76,37 +61,18 @@ class Saree {
 
   static async get(id) {
     const sareeRes = await db.query(
-      `SELECT
-        id,
-        seller_username,
-        name,
-        description,
-        material, 
-        used, 
-        sale,
-        price,
-        sale_price,
-        color,
-        stiched,
-        size
-        FROM sarees
+      `SELECT * FROM sarees
       WHERE id = $1`,
       [id],
     );
 
-    const imagesRes = await db.query(
-      `SELECT 
-          src 
-        FROM sarees_images 
-        WHERE saree=$1`, [id]
-    )
-
     let result = sareeRes.rows[0];
-    if (!sareeRes.rows[0]) throw new NotFoundError(`No saree found: ${id}`);
+    if (!result) throw new NotFoundError(`No saree found: ${id}`);
 
     const sellerInfo = await db.query(
-      `SELECT * FROM sellers WHERE username=$1`, [result.seller_username]
-    )
+      `SELECT * FROM sellers WHERE username=$1`, [result.seller_username]);
+    const imagesRes = await db.query(
+      `SELECT src FROM sarees_images WHERE saree=$1`, [id]);
     
     result.seller = sellerInfo.rows[0]
     result.images = imagesRes.rows;
@@ -116,32 +82,34 @@ class Saree {
 
 //update the saree information
   static async update(sareeObj) {
-    const { name, material, used, sale, price, sale_price, color, stiched, size, image, id } = sareeObj;
+    const { name, material, description, price, sale_price, color, quantity, used, sale, stiched, blouse_size, id } = sareeObj;
     const result = await db.query(
     `UPDATE sarees SET 
         name=$1, 
         material=$2,
-        used=$3,
-        sale=$4,
-        price=$5,
-        sale_price=$6,
-        color=$7,
-        stiched=$8,
-        size=$9,
-        image=$10,
-      WHERE id=$11
+        description=$3,
+        price=$4,
+        sale_price=$5,
+        color=$6,
+        quantity=$7,
+        used=$8,
+        sale=$9,
+        stitched=$10,
+        blouse_size=$11,
+      WHERE id=$12
       RETURNING*`,
       [
         name, 
         material,
-        used,
-        sale,
+        description,
         price,
         sale_price,
         color,
+        quantity,
+        used,
+        sale,
         stiched,
-        size,
-        image,
+        blouse_size,
         id
       ]);
 
@@ -149,7 +117,6 @@ class Saree {
       if (!saree) throw new NotFoundError(`No such seller: ${saree}`);
       return saree;
   }
-
 
   /** Delete given saraee from database; returns undefined. */
 

@@ -7,6 +7,7 @@ const sellerRoutes = require('./Routes/sellers')
 const customerRoutes = require('./Routes/customers')
 const sareeRoutes = require('./Routes/sarees')
 const lahengaRoutes = require('./Routes/lahengas')
+const awsRoutes = require('./Routes/awsRoutes')
 const cors = require("cors");
 
 const app = express()
@@ -19,6 +20,7 @@ app.use('/jweleries', jweleryRoutes)
 app.use('/customers', customerRoutes)
 app.use('/sarees', sareeRoutes)
 app.use('/lahengas', lahengaRoutes)
+app.use('/aws', awsRoutes)
 
 app.use(function (req, res, next) {
     return next(new NotFoundError());

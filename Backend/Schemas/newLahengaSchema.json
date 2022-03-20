@@ -35,6 +35,11 @@
             "minLength": 3,
             "maxLength": 10
         },
+        "quantity": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 3
+        },
         "image": {
             "type": "string",
             "minLength": 5,
@@ -46,7 +51,7 @@
         "sale": {
             "type":"boolean"
         },
-        "hip_size": {
+        "blouse_size": {
             "type": "string",
             "minLength": 1,
             "maxLength": 5
@@ -71,7 +76,8 @@
       "description",
       "price",
       "color",
-      "hip_size",
+      "quantity",
+      "blouse_size",
       "waist_size",
       "length"
     ]
