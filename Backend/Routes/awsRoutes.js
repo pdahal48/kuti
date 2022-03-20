@@ -24,8 +24,17 @@ router.post('/uploadLahenga', async(req, res, next) => {
 router.post('/uploadSaree', async(req, res, next) => {
     try {
         const { sareeId, imageUrl } = req.body;
-        console.log(sareeId, imageUrl)
         const newImage = await Aws.uploadSareeImages({ sareeId, src: imageUrl});
+        return res.json({ newImage })
+    } catch(e) {
+        return next(e)
+    }
+})
+
+router.post('/uploadJwelery', async(req, res, next) => {
+    try {
+        const { jweleryId, imageUrl } = req.body;
+        const newImage = await Aws.uploadJweleryImages({ jweleryId, src: imageUrl});
         return res.json({ newImage })
     } catch(e) {
         return next(e)
