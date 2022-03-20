@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Form, Row, Col, Alert } from 'react-bootstrap'
 import NewLahenga from '../Lahengas/NewLahenga';
-import NewSaree from './NewSaree';
+import NewSaree from '../Sarees/NewSaree';
 import NewKurti from './NewKurti';
 
 const AddItemForm = ({ currentUser }) => {
@@ -36,21 +36,21 @@ const AddItemForm = ({ currentUser }) => {
     const { category } = loginFormData;
 
     return (
-        <div className="container col-xl-6 col-lg-8 col-md-9 mt-3">
-        <div className = "card">
+        <div className="container col-xl-6 col-lg-8 col-md-9 mt-2">
+        <div className = "lahenga-card px-4">
         {flag && 
             <Alert variant="warning">{value}</Alert>
         }
         <div className = "card-body">
         <Form>
-            <Row>
+            <Row className="justify-content-center">
                 <Col>
                 <Form.Group>
-                    <Row>
-                    <Col className="col-3 ms-auto text-start"> 
+                    <Row className='justify-content-center'>
+                    <Col className="col-3 ms-auto text-end p-0 mt-1 mx-2"> 
                         Select Category: 
                     </Col>
-                    <Col className="col-7 me-auto">
+                    <Col className="col-4 me-auto text-start p-0 m-0">
                         <Form.Select
                             onChange={handleChange} 
                             value={loginFormData.category}

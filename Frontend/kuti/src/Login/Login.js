@@ -29,13 +29,13 @@ const Login = ({ showCustomerRegistration, loginCustomer }) => {
     }
 
     return (
-        <Row className="justify-content-center text-center container">
-            <Col className="col-7 p-0 mt-1 mb-0">
+        <Row className="justify-content-center text-center m-0">
+            <Col className="col-9 m-5">
             {flag && 
                 <Alert variant="danger">{value}</Alert>
             }
-                <div className = "card my-5">
-                <div className = "card-body">
+                <div className = "card p-4">
+                <div className = "">
                 <Row className="login-icon mb-3">
                     <Col className="col-12">
                         <img src="https://medias.utsavfashion.com/skin/frontend/ultimo/default/images/utsavfashion-logo.png"></img>

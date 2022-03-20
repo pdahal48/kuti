@@ -7,14 +7,15 @@ import { Card, Button, Row, Col } from 'react-bootstrap';
 //Each item in the list is sent to JweleryCard for render for /jweleries page
 
 const Jweleries = () => {
-    const [sarees, setSarees] = useState([])
+    const [sarees, setSarees] = useState(new Set())
 
     useEffect(() => {
-        async function getJweleries(name) {
+        async function getSarees(name) {
             const sarees = await API.getSarees(name)
+            console.log(sarees)
             setSarees(sarees)
         }
-        getJweleries()
+        getSarees()
     }, [])
 
     return (
@@ -26,7 +27,7 @@ const Jweleries = () => {
                         <ProductCard
                             key={j.id}
                             category='sarees'
-                            src={j.image}
+                            src={j.src}
                             name={j.name}
                             description = {j.description}
                             material={j.material}
@@ -36,7 +37,7 @@ const Jweleries = () => {
                             brand={j.brand}
                             color={j.color}
                             occassion={j.occassion}
-                            size={j.size}
+                            size={j.blouse_size}
                             isUsed={j.used}
                             id={j.id}
                         />

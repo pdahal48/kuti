@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Form, Row, Col, FloatingLabel, Alert } from 'react-bootstrap'
 import { API } from '../API';
-import './Styles/ItemStyles.css'
+// import './Styles/ItemStyles.css'
 
-const NewLahenga = ({ handleSubmit, currentUser }) => {
+const NewSaree = ({ handleSubmit, currentUser }) => {
 
     const [flag, setFlag] = useState(false);
     const [value, setValue] = useState(null);
@@ -15,8 +15,6 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
         color: "",
         price: "",
         blouse_size: "",
-        waist_size: "",
-        length: "",
         quantity: ""
     }
 
@@ -26,26 +24,26 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
         image3: ""
     }
 
-    const [loginFormData, setloginFormData] = useState(INITIAL_STATE);
+    const [formData, setFormData] = useState(INITIAL_STATE);
     const [imagesState, setImagesState] = useState(imagesInitialState);
     
     async function handleSubmit(e) {
         try {
             e.preventDefault()
-            let newLahenga = await API.uploadLahenga({seller_username: currentUser.customer.username,
-                sale_price: loginFormData.price,
-                ...loginFormData})
-            if(newLahenga.lahenga){
-                uploadImages(newLahenga.lahenga.id);
-                setloginFormData(INITIAL_STATE);
+            let newSaree = await API.uploadSaree({seller_username: currentUser.customer.username,
+                sale_price: formData.price,
+                ...formData})
+            if(newSaree.saree){
+                uploadImages(newSaree.saree.id);
+                setFormData(INITIAL_STATE);
                 setImagesState(imagesInitialState);
                 setFlag(true);
-                setValue(`${loginFormData.name} has been added`)
+                setValue(`${formData.name} has been added`)
             } else {
                 //not sure if this will ever be hit
-                console.log(newLahenga)
+                console.log(newSaree)
                 setFlag(true)
-                setValue(newLahenga.Error)
+                setValue(newSaree.Error)
             }
         } catch (e) {
             const err = e[0].split(".");
@@ -56,7 +54,7 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
 
     const handleChange = (e) => {
         const {name, value} = e.target
-        setloginFormData(data => ({
+        setFormData(data => ({
             ...data,
             [name]: value
         }))
@@ -70,7 +68,7 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
         }))
     }
 
-    const uploadImages = async (lahengaId) => {
+    const uploadImages = async (sareeId) => {
         let imageField1 = document.getElementById('image1');
         let imageField2 = document.getElementById('image2');
         let imageField3 = document.getElementById('image3');
@@ -85,7 +83,7 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
             const { url } = await API.getImageUrl();
             API.postImageToS3(url, imageFieldArray[i]);
             const imageUrl = url.split('?')[0];
-            API.uploadToDB({lahengaId, imageUrl});
+            API.uploadToDB({sareeId, imageUrl});
         }
     }
 
@@ -106,7 +104,7 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
                             name = "name"
                             placeholder="Name"
                             className="mt-4"
-                            value = {loginFormData.name}
+                            value = {formData.name}
                             onChange = {handleChange}
                         />
                     </FloatingLabel>
@@ -118,7 +116,7 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
                             name = "material"
                             placeholder="material"
                             className="mt-4"
-                            value = {loginFormData.material}
+                            value = {formData.material}
                             onChange = {handleChange}
                         />
                     </FloatingLabel>
@@ -131,7 +129,7 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
                             placeholder="description"
                             maxLength="50"
                             className="mt-4"
-                            value = {loginFormData.description}
+                            value = {formData.description}
                             onChange = {handleChange}
                         />
                     </FloatingLabel>
@@ -143,19 +141,7 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
                             name = "color"
                             placeholder="color"
                             className="mt-4"
-                            value = {loginFormData.color}
-                            onChange = {handleChange}
-                        />
-                    </FloatingLabel>
-                </Form.Group>
-                <Form.Group>
-                    <FloatingLabel label="price">
-                        <Form.Control 
-                            type="number" 
-                            name = "price"
-                            placeholder="price"
-                            className="mt-4"
-                            value = {loginFormData.price}
+                            value = {formData.color}
                             onChange = {handleChange}
                         />
                     </FloatingLabel>
@@ -169,31 +155,19 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
                             name = "blouse_size"
                             placeholder="Quantity"
                             className="mt-4"
-                            value = {loginFormData.blouse_size}
+                            value = {formData.blouse_size}
                             onChange = {handleChange}
                         />
                     </FloatingLabel>
                 </Form.Group>
                 <Form.Group>
-                    <FloatingLabel label="Waist Size">
+                    <FloatingLabel label="price">
                         <Form.Control 
                             type="number" 
-                            name = "waist_size"
-                            placeholder="Waist Size"
+                            name = "price"
+                            placeholder="price"
                             className="mt-4"
-                            value = {loginFormData.waist_size}
-                            onChange = {handleChange}
-                        />
-                    </FloatingLabel>
-                </Form.Group>
-                <Form.Group>
-                    <FloatingLabel label="Length">
-                        <Form.Control 
-                            type="number" 
-                            name = "length"
-                            placeholder="Length"
-                            className="mt-4"
-                            value = {loginFormData.length}
+                            value = {formData.price}
                             onChange = {handleChange}
                         />
                     </FloatingLabel>
@@ -205,7 +179,7 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
                             name = "quantity"
                             placeholder="Quantity"
                             className="mt-4"
-                            value = {loginFormData.quantity}
+                            value = {formData.quantity}
                             onChange = {handleChange}
                         />
                     </FloatingLabel>
@@ -273,4 +247,4 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
     )
 }
 
-export default NewLahenga;
+export default NewSaree;

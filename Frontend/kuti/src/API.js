@@ -47,7 +47,7 @@ export class API {
   //Get all the sarees from the database
   static async getSarees() {
     let res = await this.request(`sarees`);
-    return res;
+    return res.sarees;
   }
 
   //Get individual saree from the database using the id provided
@@ -62,6 +62,7 @@ export class API {
 
   static async getLahengas() {
     let res = await this.request(`lahengas`);
+    console.log(res, 'lahengas')
     return res.lahengas;
   }
 
@@ -121,9 +122,14 @@ export class API {
       return res;
     }
 
+    static async uploadSaree(data) {
+      let res = await this.request(`sarees`, data, "post");
+      return res;
+    }
+
     //uploading images to AWS
     static async getImageUrl(){
-      let res = await this.request(`customers/aws/generateURL`);
+      let res = await this.request(`aws/generateURL`);
       return res;
     }
 
@@ -140,7 +146,7 @@ export class API {
   }
 
   //UPLOADING THE LINKS TO THE LOCAL DATABABSE
-  static async uploadLahengaToDB(data){
-    await this.request(`customers/db/uploadImages`, data, "post");
+  static async uploadToDB(data){
+    await this.request(`aws/uploadImages`, data, "post");
   }
 }

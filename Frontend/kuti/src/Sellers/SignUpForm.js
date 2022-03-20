@@ -28,7 +28,8 @@ const SellerSignUpForm = ({ signupSeller }) => {
     
     return (
         <Row className="mt-4 justify-content-center">
-            <Col className="col-sm-12 col-md-11 col-lg-9 col-xl-6 p-4 signup-card">
+            <Col className="col-sm-12 col-md-11 col-lg-9 col-xl-7
+             p-4 signup-card">
             {flag && 
                 <Alert variant="danger">{value}</Alert>
             }
@@ -66,7 +67,7 @@ const SellerSignUpForm = ({ signupSeller }) => {
             }) => (
             <Form>
             <Row className="justify-content-center">
-                <Col className="col-4 text-start me-auto">
+                <Col className="col-5 text-start me-auto">
                     <div className="signup-header">
                         Enter your personal Information <br></br>
                         <Col className="errors text-danger text-start">

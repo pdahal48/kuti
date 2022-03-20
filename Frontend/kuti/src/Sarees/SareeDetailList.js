@@ -48,7 +48,7 @@ const SareeDetailList = () => {
             desc = {saree.description}
             price = {saree.price}
             stiched = {saree.stiched}
-            blouseSize = {saree.size}
+            blouseSize = {saree.blouse_size}
         />
         </Col>
         </Row>

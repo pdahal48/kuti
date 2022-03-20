@@ -29,7 +29,7 @@ const SareeDetail = ({ price, desc , stiched, blouseSize, category, waistSize, l
                 <Row>
                     <Col className="text-start mt-3">
                         <h6>Blouse: {stiched ? 'Stiched' : 'Unstiched'}</h6>
-                        <h6>Waist Size: {blouseSize}</h6>
+                        <h6>Blouse Size: {blouseSize}</h6>
                     </Col>
                 </Row>
             }
