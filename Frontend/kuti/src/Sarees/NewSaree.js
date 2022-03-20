@@ -15,6 +15,7 @@ const NewSaree = ({ handleSubmit, currentUser }) => {
         color: "",
         price: "",
         blouse_size: "",
+        stiched: false,
         quantity: ""
     }
 
@@ -30,9 +31,11 @@ const NewSaree = ({ handleSubmit, currentUser }) => {
     async function handleSubmit(e) {
         try {
             e.preventDefault()
+            console.log(formData)
             let newSaree = await API.uploadSaree({seller_username: currentUser.customer.username,
                 sale_price: formData.price,
-                ...formData})
+                ...formData});
+            console.log(`saree is ${newSaree}`)
             if(newSaree.saree){
                 uploadImages(newSaree.saree.id);
                 setFormData(INITIAL_STATE);
@@ -46,6 +49,7 @@ const NewSaree = ({ handleSubmit, currentUser }) => {
                 setValue(newSaree.Error)
             }
         } catch (e) {
+            console.log(`e is ${e}`)
             const err = e[0].split(".");
             setFlag(true)
             setValue(err[1])
@@ -83,7 +87,7 @@ const NewSaree = ({ handleSubmit, currentUser }) => {
             const { url } = await API.getImageUrl();
             API.postImageToS3(url, imageFieldArray[i]);
             const imageUrl = url.split('?')[0];
-            API.uploadToDB({sareeId, imageUrl});
+            API.uploadSareeToDB({ sareeId, imageUrl });
         }
     }
 
@@ -149,6 +153,18 @@ const NewSaree = ({ handleSubmit, currentUser }) => {
             </Col>
             <Col>
             <Form.Group>
+                    <FloatingLabel label="Blouse Stitched?">
+                        <Form.Select 
+                            name = "stiched"
+                            className="mt-4"
+                            onChange = {handleChange}
+                        >
+                            <option value = {false}>No</option>
+                            <option value = {true}>Yes</option>
+                        </Form.Select>
+                    </FloatingLabel>
+                </Form.Group>
+                <Form.Group>
                     <FloatingLabel label="Blouse Size">
                         <Form.Control 
                             type="number" 

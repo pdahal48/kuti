@@ -14,8 +14,18 @@ router.get('/generateURL', async (req, res) => {
 router.post('/uploadLahenga', async(req, res, next) => {
     try {
         const { lahengaId, imageUrl } = req.body;
-        console.log(`lahengaId in the customers page is ${lahengaId} and url is ${imageUrl}`)
         const newImage = await Aws.uploadImages({lahengaId, src: imageUrl});
+        return res.json({ newImage })
+    } catch(e) {
+        return next(e)
+    }
+})
+
+router.post('/uploadSaree', async(req, res, next) => {
+    try {
+        const { sareeId, imageUrl } = req.body;
+        console.log(sareeId, imageUrl)
+        const newImage = await Aws.uploadSareeImages({ sareeId, src: imageUrl});
         return res.json({ newImage })
     } catch(e) {
         return next(e)

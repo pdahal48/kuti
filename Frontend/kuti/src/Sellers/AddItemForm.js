@@ -72,11 +72,11 @@ const AddItemForm = ({ currentUser }) => {
         </Form>
             {
                 category == 'Saree'
-                ? <NewSaree handleChange={handleChange} handleSubmit={handleSubmit} />
+                ? <NewSaree handleChange={handleChange} handleSubmit={handleSubmit} currentUser={currentUser}/>
                 : category == 'Lahenga'
                 ? <NewLahenga handleChange={handleChange} handleSubmit={handleSubmit} currentUser={currentUser}/>
                 : category == 'Kurti'
-                ? <NewKurti handleChange={handleChange} handleSubmit={handleSubmit} />
+                ? <NewKurti handleChange={handleChange} handleSubmit={handleSubmit} currentUser={currentUser}/>
                 : ''
             }
         </div>
