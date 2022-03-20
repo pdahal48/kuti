@@ -1,38 +1,29 @@
 "use strict";
-
 const db = require("../db");
-const {
-  NotFoundError,
-  BadRequestError,
-} = require("../expressError");
-
-/** Related functions for Jwelery. */
+const { NotFoundError } = require("../expressError");
 
 class Jwelery {
 //duplicate items with same names are allowed
-
   static async add(
-      { seller_username, name, material, used, sale, price, sale_price, color, brand, occassion, image, size, description }) {
+      { seller_username, name, material, description, price, sale_price, color, size, used=false, sale, quantity }) {
 
     const result = await db.query(
           `INSERT INTO jwelery
-            (seller_username, name, material, used, sale, price, sale_price, color, brand, occassion, image, size, description)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+            (seller_username, name, material, description, price, sale_price, color, size, used, sale, quantity)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
            RETURNING *`,
         [
           seller_username,
           name, 
           material, 
-          used, 
-          sale,
+          description,
           price,
           sale_price,
           color,
-          brand,
-          occassion,
-          image,
           size,
-          description
+          used,
+          sale,
+          quantity
         ],
     );
     return result.rows[0];
@@ -43,29 +34,17 @@ class Jwelery {
    * Returns [{ name, material, used, sale, price, sale_price, color, brand, occassion, image, size}, ...]
    **/
 
-  static async findAll() {
-    console.log(`trying to find all`)
+   static async findAll() {
     const result = await db.query(
-          `SELECT
-            id,
-            seller_username,
-            name, 
-            material, 
-            used, 
-            sale,
-            price,
-            sale_price,
-            color,
-            brand,
-            occassion,
-            image,
-            size,
-            description
-           FROM jwelery
-           ORDER BY name`,
-    );
-    const jweleries = result.rows;
-    return { jweleries };
+      `
+      SELECT DISTINCT ON (jwelery) *, 
+        j.name 
+      FROM jwelery_images as ji 
+      INNER JOIN jwelery as j on j.jwelery = j.id;`
+    )
+    
+    const lahengas = result.rows;
+    return { lahengas };
   }
 
   /** Given a jwelery name, return data about the jwelery.
@@ -77,22 +56,7 @@ class Jwelery {
 
   static async get(id) {
     const jweleryRes = await db.query(
-      `SELECT 
-        id,
-        seller_username,
-        name, 
-        material, 
-        used, 
-        sale,
-        price,
-        sale_price,
-        color,
-        brand,
-        occassion,
-        image,
-        size,
-        description
-        FROM jwelery
+      `SELECT * FROM jwelery
       WHERE id = $1`,
       [id],
     );
@@ -101,44 +65,42 @@ class Jwelery {
     if (!jweleryRes.rows[0]) throw new NotFoundError(`No jwelery found: ${name}`);
 
     const sellerInfo = await db.query(
-      `SELECT * FROM sellers WHERE username=$1`, [result.seller_username]
-    )
+      `SELECT * FROM sellers WHERE username=$1`, [result.seller_username]);
+    const imagesResult = await db.query(
+      `SELECT src FROM jwelery_images WHERE jwelery = $1`, [id])
 
     result.seller = sellerInfo.rows[0]
+    result.image = imagesResult.rows
     return result;
   }
 
   static async update(jweleryObj) {
-    const { name, material, used, sale, price, sale_price, color, brand, occassion, image, size, description, id } = jweleryObj;
+    const { name, material, description, price, sale_price, color, size, used, sale, quantity, id } = jweleryObj;
     const result = await db.query(
     `UPDATE jwelery SET 
-        name=$1, 
-        material=$2, 
-        used=$3,
-        sale=$4,
-        price=$5,
-        sale_price=$6,
-        color=$7,
-        brand=$8,
-        occassion=$9,
-        image=$10,
-        size=$11,
-        description=$12
-      WHERE id = $13
+      name=$1, 
+      material=$2, 
+      description=$3,
+      price=$4,
+      sale_price=$5,
+      color=$6,
+      size=$7,
+      used=$8,
+      sale=$9,
+      quantity=$10,
+    WHERE id = $11
       RETURNING*`,
       [
         name, 
         material, 
-        used,
-        sale,
+        description, 
         price,
         sale_price,
         color,
-        brand,
-        occassion,
-        image,
         size,
-        description, 
+        used,
+        sale,
+        quantity,
         id
       ]);
 

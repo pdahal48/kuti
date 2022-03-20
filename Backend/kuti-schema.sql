@@ -93,12 +93,10 @@ CREATE TABLE jwelery
   price INTEGER NOT NULL,
   sale_price INTEGER NOT NULL,
   color TEXT NOT NULL,
-  brand TEXT NOT NULL,
-  occassion TEXT NOT NULL,
-  image TEXT NOT NULL,
   size TEXT NOT NULL,
   used BOOLEAN NOT NULL DEFAULT FALSE,
-  sale BOOLEAN NOT NULL DEFAULT FALSE
+  sale BOOLEAN NOT NULL DEFAULT FALSE,
+  quantity TEXT NOT NULL
 );
 
 CREATE TABLE sarees_images
@@ -115,4 +113,12 @@ CREATE TABLE lahenga_images
   lahenga INTEGER NOT NULL
     REFERENCES lahenga ON DELETE CASCADE,
   src TEXT NOT NULL
-)
+);
+
+CREATE TABLE jwelery_images
+(
+  id SERIAL PRIMARY KEY,
+  jwelery INTEGER NOT NULL
+    REFERENCES jwelery ON DELETE CASCADE,
+  src TEXT NOT NULL
+);

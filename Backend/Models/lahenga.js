@@ -44,34 +44,12 @@ class Lahenga {
    **/
 
   static async findAll() {
-    // const result = await db.query(
-    //   `SELECT 
-    //     l.id,
-    //     l.seller_username,
-    //     l.name, 
-    //     l.material, 
-    //     l.description, 
-    //     l.price,
-    //     l.sale_price,
-    //     l.color,
-    //     l.occassion,
-    //     l.used,
-    //     l.sale,
-    //     l.hip_size,
-    //     l.waist_size,
-    //     l.length,
-    //     l.style,
-    //     li.src, 
-    //     li.lahenga
-    //     FROM lahenga as l
-    //     INNER JOIN lahenga_images as li
-    //     ON l.id = li.lahenga
-    //     ORDER BY name`,
-    // );
-
     const result = await db.query(
       `
-      select distinct on (lahenga) *, l.name from lahenga_images as li inner join lahenga as l on li.lahenga = l.id;
+      SELECT DISTINCT ON (lahenga) *, 
+        l.name 
+      FROM lahenga_images as li 
+      INNER JOIN lahenga as l on li.lahenga = l.id;
       `
     )
     
