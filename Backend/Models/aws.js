@@ -29,16 +29,14 @@ class Aws {
     return result.rows[0];
   }
 
-  static async uploadJweleryImages({ JweleryId, src }) {
-    console.log(sareeId, src)
-
+  static async uploadJweleryImages({ jweleryId, src }) {
     let result = await db.query(
       `INSERT INTO jwelery_images
           (jwelery, src)
         VALUES 
           ($1, $2)
         RETURNING *`,
-      [JweleryId, src]
+      [jweleryId, src]
     )
     return result.rows[0];
   }

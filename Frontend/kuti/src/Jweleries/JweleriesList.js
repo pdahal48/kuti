@@ -25,7 +25,7 @@ const Jweleries = () => {
                     {jweleries.map(j => (
                         <ProductCard
                             key={j.id}
-                            src={j.image}
+                            src={j.src}
                             name={j.name}
                             price = {j.price}
                             onSale={j.sale}

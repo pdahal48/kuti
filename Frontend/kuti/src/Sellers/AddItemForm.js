@@ -3,6 +3,7 @@ import { Form, Row, Col, Alert } from 'react-bootstrap'
 import NewLahenga from '../Lahengas/NewLahenga';
 import NewSaree from '../Sarees/NewSaree';
 import NewKurti from './NewKurti';
+import NewJwelery from '../Jweleries/NewJwelery';
 
 const AddItemForm = ({ currentUser }) => {
 
@@ -61,7 +62,7 @@ const AddItemForm = ({ currentUser }) => {
                             <option>Lahenga</option>
                             <option>Salwar Kameez</option>
                             <option>Kurti</option>
-                            <option>Jwellery</option>
+                            <option>Jwelery</option>
                         </Form.Select>
                         </Col>
                     </Row>
@@ -76,7 +77,9 @@ const AddItemForm = ({ currentUser }) => {
                 : category == 'Lahenga'
                 ? <NewLahenga handleChange={handleChange} handleSubmit={handleSubmit} currentUser={currentUser}/>
                 : category == 'Kurti'
-                ? <NewKurti handleChange={handleChange} handleSubmit={handleSubmit} currentUser={currentUser}/>
+                ? <NewKurti handleChange={handleChange} handleSubmit={handleSubmit} currentUser={currentUser}/> 
+                : category == 'Jwelery'
+                ? <NewJwelery handleChange={handleChange} handleSubmit={handleSubmit} currentUser={currentUser}/>
                 : ''
             }
         </div>

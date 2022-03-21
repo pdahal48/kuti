@@ -124,8 +124,11 @@ export class API {
 
     static async uploadSaree(data) {
       let res = await this.request(`sarees`, data, "post");
-      console.log(`uploading with data ${data}`)
-      console.log(`res is api is ${res}`)
+      return res;
+    }
+
+    static async uploadJwelery(data) {
+      let res = await this.request(`jweleries`, data, "post");
       return res;
     }
 
@@ -155,5 +158,10 @@ export class API {
   //Uploading Sarees
   static async uploadSareeToDB(data){
     await this.request(`aws/uploadSaree`, data, "post");
+  }
+
+  //Uploading Jweleries
+  static async uploadJweleryToDB(data){
+    await this.request(`aws/uploadJwelery`, data, "post");
   }
 }

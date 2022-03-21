@@ -40,11 +40,11 @@ class Jwelery {
       SELECT DISTINCT ON (jwelery) *, 
         j.name 
       FROM jwelery_images as ji 
-      INNER JOIN jwelery as j on j.jwelery = j.id;`
+      INNER JOIN jwelery as j on ji.jwelery = j.id;`
     )
     
-    const lahengas = result.rows;
-    return { lahengas };
+    const jweleries = result.rows;
+    return { jweleries };
   }
 
   /** Given a jwelery name, return data about the jwelery.
