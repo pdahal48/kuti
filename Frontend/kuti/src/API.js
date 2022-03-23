@@ -50,6 +50,13 @@ export class API {
     return res.sarees;
   }
 
+  //Get a specific jwelery from the db
+  static async getJwelery(id) {
+    let res = await this.request(`jweleries/${id}`);
+    return res.jwelery;
+  }
+  
+
   //Get individual saree from the database using the id provided
   static async getSaree(id) {
     let res = await this.request(`sarees/${id}`);
@@ -71,6 +78,7 @@ export class API {
     let res = await this.request(`lahengas/${id}`);
     return res.lahenga;
   }
+
 
   //Customer Auths
   static async signup(customerObj) {

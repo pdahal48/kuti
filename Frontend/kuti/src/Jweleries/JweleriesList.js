@@ -32,6 +32,7 @@ const Jweleries = () => {
                             sale_price={j.sale_price}
                             isUsed={j.used}
                             id={j.id}
+                            category={'jweleries'}
                         />
                     ))}
                   </div>

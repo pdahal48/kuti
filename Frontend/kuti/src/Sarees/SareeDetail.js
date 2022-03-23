@@ -3,7 +3,7 @@ import { Button, Row, Col } from 'react-bootstrap';
 import Moment from 'react-moment'
 import './Styles/SareeDetail.css'
 
-const SareeDetail = ({ price, desc , stiched, blouseSize, category, waistSize, length}) => {
+const SareeDetail = ({ price, desc , stiched, blouseSize, category, waistSize, length, size }) => {
     return (
         <div>
             <Row>
@@ -39,6 +39,13 @@ const SareeDetail = ({ price, desc , stiched, blouseSize, category, waistSize, l
                         <h6>Blouse Size: {blouseSize}</h6>
                         <h6>Waist Size: {waistSize}</h6>
                         <h6>Length: {length}</h6>
+                    </Col>
+                </Row>
+            }
+            {category === "Jwelery" && 
+                <Row>
+                    <Col className="text-start mt-3">
+                        <h6>Size: {size}</h6>
                     </Col>
                 </Row>
             }

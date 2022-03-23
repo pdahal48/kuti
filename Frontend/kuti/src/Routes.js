@@ -3,9 +3,10 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Home from './Home';
 import Login from "./Login/Login";
 import Jweleries from "./Jweleries/JweleriesList";
+import JweleryDetailList from "./Jweleries/JweleryDetailList";
 import SareeList from './Sarees/SareeList';
-import LahengaList from './Lahengas/LahengaList'
 import SareeDetailList from "./Sarees/SareeDetailList";
+import LahengaList from './Lahengas/LahengaList'
 import LahengaDetailList from "./Lahengas/LahengaDetailList";
 import LoginHelp from "./Login/LoginHelp";
 import SignUpFrom from './Customers/SignUpForm';
@@ -38,9 +39,10 @@ function SiteRoutes ({ showCustomerRegistration, signupSeller }) {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/jweleries" element={<Jweleries />}></Route>
+          <Route path="/jweleries/:id" element={<JweleryDetailList />}></Route>
           <Route path="/sarees" element={<SareeList />}></Route>
-          <Route path="/lahengas" element={<LahengaList />}></Route>
           <Route path="/sarees/:id" element={<SareeDetailList />}></Route>
+          <Route path="/lahengas" element={<LahengaList />}></Route>
           <Route path="/lahengas/:id" element={<LahengaDetailList />}></Route>
           <Route path="/login" element={<Login showCustomerRegistration = {showCustomerRegistration}/>}></Route>
           <Route path="/login-help" element={<LoginHelp />}></Route>

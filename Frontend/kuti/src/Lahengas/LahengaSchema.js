@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
-import { string, number} from 'yup';
+import { string } from 'yup';
 
-export const contactSchema = Yup.object({
+export const lahengaSchema = Yup.object({
     name: string()
         .min(3, 'must be at least 3 characters long')
         .max(50, 'Too Long!')
