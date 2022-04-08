@@ -7,7 +7,7 @@ import SareeDetail from './SareeDetail';
 import SareeSpecs from './SareeSpecs';
 import SareeDetailPhotos from './SareeDetailPhotos';
 
-const SareeDetailList = () => {
+const SareeDetailList = ({ addCartItems }) => {
     const [saree, setSaree] = useState([]);
     const { id } = useParams();
 
@@ -42,6 +42,7 @@ const SareeDetailList = () => {
             }}
         >
         <SareeDetail 
+            item = {saree}
             key = {saree.id}
             category = "Saree"
             name = {saree.name}
@@ -49,6 +50,7 @@ const SareeDetailList = () => {
             price = {saree.price}
             stiched = {saree.stiched}
             blouseSize = {saree.blouse_size}
+            addCartItems = {addCartItems}
         />
         </Col>
         </Row>

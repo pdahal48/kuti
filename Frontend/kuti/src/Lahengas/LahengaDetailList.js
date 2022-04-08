@@ -7,10 +7,10 @@ import SareeDetail from '../Sarees/SareeDetail';
 import SareeSpecs from '../Sarees/SareeSpecs';
 import SareeDetailPhotos from '../Sarees/SareeDetailPhotos';
 
-const LahengaDetailList = () => {
+const LahengaDetailList = ({ addCartItems }) => {
     const [lahenga, setLahenga] = useState([]);
     const { id } = useParams();
-
+    
     useEffect(() => {
         async function getLahengaDetails() {
             const result = await API.getLahenga(id);
@@ -30,7 +30,6 @@ const LahengaDetailList = () => {
                 margin:"0px"
             }}
         >
-            {console.log(lahenga)}
         {(lahenga.image) &&
             <SareeDetailPhotos 
                 images = {lahenga.image}
@@ -44,6 +43,7 @@ const LahengaDetailList = () => {
         >
         <SareeDetail 
             key = {lahenga.id}
+            item = {lahenga}
             category = "Lahenga"
             name = {lahenga.name}
             desc = {lahenga.description}
@@ -51,6 +51,7 @@ const LahengaDetailList = () => {
             blouseSize = {lahenga.blouse_size}
             waistSize = {lahenga.waist_size}
             length = {lahenga.length}
+            addCartItems = {addCartItems}
         />
         </Col>
         </Row>

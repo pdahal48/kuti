@@ -69,7 +69,6 @@ export class API {
 
   static async getLahengas() {
     let res = await this.request(`lahengas`);
-    console.log(res, 'lahengas')
     return res.lahengas;
   }
 

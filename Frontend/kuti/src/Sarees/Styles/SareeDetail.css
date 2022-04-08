@@ -33,3 +33,49 @@
 .Exclusive-text {
     margin-left: 25px;
 }
+
+.addBtn {
+    border-radius: 5px;
+    background-color: #0275d8;
+    padding: 2px;
+    height: 40px;
+    color: white;
+    font-weight: bolder;
+}
+
+.addBtn-1 {
+    border-radius: 5px;
+    background-color: #0275d8;
+    padding: 2px;
+    height: 40px;
+    color: white;
+    font-weight: bolder;
+}
+
+.minus {
+    padding-top: 5px;
+}
+
+.plus {
+    padding-top: 5px;
+}
+
+.qty {
+    padding-top: 5px;
+}
+
+.minus:hover {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: #ff8300;
+    cursor: pointer;
+    display: inline-block;
+    padding-top: 5px;
+}
+
+.plus:hover {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #b7ac44;
+    cursor: pointer;
+}

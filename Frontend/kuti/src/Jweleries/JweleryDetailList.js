@@ -7,14 +7,13 @@ import SareeDetail from '../Sarees/SareeDetail';
 import SareeSpecs from '../Sarees/SareeSpecs';
 import SareeDetailPhotos from '../Sarees/SareeDetailPhotos';
 
-const JweleryDetailList = () => {
+const JweleryDetailList = ({ addCartItems }) => {
     const [jwelery, setJwelery] = useState([]);
     const { id } = useParams();
 
     useEffect(() => {
         async function getJweleryDetails() {
             const result = await API.getJwelery(id);
-            console.log(result)
             setJwelery(result);
         }
         getJweleryDetails();
@@ -44,12 +43,14 @@ const JweleryDetailList = () => {
         >
         <SareeDetail 
             key = {jwelery.id}
+            item = {jwelery}
             category = "Jwelery"
             name = {jwelery.name}
             desc = {jwelery.description}
             price = {jwelery.price}
             length = {jwelery.length}
             size = {jwelery.size}
+            addCartItems = {addCartItems}
         />
         </Col>
         </Row>

@@ -3,7 +3,7 @@ import { API } from '../API'
 import ProductCard from '../ProductCard';
 
 //Controls State for the Lahenga list. 
-//Each item in the list is sent to Product card for render for /jweleries page
+//Each item in the list is sent to Product card for render for /Lahenga page
 
 const Jweleries = () => {
     const [lahengas, setLahengas] = useState(new Set())

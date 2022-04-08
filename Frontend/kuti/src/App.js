@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import Routes from './Routes';
 import { BrowserRouter } from 'react-router-dom'
 import Navbar from './Navbars/Navbar';
@@ -16,6 +16,7 @@ import { FooterContainer } from './Footer/containers/footer';
 import './App.css';
 
 export const TOKEN_STORAGE_ID = "user-token";
+export const TOKEN_STORAGE_ID_CART = "cartItems";
 
 function App() {
 
@@ -23,9 +24,15 @@ function App() {
   const [showCustomerRegistration, setshowCustRegistration] = useState(false);
   const [showSellerLogin, setShowSellerLogin] = useState(false);
 
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState(null);
   const [infoLoaded, setInfoLoaded] = useState(false);
-  const [currUserToken, setCurrUserToken] = useLocalStorage(TOKEN_STORAGE_ID)
+  const [currUserToken, setCurrUserToken] = useLocalStorage(TOKEN_STORAGE_ID);
+  const [cartItems, setCartItems] = useState([]);
+
+  const addCartItems = (product) => {
+    console.log(cartItems)
+    setCartItems([...cartItems, product]);
+  }
 
   const handleModalsClose = () =>  {
     setshowCustRegistration(false);
@@ -60,12 +67,10 @@ function App() {
 
   useEffect(function loadUserInfo() {
     console.debug("App useEffect loadUserInfo", "token=", currUserToken);
-    let str = JSON.stringify(currUserToken)
     async function getCurrentUser() {
       if (currUserToken) {
         try {
           let { username } = jwt.decode(currUserToken);
-          console.log(`current user is `)
 
           // put the currUserToken on the Api class so it can use it to call the API.
           API.token = currUserToken;
@@ -155,7 +160,7 @@ function App() {
         <BrowserRouter>
           <div className="navbars">
             <CustomersContext.Provider 
-              value={{setCurrentUser, currentUser}}
+              value={{setCurrentUser, currentUser, cartItems}}
             >
               <UpperNav 
                 showLogin = {handleLoginShow}
@@ -166,6 +171,9 @@ function App() {
           <Routes 
             showCustomerRegistration = {handleRegistrationShow}
             signupSeller = {signupSeller}
+            cartItems = {cartItems}
+            setCartItems = {setCartItems}
+            addCartItems = {addCartItems}
           />
           </CustomersContext.Provider>
           </div>

@@ -34,7 +34,7 @@ router.put("/:id", async function (req, res, next) {
     } catch(e) {
         next(e)
     }
-  });
+  });6
   
 
 router.post('/', async (req, res,next) => {

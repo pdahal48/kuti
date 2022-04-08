@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
 import CustomersContext from "../Customers/CustomersContext";
-import { Navbar, Form, FormControl, Row, Col, Container } from 'react-bootstrap';
+import { Navbar, Form, FormControl, Row, Col, Container, Badge, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faShoppingCart, faSignOutAlt, faChartLine } from '@fortawesome/free-solid-svg-icons'
 import './Styles/UpperNav.css'
 import { useNavigate, Link } from "react-router-dom";
-const login = <FontAwesomeIcon icon={faUser} size="1x"/>
-const cart = <FontAwesomeIcon icon={faShoppingCart} size="1x"/>
-const logoutIcon = <FontAwesomeIcon icon={faSignOutAlt} size="1x"/>
-const dashboardIcon = <FontAwesomeIcon icon={faChartLine} size="1x"/>
+
+const login = <FontAwesomeIcon icon={faUser} size="2x"/>
+const cart = <FontAwesomeIcon icon={faShoppingCart} size="2x"/>
+const logoutIcon = <FontAwesomeIcon icon={faSignOutAlt} size="2x"/>
+const dashboardIcon = <FontAwesomeIcon icon={faChartLine} size="2x"/>
 
 /** Navigation bar for site. Shows up on every page.
  *
@@ -21,7 +22,9 @@ const dashboardIcon = <FontAwesomeIcon icon={faChartLine} size="1x"/>
 function UpperNav({ showLogin, logout }) {
 
   const { currentUser } = useContext(CustomersContext);
+  const { cartItems } = useContext(CustomersContext);
   const navigate = useNavigate()
+  console.log(cartItems)
 
   function loggedInNav() {
     return (
@@ -58,6 +61,7 @@ function UpperNav({ showLogin, logout }) {
                     {cart} <br></br>
                     cart
                   </Col>
+                  
                 }
               </Navbar.Collapse>
             </Navbar>
@@ -91,8 +95,23 @@ function UpperNav({ showLogin, logout }) {
                                   login
                               </Col>
                               <Col className="col-1">
-                                  {cart} <br></br>
-                                  cart
+                                <Button variant="white">
+                                  { cartItems.length > 0 
+                                  ? <>
+                                      {cart}
+                                      <Badge pill bg='primary' className="align-top ms-1">
+                                        {cartItems.length}
+                                      </Badge>
+                                      <br />
+                                      cart
+                                    </>
+                                  : <>
+                                    {cart}
+                                    <br />
+                                    cart
+                                  </>
+                                  }
+                                </Button>
                               </Col>
                       </Navbar.Collapse>
                   </Navbar>

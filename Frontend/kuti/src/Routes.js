@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from './Home';
 import Login from "./Login/Login";
 import Jweleries from "./Jweleries/JweleriesList";
@@ -16,8 +16,6 @@ import AddItemForm from "./Sellers/AddItemForm";
 import CustomersContext from "./Customers/CustomersContext";
 import AboutPage from "./Kuti-Info/AboutPage";
 import Contactus from "./Kuti-Info/Contactus";
-import HowTos from "./Kuti-Info/HowtoVideos";
-import PrivacyPolicy from "./Kuti-Info/PrivacyPolicy";
 import UnderConstructionPage from "./UnderConstruction";
 
 // import AboutUs from "./AboutUs";
@@ -31,7 +29,7 @@ import UnderConstructionPage from "./UnderConstruction";
  * Visiting a non-existant route redirects to the homepage.
  */
 
-function SiteRoutes ({ showCustomerRegistration, signupSeller }) {
+function SiteRoutes ({ showCustomerRegistration, signupSeller, cartItems, setCartItems, addCartItems }) {
   const { currentUser } = useContext(CustomersContext);
 
   return (
@@ -39,11 +37,11 @@ function SiteRoutes ({ showCustomerRegistration, signupSeller }) {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/jweleries" element={<Jweleries />}></Route>
-          <Route path="/jweleries/:id" element={<JweleryDetailList />}></Route>
+          <Route path="/jweleries/:id" element={<JweleryDetailList addCartItems={addCartItems}/>}></Route>
           <Route path="/sarees" element={<SareeList />}></Route>
-          <Route path="/sarees/:id" element={<SareeDetailList />}></Route>
+          <Route path="/sarees/:id" element={<SareeDetailList addCartItems={addCartItems} />}></Route>
           <Route path="/lahengas" element={<LahengaList />}></Route>
-          <Route path="/lahengas/:id" element={<LahengaDetailList />}></Route>
+          <Route path="/lahengas/:id" element={<LahengaDetailList addCartItems={addCartItems} />}></Route>
           <Route path="/login" element={<Login showCustomerRegistration = {showCustomerRegistration}/>}></Route>
           <Route path="/login-help" element={<LoginHelp />}></Route>
           <Route path="/register" element={<SignUpFrom />}></Route>
