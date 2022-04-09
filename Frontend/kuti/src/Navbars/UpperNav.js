@@ -24,7 +24,6 @@ function UpperNav({ showLogin, logout }) {
   const { currentUser } = useContext(CustomersContext);
   const { cartItems } = useContext(CustomersContext);
   const navigate = useNavigate()
-  console.log(cartItems)
 
   function loggedInNav() {
     return (
