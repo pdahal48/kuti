@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useState, useEffect } from 'react'
 import Routes from './Routes';
 import { BrowserRouter } from 'react-router-dom'
 import Navbar from './Navbars/Navbar';
@@ -14,6 +14,7 @@ import { API } from './API';
 import CustomersContext from './Customers/CustomersContext';
 import { FooterContainer } from './Footer/containers/footer';
 import './App.css';
+var _ = require('lodash');
 
 export const TOKEN_STORAGE_ID = "user-token";
 export const TOKEN_STORAGE_ID_CART = "cartItems";
@@ -28,10 +29,32 @@ function App() {
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [currUserToken, setCurrUserToken] = useLocalStorage(TOKEN_STORAGE_ID);
   const [cartItems, setCartItems] = useState([]);
+  let [cartItemsCount, setCartItemsCount] = useState(0);
 
   const addCartItems = (product) => {
-    console.log(cartItems)
-    setCartItems([...cartItems, product]);
+    const productIdx = _.findIndex(cartItems, product);
+    if (productIdx >= 0) {
+      if (Number(cartItems[productIdx].qty)) {
+        cartItems[productIdx].qty++;
+      } else {
+        cartItems[productIdx].qty = 1;
+      }
+    } else {
+      setCartItems([...cartItems, product]);
+    }
+    setCartItemsCount(cartItemsCount += 1)
+  }
+
+  const removeCartItems = (product) => {
+    const productIdx = _.findIndex(cartItems, product);
+    if (productIdx >= 0) {
+      if (Number(cartItems[productIdx].qty)) {
+        cartItems[productIdx].qty--;
+      } else {
+        console.log('Item removed')
+      }
+    }
+    setCartItemsCount(cartItemsCount -= 1)
   }
 
   const handleModalsClose = () =>  {
@@ -160,19 +183,20 @@ function App() {
         <BrowserRouter>
           <div className="navbars">
             <CustomersContext.Provider 
-              value={{setCurrentUser, currentUser, cartItems}}
+              value={{ setCurrentUser, currentUser, removeCartItems, cartItems, cartItemsCount }}
             >
               <UpperNav 
                 showLogin = {handleLoginShow}
                 showSellerLogin = {handleSellerLoginShow}
                 logout = {logout}
+                cartTotalItems = {cartItemsCount}
               />
               <Navbar />
           <Routes 
             showCustomerRegistration = {handleRegistrationShow}
             signupSeller = {signupSeller}
             cartItems = {cartItems}
-            setCartItems = {setCartItems}
+            removeCartItems = {removeCartItems}
             addCartItems = {addCartItems}
           />
           </CustomersContext.Provider>

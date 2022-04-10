@@ -1,9 +1,13 @@
-import React from 'react';
-import { Button, Row, Col } from 'react-bootstrap';
+import React, { useContext, useState } from 'react';
+import { Row, Col } from 'react-bootstrap';
 import Moment from 'react-moment'
+import CustomersContext from "../Customers/CustomersContext";
 import './Styles/SareeDetail.css'
 
 const SareeDetail = ({ price, desc , stiched, blouseSize, category, waistSize, length, size, addCartItems, item }) => {
+
+  const { removeCartItems, cartItems, cartItemsCount } = useContext(CustomersContext);
+
     return (
         <div>
             <Row>
@@ -50,19 +54,29 @@ const SareeDetail = ({ price, desc , stiched, blouseSize, category, waistSize, l
                 </Row>
             }
             <Row>
-                <Col className="mb-3 mt-1 text-start ms-3">
+                {cartItemsCount > 0
+                ? <Col className="mb-3 mt-1 text-start ms-3">
                     <Row className='addBtn col-3 mt-2 text-center'>
-                        <Col className='col-3 minus'>
+                        <Col className='col-3 minus' onClick={() => removeCartItems(item)}>
                             -
                         </Col>
                         <Col className='col-6 qty' onClick={() => addCartItems(item)}>
                             Add
                         </Col>
-                        <Col className='col-3 plus'>
+                        <Col className='col-3 plus' onClick={() => addCartItems(item)}>
                             +
                         </Col>
                     </Row>
-                </Col>
+                 </Col>
+                :  
+                <Col className="mb-3 mt-1 text-start ms-3">
+                    <Row className='addBtn col-3 mt-2 text-center'>
+                        <Col className='qty' onClick={() => addCartItems(item)}>
+                            Add
+                        </Col>
+                    </Row>
+                 </Col>
+                }
             </Row>
             <hr></hr>
             <Row>

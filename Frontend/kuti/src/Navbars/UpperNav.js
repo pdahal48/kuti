@@ -19,11 +19,17 @@ const dashboardIcon = <FontAwesomeIcon icon={faChartLine} size="2x"/>
  * Rendered by App.
  */
 
-function UpperNav({ showLogin, logout }) {
+function UpperNav({ showLogin, logout, cartTotalItems }) {
 
-  const { currentUser } = useContext(CustomersContext);
-  const { cartItems } = useContext(CustomersContext);
+  const { currentUser, cartItems, cartItemsCount } = useContext(CustomersContext);
   const navigate = useNavigate()
+  console.log(`cartItemsCount is ${cartItemsCount}`)
+
+  // let cartTotal = 0
+
+  // const calcualteCartTotal = () => {
+  //   return cartItems.reduce(i => i.qty, cartTotal)
+  // }
 
   function loggedInNav() {
     return (
@@ -60,7 +66,6 @@ function UpperNav({ showLogin, logout }) {
                     {cart} <br></br>
                     cart
                   </Col>
-                  
                 }
               </Navbar.Collapse>
             </Navbar>
@@ -72,6 +77,7 @@ function UpperNav({ showLogin, logout }) {
   function loggedOutNav() {
     return (
       <div>
+        {console.log(cartItems)}
           <Container>
               <Row classname="justify-content-center">
                   <Navbar>
@@ -95,20 +101,20 @@ function UpperNav({ showLogin, logout }) {
                               </Col>
                               <Col className="col-1">
                                 <Button variant="white">
-                                  { cartItems.length > 0 
+                                  {cartItemsCount > 0 
                                   ? <>
                                       {cart}
                                       <Badge pill bg='primary' className="align-top ms-1">
-                                        {cartItems.length}
+                                        {cartTotalItems}
                                       </Badge>
                                       <br />
                                       cart
                                     </>
                                   : <>
-                                    {cart}
-                                    <br />
-                                    cart
-                                  </>
+                                      {cart}
+                                      <br />
+                                      cart
+                                    </>
                                   }
                                 </Button>
                               </Col>
