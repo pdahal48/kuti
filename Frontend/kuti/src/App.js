@@ -17,7 +17,6 @@ import './App.css';
 var _ = require('lodash');
 
 export const TOKEN_STORAGE_ID = "user-token";
-export const TOKEN_STORAGE_ID_CART = "cartItems";
 
 function App() {
 
@@ -28,8 +27,12 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [currUserToken, setCurrUserToken] = useLocalStorage(TOKEN_STORAGE_ID);
-  const [cartItems, setCartItems] = useState([]);
-  let [cartItemsCount, setCartItemsCount] = useState(0);
+
+  const cartFromLocalStorage = JSON.parse(localStorage.getItem("Cart") || "[]");
+  const [cartItems, setCartItems] = useState(cartFromLocalStorage);
+
+  const cartItemCount = JSON.parse(localStorage.getItem("cartItemCount") || "0");
+  let [cartItemsCount, setCartItemsCount] = useState(cartItemCount);
 
   const addCartItems = (product) => {
     const productIdx = _.findIndex(cartItems, product);
@@ -50,9 +53,7 @@ function App() {
     if (productIdx >= 0) {
       if (Number(cartItems[productIdx].qty)) {
         cartItems[productIdx].qty--;
-      } else {
-        console.log('Item removed')
-      }
+      } 
     }
     setCartItemsCount(cartItemsCount -= 1)
   }
@@ -116,6 +117,14 @@ function App() {
     setInfoLoaded(false);
     getCurrentUser();
   }, [currUserToken]);
+
+  useEffect(function loadCartItems() {
+    async function getCartDetails() {
+      localStorage.setItem("Cart", JSON.stringify(cartItems));
+      localStorage.setItem("cartItemCount", JSON.stringify(cartItemsCount));
+    }
+    getCartDetails();
+  }, [cartItems, cartItemCount]);
 
   async function signupCustomer(signupData) {
     try {
