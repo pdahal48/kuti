@@ -5,10 +5,15 @@ import SoldItemsGraph from './SoldItemsGraph';
 import SellerEarnings from './SellerEarnings';
 import SoldItemsTable from './SoldItemsTable';
 import AllItemsTable from './AllItemsTable';
+import SideNav from '../SideNavbar/SideNav';
 
 const DashboardList = () => {
     return (
-        <div className="mt-4">
+        <Row >
+            <Col className='col-2'>
+                <SideNav />
+            </Col>
+            <Col className='mt-2'>
             {/* <h2 className="text-center">Seller Dashboard</h2> */}
             <Row className="justify-content-center">
                 <Col className="col-5 mt-4">
@@ -31,7 +36,8 @@ const DashboardList = () => {
                     <AllItemsTable />
                 </Col>
             </Row>
-        </div>
+        </Col>
+        </Row>
     )
 }
 

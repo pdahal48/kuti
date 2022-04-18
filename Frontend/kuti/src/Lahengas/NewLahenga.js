@@ -90,7 +90,7 @@ const NewLahenga = ({ handleSubmit, currentUser }) => {
     }
 
     return (
-        <div>
+        <div className='lahenga-card px-5 pb-5 mt-3'>
             <div className='mt-2'>
                 {flag && 
                     <Alert variant="warning">{value}</Alert>

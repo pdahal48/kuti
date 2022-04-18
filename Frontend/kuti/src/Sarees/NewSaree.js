@@ -92,7 +92,7 @@ const NewSaree = ({ handleSubmit, currentUser }) => {
     }
 
     return (
-        <div>
+        <div className='lahenga-card px-5 pb-5 mt-3'>
             <div className='mt-2'>
                 {flag && 
                     <Alert variant="warning">{value}</Alert>
@@ -252,8 +252,7 @@ const NewSaree = ({ handleSubmit, currentUser }) => {
                         <Form.Control 
                         type="submit"
                         value = "Submit"
-                        className="mt-4"
-                        className="btn btn-primary mt-2"
+                        className="btn btn-primary mt-4"
                         />
                     </Col>
                 </Row>

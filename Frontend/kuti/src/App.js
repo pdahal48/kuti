@@ -188,49 +188,50 @@ function App() {
   if (!infoLoaded) return <LoadingSpinner />;
 
   return (
-    <div className="App">
-        <BrowserRouter>
-          <div className="navbars">
-            <CustomersContext.Provider 
-              value={{ setCurrentUser, currentUser, removeCartItems, cartItems, cartItemsCount }}
-            >
-              <UpperNav 
-                showLogin = {handleLoginShow}
-                showSellerLogin = {handleSellerLoginShow}
-                logout = {logout}
-                cartTotalItems = {cartItemsCount}
-              />
-              <Navbar />
-          <Routes 
-            showCustomerRegistration = {handleRegistrationShow}
-            signupSeller = {signupSeller}
-            cartItems = {cartItems}
-            removeCartItems = {removeCartItems}
-            addCartItems = {addCartItems}
-          />
-          </CustomersContext.Provider>
-          </div>
-          <Modal show={showLogin} onHide={handleModalsClose} className = "mt-2 pt-5">                      
-            <Login 
-              showCustomerRegistration = {handleRegistrationShow}
-              loginCustomer={loginCustomer}
+    <>
+      <BrowserRouter>
+        <div className="navbars">
+          <CustomersContext.Provider 
+            value={{ setCurrentUser, currentUser, removeCartItems, cartItems, cartItemsCount }}
+          >
+            <UpperNav 
+              showLogin = {handleLoginShow}
+              showSellerLogin = {handleSellerLoginShow}
+              logout = {logout}
+              cartTotalItems = {cartItemsCount}
             />
-          </Modal>
-          <Modal show={showSellerLogin} onHide={handleModalsClose} className = "mt-2 pt-5">                      
-            <SellerLogin 
-              showSellerRegistration = {handleSellerRegistrationShow}
-              loginSeller={loginSeller}
-            />
-          </Modal>
-          <Modal show={showCustomerRegistration} onHide={handleModalsClose} className = "mt-2 pt-5">                        
-            <SignUpForm 
-              handleModalsClose = {handleModalsClose}
-              signupCustomer={signupCustomer}
-            />
-          </Modal>
-          <FooterContainer />
-        </BrowserRouter>
-    </div> 
+            <Navbar />
+        <Routes 
+          showCustomerRegistration = {handleRegistrationShow}
+          signupSeller = {signupSeller}
+          cartItems = {cartItems}
+          logout = {logout}
+          removeCartItems = {removeCartItems}
+          addCartItems = {addCartItems}
+        />
+        </CustomersContext.Provider>
+      </div>
+      <Modal show={showLogin} onHide={handleModalsClose} className = "mt-2 pt-5">                      
+        <Login 
+          showCustomerRegistration = {handleRegistrationShow}
+          loginCustomer={loginCustomer}
+        />
+      </Modal>
+      <Modal show={showSellerLogin} onHide={handleModalsClose} className = "mt-2 pt-5">                      
+        <SellerLogin 
+          showSellerRegistration = {handleSellerRegistrationShow}
+          loginSeller={loginSeller}
+        />
+      </Modal>
+      <Modal show={showCustomerRegistration} onHide={handleModalsClose} className = "mt-2 pt-5">                        
+        <SignUpForm 
+          handleModalsClose = {handleModalsClose}
+          signupCustomer={signupCustomer}
+        />
+      </Modal>
+      <FooterContainer />
+    </BrowserRouter>
+    </> 
   );
 }
 

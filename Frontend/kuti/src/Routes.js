@@ -17,6 +17,7 @@ import CustomersContext from "./Customers/CustomersContext";
 import AboutPage from "./Kuti-Info/AboutPage";
 import Contactus from "./Kuti-Info/Contactus";
 import UnderConstructionPage from "./UnderConstruction";
+import SideNav from './SideNavbar/SideNav';
 
 // import AboutUs from "./AboutUs";
 // import PaymentSuccessful from "./PaymentSuccess";
@@ -29,52 +30,31 @@ import UnderConstructionPage from "./UnderConstruction";
  * Visiting a non-existant route redirects to the homepage.
  */
 
-function SiteRoutes ({ showCustomerRegistration, signupSeller, cartItems, setCartItems, addCartItems }) {
+function SiteRoutes ({ showCustomerRegistration, signupSeller, logout, addCartItems }) {
   const { currentUser } = useContext(CustomersContext);
 
   return (
-      <div className="pt-0">
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/jweleries" element={<Jweleries />}></Route>
-          <Route path="/jweleries/:id" element={<JweleryDetailList addCartItems={addCartItems}/>}></Route>
-          <Route path="/sarees" element={<SareeList />}></Route>
-          <Route path="/sarees/:id" element={<SareeDetailList addCartItems={addCartItems} />}></Route>
-          <Route path="/lahengas" element={<LahengaList />}></Route>
-          <Route path="/lahengas/:id" element={<LahengaDetailList addCartItems={addCartItems} />}></Route>
-          <Route path="/login" element={<Login showCustomerRegistration = {showCustomerRegistration}/>}></Route>
-          <Route path="/login-help" element={<LoginHelp />}></Route>
-          <Route path="/register" element={<SignUpFrom />}></Route>
-          <Route path="/seller-registration" element={<SellerSignUpForm signupSeller = {signupSeller}/>}></Route>
-          <Route path="/seller-dashboard" element={<DashboardList />}></Route>
-          <Route path="/add-item" element={<AddItemForm currentUser={currentUser}/>}></Route>
-          <Route path="/about-kuti" element={<AboutPage />}></Route>
-          <Route path="/contact" element={<Contactus />}></Route>
-          <Route path="/help-videos" element={<UnderConstructionPage />}></Route>
-
-          {/* <Route exact path="/people">
-            <PeopleList />
-          </Route>
-          <Route exact path="/profile">
-            <Profile />
-          </Route>
-          <Route exact path="/login">
-            <Login loginUser = {loginUser}/>
-          </Route>
-          <Route exact path="/users/:username">
-            <UserInfo/>
-          </Route>
-          <Route exact path="/signup">
-            <SignUp signup = {signup}/>
-          </Route>
-          <Route exact path="/about">
-            <AboutUs/>
-          </Route>
-          <Route exact path="/payment/success">
-            <PaymentSuccessful/>
-          </Route> */}
-        </Routes>
-      </div>
+    <div className="pt-0">
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/jweleries" element={<Jweleries />}></Route>
+        <Route path="/jweleries/:id" element={<JweleryDetailList addCartItems={addCartItems}/>}></Route>
+        <Route path="/sarees" element={<SareeList />}></Route>
+        <Route path="/sarees/:id" element={<SareeDetailList addCartItems={addCartItems} />}></Route>
+        <Route path="/lahengas" element={<LahengaList />}></Route>
+        <Route path="/lahengas/:id" element={<LahengaDetailList addCartItems={addCartItems} />}></Route>
+        <Route path="/login" element={<Login showCustomerRegistration = {showCustomerRegistration}/>}></Route>
+        <Route path="/login-help" element={<LoginHelp />}></Route>
+        <Route path="/register" element={<SignUpFrom />}></Route>
+        <Route path="/seller-registration" element={<SellerSignUpForm signupSeller={signupSeller}/>}></Route>
+        <Route path="/seller-dashboard" element={<DashboardList />}></Route>
+        <Route path="/add-item" element={<AddItemForm currentUser={currentUser} />}></Route>
+        <Route path="/about-kuti" element={<AboutPage />}></Route>
+        <Route path="/contact" element={<Contactus />}></Route>
+        <Route path="/help-videos" element={<UnderConstructionPage />}></Route>
+        <Route path="/sideNav" element={<SideNav  logoutFunc={logout} />}></Route>
+      </Routes>
+    </div>
   );
 }
 

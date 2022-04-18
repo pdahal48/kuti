@@ -3,8 +3,8 @@ import CustomersContext from "../Customers/CustomersContext";
 import { Navbar, Form, FormControl, Row, Col, Container, Badge, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faShoppingCart, faSignOutAlt, faChartLine } from '@fortawesome/free-solid-svg-icons'
-import './Styles/UpperNav.css'
 import { useNavigate, Link } from "react-router-dom";
+import './Styles/UpperNav.css'
 
 const login = <FontAwesomeIcon icon={faUser} size="2x"/>
 const cart = <FontAwesomeIcon icon={faShoppingCart} size="2x"/>
@@ -21,18 +21,14 @@ const dashboardIcon = <FontAwesomeIcon icon={faChartLine} size="2x"/>
 
 function UpperNav({ showLogin, logout, cartTotalItems }) {
 
-  const { currentUser, cartItems, cartItemsCount } = useContext(CustomersContext);
+  const { currentUser, cartItemsCount } = useContext(CustomersContext);
   const navigate = useNavigate()
-  console.log(`cartItemsCount is ${cartItemsCount}`)
-
-  // let cartTotal = 0
-
-  // const calcualteCartTotal = () => {
-  //   return cartItems.reduce(i => i.qty, cartTotal)
-  // }
+  const showUpperNav = window.location.pathname === '/seller-dashboard' || window.location.pathname === '/add-item';
 
   function loggedInNav() {
     return (
+      <div>
+      {!showUpperNav ? 
       <div>
         <Container>
           <Row classname="justify-content-center">
@@ -72,12 +68,15 @@ function UpperNav({ showLogin, logout, cartTotalItems }) {
           </Row>
         </Container>
     </div>
+  : <div> </div>
+}
+  </div>
   )};
 
   function loggedOutNav() {
     return (
       <div>
-        {console.log(cartItems)}
+      <div>
           <Container>
               <Row classname="justify-content-center">
                   <Navbar>
@@ -123,6 +122,8 @@ function UpperNav({ showLogin, logout, cartTotalItems }) {
               </Row>
           </Container>
       </div>
+  {/* } */}
+  </div>
     )
   }
   return (

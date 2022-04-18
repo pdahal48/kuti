@@ -27,7 +27,6 @@ export function FooterContainer() {
                 </Footer.Column>
                 <Footer.Column>
                 <Footer.Title>Social</Footer.Title>
-                    <FontAwesomeIcon icon={['fab', 'apple']} />
                     <Footer.Link href="#"><Icon/>{facebook} Facebook</Footer.Link>
                     <Footer.Link href="#"><Icon className="fab fa-instagram bg-purple" />{instagram} Instagram</Footer.Link>
                     <Footer.Link href="#"><Icon className="fab fa-youtube" />{youtube} Youtube</Footer.Link>
